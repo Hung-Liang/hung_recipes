@@ -1,7 +1,7 @@
 // Use a self-contained closure to avoid polluting the global namespace.
 (function () {
     // Current application version (Sync with sw.js CACHE_NAME)
-    const APP_VERSION = "v1.3.2";
+    const APP_VERSION = "v1.4.0";
 
     // 1. Update Version Display IMMEDIATELY (Script is at bottom of body, so element should exist)
     try {

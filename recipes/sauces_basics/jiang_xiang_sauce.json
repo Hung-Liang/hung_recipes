@@ -1,56 +1,56 @@
 {
-  "filename": "jiang_xiang_sauce.json",
-  "name": "醬香汁",
-  "description": "濃郁的鹹甜醬汁，適合用於悶燒排骨、牛肉、筍乾或茄子，賦予食材飽滿的紅亮色澤與層次感。",
-  "servings": {
-    "quantity": 1,
-    "unit": "份"
-  },
-  "tags": [
-    "紅燒",
-    "醬汁"
-  ],
-  "ingredients": [
-    {
-      "name": "醬油",
-      "quantity": 33.75,
-      "unit": "ml"
+    "filename": "jiang_xiang_sauce.json",
+    "name": "醬香汁",
+    "description": "濃郁的鹹甜醬汁，適合用於悶燒排骨、牛肉、筍乾或茄子，賦予食材飽滿的紅亮色澤與層次感。",
+    "servings": {
+        "quantity": 1,
+        "unit": "份"
     },
-    {
-      "name": "黃豆醬",
-      "quantity": 30,
-      "unit": "g"
-    },
-    {
-      "name": "鹽",
-      "quantity": 2,
-      "unit": "g"
-    },
-    {
-      "name": "豆瓣醬",
-      "quantity": 15,
-      "unit": "g"
-    },
-    {
-      "name": "白糖",
-      "quantity": 15,
-      "unit": "g"
-    },
-    {
-      "name": "清水",
-      "quantity": 60,
-      "unit": "ml"
-    }
-  ],
-  "steps": [
-    "將所有醬料（醬油、黃豆醬、豆瓣醬）、鹽及白糖混合。",
-    "加入清水並確保所有固體醬粉完全攪拌溶解。",
-    "將此醬汁加入烹調中的食材中，慢火燒至入味，達到完美的掛芡效果。"
-  ],
-  "notes": [
-    "1 tbsp (大勺) 約等於 15 g 或 15 ml。",
-    "1/2 tbsp 約等於 7.5 ml。",
-    "鹽適量在此估算為 2 g 以平衡鹹味。",
-    "本食譜已將生抽/老抽轉換為台灣常用醬油比例調整"
-  ]
+    "tags": [
+        "醬汁",
+        "紅燒"
+    ],
+    "ingredients": [
+        {
+            "name": "醬油",
+            "quantity": 33.75,
+            "unit": "ml"
+        },
+        {
+            "name": "黃豆醬",
+            "quantity": 30,
+            "unit": "g"
+        },
+        {
+            "name": "鹽",
+            "quantity": 2,
+            "unit": "g"
+        },
+        {
+            "name": "豆瓣醬",
+            "quantity": 15,
+            "unit": "g"
+        },
+        {
+            "name": "白糖",
+            "quantity": 15,
+            "unit": "g"
+        },
+        {
+            "name": "清水",
+            "quantity": 60,
+            "unit": "ml"
+        }
+    ],
+    "steps": [
+        "將所有醬料（醬油、黃豆醬、豆瓣醬）、鹽及白糖混合。",
+        "加入清水並確保所有固體醬粉完全攪拌溶解。",
+        "將此醬汁加入烹調中的食材中，慢火燒至入味，達到完美的掛芡效果。"
+    ],
+    "notes": [
+        "1 tbsp (大勺) 約等於 15 g 或 15 ml。",
+        "1/2 tbsp 約等於 7.5 ml。",
+        "鹽適量在此估算為 2 g 以平衡鹹味。",
+        "本食譜已將生抽/老抽轉換為台灣常用醬油比例調整"
+    ]
 }

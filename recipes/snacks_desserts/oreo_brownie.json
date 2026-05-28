@@ -1,35 +1,35 @@
 {
-  "filename": "oreo_brownie.json",
-  "name": "OREO 布朗尼",
-  "description": "運用 OREO 餅乾本身成份，加入牛奶混和氣炸，快速完成口感紮實的布朗尼。",
-  "servings": {
-    "quantity": 1,
-    "unit": "份"
-  },
-  "tags": [
-    "氣炸鍋",
-    "甜點",
-    "點心"
-  ],
-  "ingredients": [
-    {
-      "name": "OREO 餅乾",
-      "quantity": 120,
-      "unit": "g"
+    "filename": "oreo_brownie.json",
+    "name": "OREO 布朗尼",
+    "description": "運用 OREO 餅乾本身成份，加入牛奶混和氣炸，快速完成口感紮實的布朗尼。",
+    "servings": {
+        "quantity": 1,
+        "unit": "份"
     },
-    {
-      "name": "牛奶",
-      "quantity": 60,
-      "unit": "ml"
-    }
-  ],
-  "steps": [
-    "將 OREO 餅乾壓碎（包含內餡），直到呈現細緻粉末狀。",
-    "加入牛奶攪拌均勻，直到形成濃稠的巧克力糊。",
-    "將麵糊倒入氣炸鍋專用的耐熱容器中。",
-    "放入氣炸鍋，以 180°C 烘烤 15 分鐘即可。"
-  ],
-  "notes": [
-    "OREO 餅乾：1 條（12 片）約為 120 g。"
-  ]
+    "tags": [
+        "甜點",
+        "點心",
+        "氣炸鍋"
+    ],
+    "ingredients": [
+        {
+            "name": "OREO 餅乾",
+            "quantity": 120,
+            "unit": "g"
+        },
+        {
+            "name": "牛奶",
+            "quantity": 60,
+            "unit": "ml"
+        }
+    ],
+    "steps": [
+        "將 OREO 餅乾壓碎（包含內餡），直到呈現細緻粉末狀。",
+        "加入牛奶攪拌均勻，直到形成濃稠的巧克力糊。",
+        "將麵糊倒入氣炸鍋專用的耐熱容器中。",
+        "放入氣炸鍋，以 180°C 烘烤 15 分鐘即可。"
+    ],
+    "notes": [
+        "OREO 餅乾：1 條（12 片）約為 120 g。"
+    ]
 }

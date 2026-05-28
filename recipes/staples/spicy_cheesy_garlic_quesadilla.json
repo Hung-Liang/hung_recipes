@@ -1,53 +1,53 @@
 {
-  "name": "火辣起司蒜味墨西哥捲餅",
-  "description": "一道製作快速、香氣濃郁的墨西哥捲餅，結合了蒜泥、低脂奶油和低脂切達起司，並用義大利綜合香料提味。",
-  "servings": {
-    "quantity": 1,
-    "unit": "份"
-  },
-  "tags": [
-    "主食",
-    "澱粉",
-    "西式",
-    "醬汁"
-  ],
-  "ingredients": [
-    {
-      "name": "義大利綜合香料",
-      "quantity": 5,
-      "unit": "g"
+    "name": "火辣起司蒜味墨西哥捲餅",
+    "description": "一道製作快速、香氣濃郁的墨西哥捲餅，結合了蒜泥、低脂奶油和低脂切達起司，並用義大利綜合香料提味。",
+    "servings": {
+        "quantity": 1,
+        "unit": "份"
     },
-    {
-      "name": "Weight Watchers 墨西哥捲餅",
-      "quantity": 90,
-      "unit": "g"
-    },
-    {
-      "name": "pro active flora 低脂奶油",
-      "quantity": 30,
-      "unit": "g"
-    },
-    {
-      "name": "蒜泥",
-      "quantity": 20,
-      "unit": "g"
-    },
-    {
-      "name": "低脂切達起司",
-      "quantity": 60,
-      "unit": "g"
-    }
-  ],
-  "steps": [
-    "將墨西哥捲餅攤開，塗上低脂奶油與蒜泥。",
-    "撒上義大利綜合香料與低脂切達起司。",
-    "將捲餅烤或煎至起司融化、表面金黃酥脆。",
-    "切片後即可享用。"
-  ],
-  "notes": [
-    "原食譜中使用的品牌為：Weight Watchers 墨西哥捲餅和 pro active flora 低脂奶油。",
-    "原食譜中的 1 tbsp 義大利綜合香料已換算為約 5 g。",
-    "墨西哥捲餅：2 片（Weight Watchers 規格）約為 90 g。",
-    "蒜泥：20 g 約為 4-5 瓣大蒜磨碎之份量。"
-  ]
+    "tags": [
+        "西式",
+        "澱粉",
+        "主食",
+        "醬汁"
+    ],
+    "ingredients": [
+        {
+            "name": "義大利綜合香料",
+            "quantity": 5,
+            "unit": "g"
+        },
+        {
+            "name": "Weight Watchers 墨西哥捲餅",
+            "quantity": 90,
+            "unit": "g"
+        },
+        {
+            "name": "pro active flora 低脂奶油",
+            "quantity": 30,
+            "unit": "g"
+        },
+        {
+            "name": "蒜泥",
+            "quantity": 20,
+            "unit": "g"
+        },
+        {
+            "name": "低脂切達起司",
+            "quantity": 60,
+            "unit": "g"
+        }
+    ],
+    "steps": [
+        "將墨西哥捲餅攤開，塗上低脂奶油與蒜泥。",
+        "撒上義大利綜合香料與低脂切達起司。",
+        "將捲餅烤或煎至起司融化、表面金黃酥脆。",
+        "切片後即可享用。"
+    ],
+    "notes": [
+        "原食譜中使用的品牌為：Weight Watchers 墨西哥捲餅和 pro active flora 低脂奶油。",
+        "原食譜中的 1 tbsp 義大利綜合香料已換算為約 5 g。",
+        "墨西哥捲餅：2 片（Weight Watchers 規格）約為 90 g。",
+        "蒜泥：20 g 約為 4-5 瓣大蒜磨碎之份量。"
+    ]
 }

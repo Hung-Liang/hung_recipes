@@ -1,82 +1,82 @@
 {
-  "filename": "poached_style_seasoning_sauce.json",
-  "name": "白灼汁",
-  "description": "這是一款常用於海鮮、蔬菜及肉類的萬用白灼醬汁，能有效提鮮並激發食材本味。",
-  "servings": {
-    "quantity": 1,
-    "unit": "份"
-  },
-  "tags": [
-    "港式",
-    "醬汁"
-  ],
-  "ingredients": [
-    {
-      "name": "醬油",
-      "quantity": 15,
-      "unit": "ml"
+    "filename": "poached_style_seasoning_sauce.json",
+    "name": "白灼汁",
+    "description": "這是一款常用於海鮮、蔬菜及肉類的萬用白灼醬汁，能有效提鮮並激發食材本味。",
+    "servings": {
+        "quantity": 1,
+        "unit": "份"
     },
-    {
-      "name": "蠔油",
-      "quantity": 15,
-      "unit": "g"
-    },
-    {
-      "name": "蒸魚豉油",
-      "quantity": 15,
-      "unit": "ml"
-    },
-    {
-      "name": "料酒",
-      "quantity": 15,
-      "unit": "ml"
-    },
-    {
-      "name": "胡椒粉",
-      "quantity": 1,
-      "unit": "g"
-    },
-    {
-      "name": "白糖",
-      "quantity": 15,
-      "unit": "g"
-    },
-    {
-      "name": "食用油",
-      "quantity": 15,
-      "unit": "ml"
-    },
-    {
-      "name": "清水",
-      "quantity": 125,
-      "unit": "ml"
-    },
-    {
-      "name": "蔥絲",
-      "quantity": 10,
-      "unit": "g"
-    },
-    {
-      "name": "紅椒絲",
-      "quantity": 5,
-      "unit": "g"
-    },
-    {
-      "name": "熱油",
-      "quantity": 15,
-      "unit": "ml"
-    }
-  ],
-  "steps": [
-    "將清水倒入鍋中加熱至沸騰。",
-    "加入醬油、蠔油、蒸魚豉油、料酒、胡椒粉、白糖和食用油，攪拌至完全溶解。",
-    "準備好切細的蔥絲與紅椒絲放在食材或醬汁上。",
-    "最後淋上一大勺熱油，激發香氣後即可完成。"
-  ],
-  "notes": [
-    "1 tbsp (大勺) 約等於 15 g 或 15 ml。",
-    "半碗清水約等於 125 ml。",
-    "胡椒粉、蔥絲及紅椒絲的量可依個人口味調整，此處以標準份量估算。",
-    "本食譜已將生抽/老抽轉換為台灣常用醬油比例調整"
-  ]
+    "tags": [
+        "港式",
+        "醬汁"
+    ],
+    "ingredients": [
+        {
+            "name": "醬油",
+            "quantity": 15,
+            "unit": "ml"
+        },
+        {
+            "name": "蠔油",
+            "quantity": 15,
+            "unit": "g"
+        },
+        {
+            "name": "蒸魚豉油",
+            "quantity": 15,
+            "unit": "ml"
+        },
+        {
+            "name": "料酒",
+            "quantity": 15,
+            "unit": "ml"
+        },
+        {
+            "name": "胡椒粉",
+            "quantity": 1,
+            "unit": "g"
+        },
+        {
+            "name": "白糖",
+            "quantity": 15,
+            "unit": "g"
+        },
+        {
+            "name": "食用油",
+            "quantity": 15,
+            "unit": "ml"
+        },
+        {
+            "name": "清水",
+            "quantity": 125,
+            "unit": "ml"
+        },
+        {
+            "name": "蔥絲",
+            "quantity": 10,
+            "unit": "g"
+        },
+        {
+            "name": "紅椒絲",
+            "quantity": 5,
+            "unit": "g"
+        },
+        {
+            "name": "熱油",
+            "quantity": 15,
+            "unit": "ml"
+        }
+    ],
+    "steps": [
+        "將清水倒入鍋中加熱至沸騰。",
+        "加入醬油、蠔油、蒸魚豉油、料酒、胡椒粉、白糖和食用油，攪拌至完全溶解。",
+        "準備好切細的蔥絲與紅椒絲放在食材或醬汁上。",
+        "最後淋上一大勺熱油，激發香氣後即可完成。"
+    ],
+    "notes": [
+        "1 tbsp (大勺) 約等於 15 g 或 15 ml。",
+        "半碗清水約等於 125 ml。",
+        "胡椒粉、蔥絲及紅椒絲的量可依個人口味調整，此處以標準份量估算。",
+        "本食譜已將生抽/老抽轉換為台灣常用醬油比例調整"
+    ]
 }
