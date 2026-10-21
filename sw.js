@@ -1,18 +1,15 @@
-const CACHE_NAME = 'my-recipes-v1.4.1'; // Update this version string when deploying changes
+const CACHE_NAME = 'my-recipes-v1.5.1'; // Update this version string when deploying changes
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './css/style.css',
   './js/app.js',
   './manifest.json',
-  './asset/icon.png',
-  './asset/info.json',
-  './asset/recipes.json'
+  './asset/icon.png'
 ];
 
-// Install Service Worker and cache static assets
+// Install Service Worker and cache static core assets
 self.addEventListener('install', (event) => {
-  // Force the waiting service worker to become the active service worker
   self.skipWaiting();
   
   event.waitUntil(
@@ -27,9 +24,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     Promise.all([
-      // Take control of all open clients (tabs/PWA windows)
       self.clients.claim(),
-      // Remove old versions of the cache
       caches.keys().then((cacheNames) => {
         return Promise.all(
           cacheNames.map((cache) => {
@@ -44,29 +39,41 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch interceptor with Cache First strategy (with Network fallback and update)
+// Fetch interceptor: Network-First for dynamic JSON data, Cache-First for static assets
 self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url);
+
+  // Network-First for recipe summaries and individual recipe JSON
+  // Always attempts to fetch freshest data from network; falls back to cache when offline
+  if (url.pathname.includes('asset/info.json') || url.pathname.includes('asset/recipes.json') || url.pathname.includes('/recipes/')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((fetchResponse) => {
+          if (fetchResponse && fetchResponse.status === 200) {
+            const responseToCache = fetchResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
+          }
+          return fetchResponse;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Cache-First with Network fallback for static application shell assets
   event.respondWith(
     caches.match(event.request).then((response) => {
-      // Return cached response if found, otherwise fetch from network
       return response || fetch(event.request).then((fetchResponse) => {
-        // Only cache valid GET responses from the same origin or specific assets
         if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
-          // If it's a cross-origin request or error, just return it
-          if (event.request.url.includes('.json')) {
-             // We still want to cache our json assets even if they might be cross-origin in some environments
-          } else {
-             return fetchResponse;
-          }
+          return fetchResponse;
         }
 
-        // Cache recipe JSON files and other assets on demand
-        if (event.request.url.includes('.json') || event.request.url.includes('asset/')) {
-          const responseToCache = fetchResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
-        }
+        const responseToCache = fetchResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseToCache);
+        });
         
         return fetchResponse;
       });

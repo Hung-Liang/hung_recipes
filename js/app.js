@@ -1,7 +1,7 @@
 // Use a self-contained closure to avoid polluting the global namespace.
 (function () {
     // Current application version (Sync with sw.js CACHE_NAME)
-    const APP_VERSION = "v1.4.1";
+    const APP_VERSION = "v1.5.1";
 
     // 1. Update Version Display IMMEDIATELY (Script is at bottom of body, so element should exist)
     try {
@@ -35,8 +35,10 @@
         'meat': '肉類料理',
         'seafood': '海鮮料理',
         'staples': '主食/麵飯',
+        'vegetables': '蔬食/蛋品',
         'snacks_desserts': '點心/早餐',
         'sauces_basics': '醬料/基礎',
+        'others': '其他料理',
         'unsort': '待分類'
     };
 
@@ -67,7 +69,7 @@
         }
 
         try {
-            const response = await fetch("asset/info.json");
+            const response = await fetch("asset/info.json", { cache: "no-cache" });
             if (!response.ok) throw new Error(`Fetch failed`);
             const data = await response.json();
             recipes = data.recipes || [];
@@ -158,10 +160,17 @@
             groups[cat].push(r);
         });
 
-        Object.keys(CATEGORY_MAP).filter(cat => groups[cat]).forEach(cat => {
+        const presentCats = Object.keys(groups);
+        const orderedCats = [
+            ...Object.keys(CATEGORY_MAP).filter(cat => groups[cat]),
+            ...presentCats.filter(cat => !CATEGORY_MAP[cat])
+        ];
+
+        orderedCats.forEach(cat => {
+            const catTitle = CATEGORY_MAP[cat] || cat;
             const navBtn = document.createElement("button");
             navBtn.className = "px-4 py-2 text-sm font-medium rounded-lg bg-white border border-gray-200 shadow-sm";
-            navBtn.textContent = CATEGORY_MAP[cat] || cat;
+            navBtn.textContent = catTitle;
             navBtn.onclick = () => {
                 const el = document.getElementById(`section-${cat}`);
                 if (el) window.scrollTo({ top: el.offsetTop - 20, behavior: "smooth" });
@@ -171,7 +180,7 @@
             const header = document.createElement("div");
             header.id = `section-${cat}`;
             header.className = "col-span-full mt-8 mb-4 first:mt-0";
-            header.innerHTML = `<div class="flex items-center space-x-4"><h2 class="text-2xl font-bold text-gray-900">${CATEGORY_MAP[cat] || cat}</h2><div class="flex-grow h-px bg-gray-200"></div></div>`;
+            header.innerHTML = `<div class="flex items-center space-x-4"><h2 class="text-2xl font-bold text-gray-900">${catTitle}</h2><div class="flex-grow h-px bg-gray-200"></div></div>`;
             recipeListContainer.appendChild(header);
 
             groups[cat].forEach(r => {
@@ -243,23 +252,194 @@
         }
     }
 
+    function formatQuantity(num) {
+        if (num === null || num === undefined || isNaN(num)) return "";
+        const rounded = Math.round(num * 100) / 100;
+        return rounded.toString();
+    }
+
     function renderIngredients() {
         if (!currentRecipe || !recipeDetailIngredients) return;
-        const factor = parseFloat(servingsInput.value) / (currentRecipe.servings ? currentRecipe.servings.quantity : 1);
+        const baseServings = currentRecipe.servings ? (parseFloat(currentRecipe.servings.quantity) || 1) : 1;
+        const currentServings = servingsInput ? (parseFloat(servingsInput.value) || baseServings) : baseServings;
+        const factor = currentServings / baseServings;
+
         recipeDetailIngredients.innerHTML = "";
         currentRecipe.ingredients.forEach((ing) => {
             const li = document.createElement("li");
-            li.className = "flex items-center space-x-2";
-            li.innerHTML = `<span class="text-gray-700 w-1/2">${ing.name}:</span><input type="number" value="${(ing.quantity * factor).toFixed(2)}" class="ingredient-input block w-full px-3 py-2 border rounded-md" data-orig="${ing.quantity}"><span class="text-gray-500">${ing.unit}</span>`;
+            li.className = "flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors gap-2 sm:gap-4 border border-gray-100";
+            
+            const origQty = parseFloat(ing.quantity);
+            const displayVal = formatQuantity(origQty * factor);
+
+            li.innerHTML = `
+                <div class="flex-1 min-w-0 pr-1">
+                    <span class="text-gray-800 font-medium truncate block text-sm sm:text-base">${ing.name}</span>
+                </div>
+                <div class="flex items-center space-x-2 shrink-0">
+                    <input 
+                        type="number" 
+                        step="any" 
+                        min="0"
+                        value="${displayVal}" 
+                        class="ingredient-input w-20 sm:w-24 px-2.5 py-1.5 text-right border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white transition-all shadow-sm" 
+                        data-orig="${ing.quantity}"
+                    >
+                    <span class="text-gray-500 text-xs sm:text-sm w-8 sm:w-10 shrink-0 text-left">${ing.unit}</span>
+                    <label class="flex items-center space-x-1 cursor-pointer select-none text-xs text-gray-500 hover:text-gray-800 px-2 py-1.5 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 transition-colors shrink-0 shadow-sm" title="鎖定此食材份量（不隨份數變動，修改亦不影響其他欄位）">
+                        <input type="checkbox" class="ingredient-lock rounded text-amber-600 focus:ring-amber-500 h-3.5 w-3.5 sm:h-4 sm:w-4 border-gray-300">
+                        <span class="lock-icon text-sm leading-none opacity-40 grayscale hover:opacity-75 transition-opacity">🔒</span>
+                    </label>
+                </div>
+            `;
+
+            const input = li.querySelector(".ingredient-input");
+            const lockCheckbox = li.querySelector(".ingredient-lock");
+
+            input.addEventListener("input", handleIngredientInput);
+            lockCheckbox.addEventListener("change", handleLockChange);
+
             recipeDetailIngredients.appendChild(li);
         });
-        document.querySelectorAll(".ingredient-input").forEach(input => {
-            input.addEventListener("input", (e) => {
-                const f = parseFloat(e.target.value) / parseFloat(e.target.dataset.orig);
-                document.querySelectorAll(".ingredient-input").forEach(i => {
-                    if (i !== e.target) i.value = (parseFloat(i.dataset.orig) * f).toFixed(2);
-                });
-            });
+
+        updateUnlockAllButtonVisibility();
+    }
+
+    function handleIngredientInput(e) {
+        const targetInput = e.target;
+        const row = targetInput.closest("li");
+        const lockCheckbox = row ? row.querySelector(".ingredient-lock") : null;
+
+        // 若已鎖定：變更此欄位不影響其他欄位，亦不改動份數
+        if (lockCheckbox && lockCheckbox.checked) {
+            return;
+        }
+
+        const origVal = parseFloat(targetInput.dataset.orig);
+        const currentVal = parseFloat(targetInput.value);
+        if (isNaN(currentVal) || currentVal <= 0 || isNaN(origVal) || origVal <= 0) {
+            return;
+        }
+
+        const factor = currentVal / origVal;
+        const baseServings = currentRecipe && currentRecipe.servings ? (parseFloat(currentRecipe.servings.quantity) || 1) : 1;
+
+        // 同步更新份數顯示
+        if (servingsInput) {
+            servingsInput.value = formatQuantity(baseServings * factor);
+        }
+
+        // 更新其他「未鎖定」的食材
+        const rows = recipeDetailIngredients.querySelectorAll("li");
+        rows.forEach(r => {
+            const input = r.querySelector(".ingredient-input");
+            const lock = r.querySelector(".ingredient-lock");
+            if (!input || input === targetInput) return;
+
+            // 已鎖定的食材維持自訂值不隨之變動
+            if (lock && lock.checked) return;
+
+            const orig = parseFloat(input.dataset.orig);
+            if (!isNaN(orig)) {
+                input.value = formatQuantity(orig * factor);
+            }
+        });
+    }
+
+    function handleLockChange(e) {
+        const checkbox = e.target;
+        const row = checkbox.closest("li");
+        if (!row) return;
+
+        const input = row.querySelector(".ingredient-input");
+        const iconSpan = row.querySelector(".lock-icon");
+        const labelEl = checkbox.closest("label");
+
+        if (checkbox.checked) {
+            // 啟用鎖定視覺效果
+            if (input) {
+                input.classList.add("bg-amber-50", "border-amber-400", "text-amber-900", "font-semibold", "ring-1", "ring-amber-300");
+                input.classList.remove("bg-white", "border-gray-300", "text-gray-800");
+                input.title = "已鎖定：變更此食材不影響其他欄位，亦不受份數變動影響";
+            }
+            if (labelEl) {
+                labelEl.classList.add("bg-amber-100", "border-amber-300", "text-amber-800", "font-medium");
+                labelEl.classList.remove("bg-white", "border-gray-200", "text-gray-500");
+            }
+            if (iconSpan) {
+                iconSpan.className = "lock-icon text-sm leading-none opacity-100";
+            }
+        } else {
+            // 解除鎖定視覺效果
+            if (input) {
+                input.classList.remove("bg-amber-50", "border-amber-400", "text-amber-900", "font-semibold", "ring-1", "ring-amber-300");
+                input.classList.add("bg-white", "border-gray-300", "text-gray-800");
+                input.removeAttribute("title");
+
+                // 解除鎖定時，自動根據當前份數重算該食材
+                const baseServings = currentRecipe && currentRecipe.servings ? (parseFloat(currentRecipe.servings.quantity) || 1) : 1;
+                const currentServings = servingsInput ? (parseFloat(servingsInput.value) || baseServings) : baseServings;
+                const factor = currentServings / baseServings;
+                const orig = parseFloat(input.dataset.orig);
+                if (!isNaN(orig) && !isNaN(factor)) {
+                    input.value = formatQuantity(orig * factor);
+                }
+            }
+            if (labelEl) {
+                labelEl.classList.remove("bg-amber-100", "border-amber-300", "text-amber-800", "font-medium");
+                labelEl.classList.add("bg-white", "border-gray-200", "text-gray-500");
+            }
+            if (iconSpan) {
+                iconSpan.className = "lock-icon text-sm leading-none opacity-40 grayscale hover:opacity-75 transition-opacity";
+            }
+        }
+
+        updateUnlockAllButtonVisibility();
+    }
+
+    function updateIngredientsFromServings() {
+        if (!currentRecipe || !servingsInput || !recipeDetailIngredients) return;
+        const baseServings = currentRecipe.servings ? (parseFloat(currentRecipe.servings.quantity) || 1) : 1;
+        const currentServings = parseFloat(servingsInput.value);
+        if (isNaN(currentServings) || currentServings <= 0) return;
+
+        const factor = currentServings / baseServings;
+
+        const rows = recipeDetailIngredients.querySelectorAll("li");
+        rows.forEach(row => {
+            const lockCheckbox = row.querySelector(".ingredient-lock");
+            const input = row.querySelector(".ingredient-input");
+            if (!lockCheckbox || !input) return;
+
+            // 已鎖定的食材不隨份數變動！
+            if (lockCheckbox.checked) return;
+
+            const orig = parseFloat(input.dataset.orig);
+            if (!isNaN(orig)) {
+                input.value = formatQuantity(orig * factor);
+            }
+        });
+    }
+
+    function updateUnlockAllButtonVisibility() {
+        const unlockAllBtn = document.getElementById("unlock-all-ingredients");
+        if (!unlockAllBtn || !recipeDetailIngredients) return;
+        const anyLocked = Array.from(recipeDetailIngredients.querySelectorAll(".ingredient-lock")).some(cb => cb.checked);
+        if (anyLocked) {
+            unlockAllBtn.classList.remove("hidden");
+        } else {
+            unlockAllBtn.classList.add("hidden");
+        }
+    }
+
+    function unlockAllIngredients() {
+        if (!recipeDetailIngredients) return;
+        const checkboxes = recipeDetailIngredients.querySelectorAll(".ingredient-lock");
+        checkboxes.forEach(cb => {
+            if (cb.checked) {
+                cb.checked = false;
+                cb.dispatchEvent(new Event("change"));
+            }
         });
     }
 
@@ -306,6 +486,9 @@
             };
         }
 
+        const unlockAllBtn = document.getElementById("unlock-all-ingredients");
+        if (unlockAllBtn) unlockAllBtn.onclick = unlockAllIngredients;
+
         if (clearTagsButton) clearTagsButton.onclick = () => { selectedTags.clear(); renderTags(); renderRecipeList(); };
         if (searchInput) searchInput.oninput = (e) => { searchTerm = e.target.value; renderRecipeList(); };
         if (backButton) backButton.onclick = () => window.location.hash = "";
@@ -315,5 +498,5 @@
     });
 
     window.addEventListener("hashchange", handleRouting);
-    if (servingsInput) servingsInput.addEventListener("input", renderIngredients);
+    if (servingsInput) servingsInput.addEventListener("input", updateIngredientsFromServings);
 })();

@@ -79,10 +79,13 @@ def update_recipe_list():
     # Sort recipes by category (directory name)
     recipe_summaries.sort(key=lambda x: x['path'])
 
+    # Sort recipes by path for deterministic cross-platform output
+    sorted_recipes_data = {k: all_recipes_data[k] for k in sorted(all_recipes_data.keys())}
+
     # Save asset/recipes.json
     os.makedirs(os.path.dirname(recipes_output_path), exist_ok=True)
     with open(recipes_output_path, 'w', encoding='utf-8') as f:
-        json.dump(all_recipes_data, f, indent=4, ensure_ascii=False)
+        json.dump(sorted_recipes_data, f, indent=4, ensure_ascii=False)
 
     # Save asset/info.json
     info_data = {

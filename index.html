@@ -186,8 +186,22 @@
 
         <!-- Ingredients and scaling UI -->
         <div class="mb-8">
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">材料</h3>
-          <ul id="recipe-detail-ingredients" class="space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+            <div class="flex items-center space-x-3">
+              <h3 class="text-2xl font-bold text-gray-900">材料</h3>
+              <button
+                id="unlock-all-ingredients"
+                type="button"
+                class="hidden text-xs text-blue-600 hover:text-blue-800 underline font-medium cursor-pointer"
+              >
+                全部解鎖
+              </button>
+            </div>
+            <span class="text-xs text-gray-500 bg-gray-50 border border-gray-200 px-2.5 py-1 rounded-full w-fit">
+              💡 勾選 🔒 可自訂個別份量，不隨總份數變動
+            </span>
+          </div>
+          <ul id="recipe-detail-ingredients" class="space-y-2.5">
             <!-- Ingredients will be injected here by JavaScript -->
           </ul>
         </div>
@@ -221,7 +235,7 @@
 
     <footer class="mt-12 pb-8 text-center text-gray-400 text-xs">
       <p>© 2026 Hung's Recipes</p>
-      <p id="app-version" class="mt-1 text-gray-400">Version: v1.4.1</p>
+      <p id="app-version" class="mt-1 text-gray-400">Version: v1.5.1</p>
     </footer>
 
     <script src="js/app.js"></script>
