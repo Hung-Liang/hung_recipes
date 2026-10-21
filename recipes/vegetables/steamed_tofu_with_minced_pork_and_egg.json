@@ -1,0 +1,68 @@
+{
+    "filename": "steamed_tofu_with_minced_pork_and_egg.json",
+    "name": "肉末蒸豆腐蒸蛋",
+    "description": "將豆腐、蛋液與鹹香的肉末醬汁結合，口感滑嫩豐富的家常料理。",
+    "servings": {
+        "quantity": 2,
+        "unit": "份"
+    },
+    "tags": [
+        "中式",
+        "豆腐",
+        "豬肉",
+        "電鍋",
+        "懶人料理"
+    ],
+    "ingredients": [
+        {
+            "name": "豆腐",
+            "quantity": 300,
+            "unit": "g"
+        },
+        {
+            "name": "雞蛋",
+            "quantity": 150,
+            "unit": "g"
+        },
+        {
+            "name": "水（加入蛋液中）",
+            "quantity": 100,
+            "unit": "ml"
+        },
+        {
+            "name": "絞肉",
+            "quantity": 100,
+            "unit": "g"
+        },
+        {
+            "name": "醬油",
+            "quantity": 45,
+            "unit": "g"
+        },
+        {
+            "name": "蠔油",
+            "quantity": 30,
+            "unit": "g"
+        },
+        {
+            "name": "糖",
+            "quantity": 10,
+            "unit": "g"
+        },
+        {
+            "name": "水（加入醬汁中）",
+            "quantity": 60,
+            "unit": "ml"
+        }
+    ],
+    "steps": [
+        "將豆腐倒扣鋪平於碗中。",
+        "三顆雞蛋加入100ml水打散，過篩後倒入放豆腐的碗中，蒸15至20分鐘。",
+        "將絞肉煸香，加入醬汁（醬油、蠔油、糖與水）煮勻。",
+        "將炒好的肉末醬汁鋪到蒸好的豆腐蛋上，再保溫1分鐘即可。"
+    ],
+    "notes": [
+        "雞蛋：3 顆約為 150 g。",
+        "醬油湯匙與蠔油湯匙已依標準大匙（15ml/15g）換算成公克數。"
+    ]
+}

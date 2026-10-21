@@ -1,0 +1,82 @@
+{
+    "filename": "heavenly_chicken_rice.json",
+    "name": "銷魂雞肉飯",
+    "description": "用薑蔥爆香做出來的靈魂醬汁，淋在白飯上根本停不下來，絕對是拌飯神器！",
+    "servings": {
+        "quantity": 2,
+        "unit": "份"
+    },
+    "tags": [
+        "中式",
+        "澱粉",
+        "雞肉",
+        "主食",
+        "懶人料理"
+    ],
+    "ingredients": [
+        {
+            "name": "大雞腿",
+            "quantity": 600,
+            "unit": "g"
+        },
+        {
+            "name": "薑",
+            "quantity": 10,
+            "unit": "g"
+        },
+        {
+            "name": "蔥",
+            "quantity": 30,
+            "unit": "g"
+        },
+        {
+            "name": "蠔油",
+            "quantity": 15,
+            "unit": "g"
+        },
+        {
+            "name": "醬油",
+            "quantity": 15,
+            "unit": "g"
+        },
+        {
+            "name": "米酒",
+            "quantity": 15,
+            "unit": "g"
+        },
+        {
+            "name": "蒜頭",
+            "quantity": 15,
+            "unit": "g"
+        },
+        {
+            "name": "麻油",
+            "quantity": 10,
+            "unit": "g"
+        },
+        {
+            "name": "食用油",
+            "quantity": 15,
+            "unit": "g"
+        },
+        {
+            "name": "辣椒粉",
+            "quantity": 3,
+            "unit": "g"
+        },
+        {
+            "name": "胡椒粉",
+            "quantity": 2,
+            "unit": "g"
+        }
+    ],
+    "steps": [
+        "將雞腿洗淨，鋪上薑片、蔥段，淋上米酒；電鍋外鍋加 1 至 1.5 杯水，蒸約 20 分鐘至熟，保留雞汁備用。",
+        "等待蒸雞的同時，將蔥、薑、蒜切碎。",
+        "平底鍋加一大匙油，中小火煸香蔥薑蒜，加入蠔油、醬油、辣椒粉適量拌炒，再倒入保留的雞汁混合，最後加入胡椒粉、麻油拌勻。",
+        "雞腿放涼後用手撥成雞絲，淋上醬汁拌勻，搭配白飯享用。"
+    ],
+    "notes": [
+        "營養標示約為 500 kcal、40g 碳水化合物、56g 蛋白質。"
+    ]
+}

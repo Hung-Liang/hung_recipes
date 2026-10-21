@@ -166,6 +166,18 @@
             ]
         },
         {
+            "path": "meat/minced_pork_tofu.json",
+            "filename": "minced_pork_tofu",
+            "name": "肉末豆腐煲",
+            "description": "香濃下飯的家常肉末豆腐，結合滑嫩的豆腐與鹹香的醬汁，製作簡單又美味。",
+            "tags": [
+                "中式",
+                "豆腐",
+                "豬肉",
+                "懶人料理"
+            ]
+        },
+        {
             "path": "meat/pork_belly_chive_egg.json",
             "filename": "pork_belly_chive_egg",
             "name": "日式豬五花韭菜滑蛋",
@@ -222,6 +234,18 @@
                 "西式",
                 "牛肉",
                 "烤箱"
+            ]
+        },
+        {
+            "path": "meat/scallion_salt_pork_loin.json",
+            "filename": "scallion_salt_pork_loin",
+            "name": "蔥鹽豬里肌",
+            "description": "下飯又簡單，10分鐘就完成的家常蔥鹽豬里肌。",
+            "tags": [
+                "日式",
+                "豬肉",
+                "高蛋白",
+                "懶人料理"
             ]
         },
         {
@@ -301,6 +325,18 @@
             ]
         },
         {
+            "path": "meat/waterless_nikudofu.json",
+            "filename": "waterless_nikudofu",
+            "name": "無水肉豆腐",
+            "description": "簡單清冰箱常做的日式家庭料理無水版本，利用洋蔥與食材本身的水分燉煮，搭配鹽昆布增添甘甜鮮味。",
+            "tags": [
+                "日式",
+                "豆腐",
+                "豬肉",
+                "懶人料理"
+            ]
+        },
+        {
             "path": "meat/yakult_ants_climbing_a_tree.json",
             "filename": "yakult_ants_climbing_a_tree",
             "name": "養樂多螞蟻上樹",
@@ -336,6 +372,44 @@
             ]
         },
         {
+            "path": "poultry/chicken_tenderloin_curry.json",
+            "filename": "chicken_tenderloin_curry",
+            "name": "雞里肌咖哩",
+            "description": "以高蛋白質的雞里肌肉搭配洋蔥、紅蘿蔔燉煮的健康家常咖哩，整鍋平均分為5份。",
+            "tags": [
+                "日式",
+                "雞肉",
+                "高蛋白",
+                "懶人料理"
+            ]
+        },
+        {
+            "path": "poultry/crispy_high_protein_chicken_nuggets.json",
+            "filename": "crispy_high_protein_chicken_nuggets",
+            "name": "酥脆高蛋白雞塊",
+            "description": "這是一款無需油炸的酥脆高蛋白雞塊，外層使用米紙包裹以增加酥脆口感。整份食譜可製作 30 塊，是減脂期絕佳的點心或主食選擇。",
+            "tags": [
+                "雞肉",
+                "點心",
+                "低碳",
+                "氣炸鍋",
+                "高蛋白"
+            ]
+        },
+        {
+            "path": "poultry/crispy_oat_chicken_breast.json",
+            "filename": "crispy_oat_chicken_breast",
+            "name": "燕麥酥炸雞胸肉",
+            "description": "使用氣炸鍋製作的健康低脂燕麥酥炸雞胸肉，外酥內嫩，適合作為減脂期的高蛋白料理。",
+            "tags": [
+                "澱粉",
+                "雞肉",
+                "氣炸鍋",
+                "高蛋白",
+                "懶人料理"
+            ]
+        },
+        {
             "path": "poultry/cucumber_shredded_chicken_salad.json",
             "filename": "cucumber_shredded_chicken_salad",
             "name": "涼拌雞絲小黃瓜",
@@ -355,6 +429,18 @@
                 "雞肉",
                 "高蛋白",
                 "懶人料理"
+            ]
+        },
+        {
+            "path": "poultry/french_honey_mustard_chicken.json",
+            "filename": "french_honey_mustard_chicken",
+            "name": "法式芥末蜂蜜烤雞",
+            "description": "外皮酥脆、肉質鮮嫩的法式芥末蜂蜜烤雞，帶有微酸甜的濃郁風味。",
+            "tags": [
+                "西式",
+                "雞肉",
+                "氣炸鍋",
+                "烤箱"
             ]
         },
         {
@@ -404,6 +490,18 @@
             ]
         },
         {
+            "path": "poultry/juicy_chicken_breast.json",
+            "filename": "juicy_chicken_breast",
+            "name": "多汁軟嫩雞胸肉",
+            "description": "不用蘇打粉或嫩肉粉，透過鹽水浸泡法讓雞胸肉保持軟嫩多汁、不乾柴的美味祕訣。",
+            "tags": [
+                "雞肉",
+                "低碳",
+                "高蛋白",
+                "懶人料理"
+            ]
+        },
+        {
             "path": "poultry/karaage_kun_style_nuggets.json",
             "filename": "karaage_kun_style_nuggets",
             "name": "自製炸雞君風格雞塊",
@@ -433,6 +531,31 @@
             "tags": [
                 "雞肉",
                 "低碳",
+                "高蛋白",
+                "懶人料理"
+            ]
+        },
+        {
+            "path": "poultry/orleans_marinated_chicken_breast.json",
+            "filename": "orleans_marinated_chicken_breast",
+            "name": "奧爾良嫩煎雞胸肉",
+            "description": "利用小蘇打與玉米澱粉醃漬軟化的低脂嫩雞胸肉，適合批次製作並冷凍保存，退冰後薄油煎熟即可享用。",
+            "tags": [
+                "西式",
+                "雞肉",
+                "低碳",
+                "高蛋白",
+                "懶人料理"
+            ]
+        },
+        {
+            "path": "poultry/pan_fried_chicken_breast_with_salted_kombu.json",
+            "filename": "pan_fried_chicken_breast_with_salted_kombu",
+            "name": "香煎鹽昆布雞胸肉",
+            "description": "以鹽昆布結合蒜泥與薑末醃漬入味，再裹上一層薄太白粉鎖住肉汁，簡單以橄欖油煎至金黃軟嫩的快手雞胸肉料理。",
+            "tags": [
+                "日式",
+                "雞肉",
                 "高蛋白",
                 "懶人料理"
             ]
@@ -482,6 +605,19 @@
             ]
         },
         {
+            "path": "poultry/zero_carb_chicken_nuggets.json",
+            "filename": "zero_carb_chicken_nuggets",
+            "name": "零碳水雞塊",
+            "description": "高蛋白、幾乎零碳水化合物的酥脆雞塊，使用豬皮碎增加酥脆口感，非常適合減脂與生酮飲食。",
+            "tags": [
+                "雞肉",
+                "點心",
+                "低碳",
+                "氣炸鍋",
+                "高蛋白"
+            ]
+        },
+        {
             "path": "sauces_basics/all_purpose_ketchup_sauce.json",
             "filename": "all_purpose_ketchup_sauce",
             "name": "萬用番茄醬汁",
@@ -520,6 +656,17 @@
             "tags": [
                 "港式",
                 "醬汁"
+            ]
+        },
+        {
+            "path": "sauces_basics/classic_white_sauce.json",
+            "filename": "classic_white_sauce",
+            "name": "經典白醬",
+            "description": "一家經營45年的老店在結業時與顧客分享的珍貴白醬食譜。",
+            "tags": [
+                "西式",
+                "醬汁",
+                "懶人料理"
             ]
         },
         {
@@ -661,6 +808,18 @@
             ]
         },
         {
+            "path": "sauces_basics/taco_cottage_cheese_dip.json",
+            "filename": "taco_cottage_cheese_dip",
+            "name": "墨西哥塔可茅屋起司沾醬",
+            "description": "只需兩種食材即可快速完成的高蛋白墨西哥風味沾醬。",
+            "tags": [
+                "西式",
+                "醬汁",
+                "高蛋白",
+                "懶人料理"
+            ]
+        },
+        {
             "path": "sauces_basics/teppanyaki_sauce.json",
             "filename": "teppanyaki_sauce",
             "name": "自製萬用鐵板燒醬汁",
@@ -689,6 +848,17 @@
             "tags": [
                 "日式",
                 "醬汁"
+            ]
+        },
+        {
+            "path": "sauces_basics/universal_sesame_sauce.json",
+            "filename": "universal_sesame_sauce",
+            "name": "萬能麻醬汁",
+            "description": "香氣濃郁的萬用麻醬汁，作法簡單，非常適合用來拌麵或作為各種料理的沾醬。",
+            "tags": [
+                "中式",
+                "醬汁",
+                "懶人料理"
             ]
         },
         {
@@ -724,6 +894,19 @@
                 "西式",
                 "海鮮",
                 "澱粉"
+            ]
+        },
+        {
+            "path": "seafood/tuna_bread.json",
+            "filename": "tuna_bread",
+            "name": "鮪魚麵包",
+            "description": "只需三種食材即可完成的高蛋白、低碳水鮪魚麵包。",
+            "tags": [
+                "海鮮",
+                "點心",
+                "低碳",
+                "氣炸鍋",
+                "高蛋白"
             ]
         },
         {
@@ -778,6 +961,19 @@
             "description": "一款簡單製作、富含纖維和蛋白質的奇亞籽布丁，以希臘優格和牛奶為基底，可作為健康的早餐或點心。",
             "tags": [
                 "點心",
+                "高蛋白"
+            ]
+        },
+        {
+            "path": "snacks_desserts/chicken_chicharrones.json",
+            "filename": "chicken_chicharrones",
+            "name": "香脆雞皮脆片（高蛋白減脂點心）",
+            "description": "酥脆高蛋白的零食替代選擇，使用雞胸肉搭配調味料烘烤與氣炸而成。",
+            "tags": [
+                "西式",
+                "雞肉",
+                "點心",
+                "低碳",
                 "高蛋白"
             ]
         },
@@ -955,6 +1151,18 @@
             ]
         },
         {
+            "path": "snacks_desserts/pure_protein_jello.json",
+            "filename": "pure_protein_jello",
+            "name": "純蛋白果凍",
+            "description": "低卡高蛋白配方，整份含有 103g 蛋白質，零脂肪零碳水，適合健身與減脂期食用的無糖水果風味果凍。",
+            "tags": [
+                "甜點",
+                "點心",
+                "低碳",
+                "高蛋白"
+            ]
+        },
+        {
             "path": "snacks_desserts/raw_carrot_lemon_salad.json",
             "filename": "raw_carrot_lemon_salad",
             "name": "檸檬芝麻涼拌紅蘿蔔絲",
@@ -1000,6 +1208,19 @@
             ]
         },
         {
+            "path": "snacks_desserts/sweet_potato_basque_cheesecake.json",
+            "filename": "sweet_potato_basque_cheesecake",
+            "name": "紅薯巴斯克",
+            "description": "使用紅薯與希臘優格製作的健康高蛋白巴斯克乳酪蛋糕，口感綿密且無多餘負擔。",
+            "tags": [
+                "西式",
+                "甜點",
+                "點心",
+                "烤箱",
+                "高蛋白"
+            ]
+        },
+        {
             "path": "snacks_desserts/wang_zai_mochi.json",
             "filename": "wang_zai_mochi",
             "name": "旺仔麻糬",
@@ -1022,6 +1243,19 @@
                 "主食",
                 "氣炸鍋",
                 "懶人料理"
+            ]
+        },
+        {
+            "path": "staples/bbq_cheeseburger_pasta.json",
+            "filename": "bbq_cheeseburger_pasta",
+            "name": "BBQ 起司漢堡義大利麵",
+            "description": "這是一道高蛋白且適合備餐的義大利麵料理，結合了起司漢堡與燒烤醬的豐富風味。此份量可製作 7 份備餐，每份約含 430 大卡、42 克蛋白質。",
+            "tags": [
+                "西式",
+                "牛肉",
+                "澱粉",
+                "主食",
+                "高蛋白"
             ]
         },
         {
@@ -1063,6 +1297,32 @@
             ]
         },
         {
+            "path": "staples/cottage_cheese_protein_wrap.json",
+            "filename": "cottage_cheese_protein_wrap",
+            "name": "茅屋起司高蛋白捲餅",
+            "description": "這是一款外酥內軟的高蛋白無粉捲餅，基底僅需茅屋起司與雞蛋。您可以依照個人喜好加入各種餡料，完美契合您的熱量與營養素需求。",
+            "tags": [
+                "西式",
+                "主食",
+                "低碳",
+                "烤箱",
+                "高蛋白"
+            ]
+        },
+        {
+            "path": "staples/creamy_bbq_chicken_pasta.json",
+            "filename": "creamy_bbq_chicken_pasta",
+            "name": "高蛋白奶油BBQ雞肉螺旋麵",
+            "description": "使用高壓鍋或單鍋完成的高蛋白減脂義大利麵，搭配低脂起司與濃郁BBQ醬，適合備餐與批量分裝。",
+            "tags": [
+                "西式",
+                "澱粉",
+                "雞肉",
+                "主食",
+                "高蛋白"
+            ]
+        },
+        {
             "path": "staples/creamy_egg_minced_pork_tofu_donburi.json",
             "filename": "creamy_egg_minced_pork_tofu_donburi",
             "name": "滑蛋肉末豆腐蓋飯",
@@ -1086,6 +1346,19 @@
                 "牛肉",
                 "主食",
                 "高蛋白"
+            ]
+        },
+        {
+            "path": "staples/creamy_meat_miso_soba.json",
+            "filename": "creamy_meat_miso_soba",
+            "name": "奶油風肉味噌蕎麥麵",
+            "description": "適合減脂期的簡單料理，利用嫩豆腐製作濃郁醬汁，搭配微波加熱即可完成的低卡肉味噌蕎麥麵。",
+            "tags": [
+                "日式",
+                "澱粉",
+                "雞肉",
+                "主食",
+                "低碳"
             ]
         },
         {
@@ -1137,6 +1410,19 @@
             ]
         },
         {
+            "path": "staples/dumpling_lasagna.json",
+            "filename": "dumpling_lasagna",
+            "name": "水餃千層麵",
+            "description": "國外超紅的 Dumpling Lasagna，將絞肉與餛飩皮層層堆疊後蒸熟，是一道簡單又美味的創意料理。",
+            "tags": [
+                "中式",
+                "豬肉",
+                "澱粉",
+                "主食",
+                "電鍋"
+            ]
+        },
+        {
             "path": "staples/garlic_butter_beef_rib_rice.json",
             "filename": "garlic_butter_beef_rib_rice",
             "name": "蒜香奶油牛肋炊飯",
@@ -1160,6 +1446,32 @@
                 "澱粉",
                 "主食",
                 "懶人料理"
+            ]
+        },
+        {
+            "path": "staples/heavenly_chicken_rice.json",
+            "filename": "heavenly_chicken_rice",
+            "name": "銷魂雞肉飯",
+            "description": "用薑蔥爆香做出來的靈魂醬汁，淋在白飯上根本停不下來，絕對是拌飯神器！",
+            "tags": [
+                "中式",
+                "澱粉",
+                "雞肉",
+                "主食",
+                "懶人料理"
+            ]
+        },
+        {
+            "path": "staples/high_protein_cold_udon.json",
+            "filename": "high_protein_cold_udon",
+            "name": "高蛋白涼麵",
+            "description": "超適合夏天！新手友善的高蛋白涼麵，30分鐘內即可完成的高蛋白一餐。",
+            "tags": [
+                "豆腐",
+                "澱粉",
+                "雞肉",
+                "主食",
+                "高蛋白"
             ]
         },
         {
@@ -1198,6 +1510,32 @@
             ]
         },
         {
+            "path": "staples/korean_homestyle_maze_soba.json",
+            "filename": "korean_homestyle_maze_soba",
+            "name": "韓式家庭版馬傑拌麵",
+            "description": "這是一道在韓國非常流行的簡單版馬傑拌麵（混ぜそば），使用最常見的材料就能做出媲美餐廳的美味。配料可依個人喜好自由調整，豬絞肉也可以替換為豆腐。",
+            "tags": [
+                "日式",
+                "韓式",
+                "豬肉",
+                "澱粉",
+                "主食"
+            ]
+        },
+        {
+            "path": "staples/korean_kimchi_minced_pork_rice_bowl.json",
+            "filename": "korean_kimchi_minced_pork_rice_bowl",
+            "name": "韓式泡菜豬肉碎拌飯",
+            "description": "酸辣開胃的高蛋白減脂料理，搭配豬肉碎、泡菜與煎蛋，營養豐富且做法簡單。",
+            "tags": [
+                "韓式",
+                "豬肉",
+                "澱粉",
+                "主食",
+                "高蛋白"
+            ]
+        },
+        {
             "path": "staples/korean_soy_milk_noodles.json",
             "filename": "korean_soy_milk_noodles",
             "name": "韓式豆漿麵",
@@ -1233,6 +1571,32 @@
                 "澱粉",
                 "主食",
                 "高蛋白"
+            ]
+        },
+        {
+            "path": "staples/matsusaka_pork_abura_soba.json",
+            "filename": "matsusaka_pork_abura_soba",
+            "name": "松阪豬油拉麵",
+            "description": "以香煎松阪豬逼出油脂，結合蔥蒜碎與特調醋辣醬汁拌入現煮拉麵，香氣濃郁且酸辣開胃的日式油蕎麥（油拉麵）做法。",
+            "tags": [
+                "日式",
+                "豬肉",
+                "澱粉",
+                "主食",
+                "懶人料理"
+            ]
+        },
+        {
+            "path": "staples/meat_stuffed_scallion_pancake.json",
+            "filename": "meat_stuffed_scallion_pancake",
+            "name": "肉餡蔥抓餅",
+            "description": "將蔥抓餅作為外皮，包入調味絞肉的簡易自製餡餅，外酥內多汁。",
+            "tags": [
+                "中式",
+                "豬肉",
+                "澱粉",
+                "主食",
+                "懶人料理"
             ]
         },
         {
@@ -1480,6 +1844,19 @@
             ]
         },
         {
+            "path": "staples/tokyo_vegan_miso_dipping_noodles.json",
+            "filename": "tokyo_vegan_miso_dipping_noodles",
+            "name": "東京Vegan味噌肉醬沾麵",
+            "description": "在家重現不輸拉麵店的東京Vegan味噌肉醬沾麵。使用減肥聖品「凍豆腐」製作偽肉醬，搭配豆漿與濃郁味噌醬汁，鹹香回甘、層次豐富，每一口麵條都能吸附滿滿醬香，非常過癮！",
+            "tags": [
+                "日式",
+                "豆腐",
+                "蔬食",
+                "澱粉",
+                "主食"
+            ]
+        },
+        {
             "path": "staples/tomato_pasta.json",
             "filename": "tomato_pasta",
             "name": "美味番茄義大利麵",
@@ -1515,6 +1892,19 @@
             ]
         },
         {
+            "path": "staples/white_sauce_chicken_protein_pasta.json",
+            "filename": "white_sauce_chicken_protein_pasta",
+            "name": "白醬雞肉高蛋白義大利麵",
+            "description": "這是一道以高蛋白牛奶與起司濃湯包為基底的白醬義大利麵，搭配去皮雞腿肉，適合健身與日常的高蛋白料理。",
+            "tags": [
+                "西式",
+                "澱粉",
+                "雞肉",
+                "主食",
+                "高蛋白"
+            ]
+        },
+        {
             "path": "staples/zucchini_pappardelle_cream_sauce.json",
             "filename": "zucchini_pappardelle_cream_sauce",
             "name": "櫛瓜奶油寬帶麵",
@@ -1523,6 +1913,18 @@
                 "西式",
                 "蔬食",
                 "澱粉"
+            ]
+        },
+        {
+            "path": "vegetables/air_fryer_seasoned_steamed_eggs.json",
+            "filename": "air_fryer_seasoned_steamed_eggs",
+            "name": "氣炸醬香蒸蛋",
+            "description": "使用氣炸鍋快速完成的家常醬香蒸蛋，口感滑嫩且香氣濃郁。",
+            "tags": [
+                "中式",
+                "蔬食",
+                "氣炸鍋",
+                "懶人料理"
             ]
         },
         {
@@ -1547,6 +1949,17 @@
             ]
         },
         {
+            "path": "vegetables/pickled_garlic.json",
+            "filename": "pickled_garlic",
+            "name": "醃大蒜",
+            "description": "醃製大蒜能完全消除其辛辣味。這是一道傳承自原作者祖父的簡單經典醃菜食譜。",
+            "tags": [
+                "西式",
+                "蔬食",
+                "懶人料理"
+            ]
+        },
+        {
             "path": "vegetables/plastic_bag_braised_eggs.json",
             "filename": "plastic_bag_braised_eggs",
             "name": "塑膠袋滷蛋",
@@ -1565,6 +1978,19 @@
             "tags": [
                 "中式",
                 "豬肉",
+                "懶人料理"
+            ]
+        },
+        {
+            "path": "vegetables/steamed_tofu_with_minced_pork_and_egg.json",
+            "filename": "steamed_tofu_with_minced_pork_and_egg",
+            "name": "肉末蒸豆腐蒸蛋",
+            "description": "將豆腐、蛋液與鹹香的肉末醬汁結合，口感滑嫩豐富的家常料理。",
+            "tags": [
+                "中式",
+                "豆腐",
+                "豬肉",
+                "電鍋",
                 "懶人料理"
             ]
         }
@@ -1596,6 +2022,6 @@
         "高蛋白",
         "點心"
     ],
-    "totalRecipes": 139,
+    "totalRecipes": 173,
     "lastUpdated": null
 }

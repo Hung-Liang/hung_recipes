@@ -1,0 +1,92 @@
+{
+    "filename": "juicy_chicken_breast.json",
+    "name": "多汁軟嫩雞胸肉",
+    "description": "不用蘇打粉或嫩肉粉，透過鹽水浸泡法讓雞胸肉保持軟嫩多汁、不乾柴的美味祕訣。",
+    "servings": {
+        "quantity": 4,
+        "unit": "份"
+    },
+    "tags": [
+        "雞肉",
+        "低碳",
+        "高蛋白",
+        "懶人料理"
+    ],
+    "ingredients": [
+        {
+            "name": "雞胸肉",
+            "quantity": 1100,
+            "unit": "g"
+        },
+        {
+            "name": "蒜粉",
+            "quantity": 10,
+            "unit": "g"
+        },
+        {
+            "name": "洋蔥粉",
+            "quantity": 10,
+            "unit": "g"
+        },
+        {
+            "name": "甜椒粉",
+            "quantity": 5,
+            "unit": "g"
+        },
+        {
+            "name": "黑胡椒",
+            "quantity": 5,
+            "unit": "g"
+        },
+        {
+            "name": "玉米澱粉",
+            "quantity": 20,
+            "unit": "g"
+        },
+        {
+            "name": "油",
+            "quantity": 20,
+            "unit": "g"
+        },
+        {
+            "name": "鹽",
+            "quantity": 45,
+            "unit": "g"
+        },
+        {
+            "name": "糖",
+            "quantity": 10,
+            "unit": "g"
+        },
+        {
+            "name": "清水",
+            "quantity": 1000,
+            "unit": "ml"
+        },
+        {
+            "name": "薑片",
+            "quantity": 10,
+            "unit": "g"
+        },
+        {
+            "name": "青蔥",
+            "quantity": 15,
+            "unit": "g"
+        },
+        {
+            "name": "花椒",
+            "quantity": 5,
+            "unit": "g"
+        }
+    ],
+    "steps": [
+        "準備鹽水：將鹽、糖、清水、薑片、青蔥與花椒混合均勻，製成醃製鹽水。",
+        "將雞胸肉放入鹽水中浸泡，透過滲透壓原理讓肉質吸飽水分以達到軟嫩效果。",
+        "取出雞胸肉並瀝乾表面水分，加入蒜粉、洋蔥粉、甜椒粉與黑胡椒進行調味。",
+        "加入玉米澱粉與油抓勻，鎖住肉汁。",
+        "以適當烹調方式（如煎、烤）將雞胸肉煮熟即可享用。"
+    ],
+    "notes": [
+        "本食譜使用鹽水浸泡法來替代蘇打粉或嫩肉粉，確保雞胸肉口感軟嫩不乾柴。"
+    ]
+}

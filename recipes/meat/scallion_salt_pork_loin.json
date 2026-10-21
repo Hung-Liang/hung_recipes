@@ -1,0 +1,84 @@
+{
+    "filename": "scallion_salt_pork_loin.json",
+    "name": "蔥鹽豬里肌",
+    "description": "下飯又簡單，10分鐘就完成的家常蔥鹽豬里肌。",
+    "servings": {
+        "quantity": 1,
+        "unit": "份"
+    },
+    "tags": [
+        "日式",
+        "豬肉",
+        "高蛋白",
+        "懶人料理"
+    ],
+    "ingredients": [
+        {
+            "name": "豬里肌",
+            "quantity": 500,
+            "unit": "g"
+        },
+        {
+            "name": "青蔥",
+            "quantity": 75,
+            "unit": "g"
+        },
+        {
+            "name": "蒜頭",
+            "quantity": 25,
+            "unit": "g"
+        },
+        {
+            "name": "白芝麻",
+            "quantity": 9,
+            "unit": "g"
+        },
+        {
+            "name": "醬油",
+            "quantity": 15,
+            "unit": "ml"
+        },
+        {
+            "name": "麻油",
+            "quantity": 30,
+            "unit": "ml"
+        },
+        {
+            "name": "白醋",
+            "quantity": 5,
+            "unit": "ml"
+        },
+        {
+            "name": "糖",
+            "quantity": 4,
+            "unit": "g"
+        },
+        {
+            "name": "鹽",
+            "quantity": 5,
+            "unit": "g"
+        },
+        {
+            "name": "白胡椒",
+            "quantity": 1,
+            "unit": "g"
+        },
+        {
+            "name": "食用油",
+            "quantity": 15,
+            "unit": "ml"
+        }
+    ],
+    "steps": [
+        "青蔥切花、蒜頭切末，加入醬油、麻油、白醋、糖、鹽與白胡椒拌勻，完成鹽蔥醬。",
+        "熱鍋下食用油，放入豬里肌煎至兩面金黃。",
+        "倒入鹽蔥醬，蓋上鍋蓋燜約20秒。",
+        "開蓋拌炒均勻，撒上白芝麻即可上桌。"
+    ],
+    "notes": [
+        "青蔥：4-5 支約為 75 g。",
+        "蒜頭：5 瓣約為 25 g。",
+        "食譜中的「少許油」已估算為 15 ml 的食用油。",
+        "白芝麻 1 大匙約為 9 g；各項調味料（大匙、茶匙）皆已轉換為公克 (g) 或毫升 (ml)。"
+    ]
+}

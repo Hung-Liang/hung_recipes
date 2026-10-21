@@ -1,0 +1,46 @@
+{
+    "filename": "classic_white_sauce.json",
+    "name": "經典白醬",
+    "description": "一家經營45年的老店在結業時與顧客分享的珍貴白醬食譜。",
+    "servings": {
+        "quantity": 1,
+        "unit": "份"
+    },
+    "tags": [
+        "西式",
+        "醬汁",
+        "懶人料理"
+    ],
+    "ingredients": [
+        {
+            "name": "美乃滋",
+            "quantity": 907,
+            "unit": "g"
+        },
+        {
+            "name": "白醋",
+            "quantity": 237,
+            "unit": "ml"
+        },
+        {
+            "name": "糖",
+            "quantity": 113,
+            "unit": "g"
+        },
+        {
+            "name": "蒔蘿",
+            "quantity": 28,
+            "unit": "g"
+        }
+    ],
+    "steps": [
+        "將美乃滋、白醋、糖與蒔蘿全部放入容器中混合均勻。",
+        "放入冰箱冷藏保存，待風味完全融合後即可使用。"
+    ],
+    "notes": [
+        "美乃滋：原食譜為 32 oz，轉換約為 907 g。",
+        "白醋：原食譜為 8 液體盎司 (fl oz)，轉換約為 237 ml。",
+        "糖：原食譜為 4 oz，轉換約為 113 g。",
+        "蒔蘿：原食譜為 1 oz，轉換約為 28 g。"
+    ]
+}

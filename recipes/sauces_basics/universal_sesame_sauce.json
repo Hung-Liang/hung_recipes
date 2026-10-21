@@ -1,0 +1,82 @@
+{
+    "filename": "universal_sesame_sauce.json",
+    "name": "萬能麻醬汁",
+    "description": "香氣濃郁的萬用麻醬汁，作法簡單，非常適合用來拌麵或作為各種料理的沾醬。",
+    "servings": {
+        "quantity": 1,
+        "unit": "份"
+    },
+    "tags": [
+        "中式",
+        "醬汁",
+        "懶人料理"
+    ],
+    "ingredients": [
+        {
+            "name": "蔥花",
+            "quantity": 10,
+            "unit": "g"
+        },
+        {
+            "name": "蒜末",
+            "quantity": 10,
+            "unit": "g"
+        },
+        {
+            "name": "辣椒粉",
+            "quantity": 5,
+            "unit": "g"
+        },
+        {
+            "name": "白芝麻",
+            "quantity": 5,
+            "unit": "g"
+        },
+        {
+            "name": "食用油",
+            "quantity": 30,
+            "unit": "ml"
+        },
+        {
+            "name": "醬油",
+            "quantity": 15,
+            "unit": "ml"
+        },
+        {
+            "name": "陳醋",
+            "quantity": 15,
+            "unit": "ml"
+        },
+        {
+            "name": "鹽",
+            "quantity": 2,
+            "unit": "g"
+        },
+        {
+            "name": "雞精",
+            "quantity": 3,
+            "unit": "g"
+        },
+        {
+            "name": "白糖",
+            "quantity": 5,
+            "unit": "g"
+        },
+        {
+            "name": "芝麻醬",
+            "quantity": 15,
+            "unit": "g"
+        }
+    ],
+    "steps": [
+        "準備一個耐熱碗，放入蔥花、蒜末、辣椒粉與白芝麻。",
+        "將食用油加熱至高溫，潑入碗中激發辛香料的香氣。",
+        "在碗中加入醬油、陳醋、鹽、雞精、白糖與芝麻醬。",
+        "將所有材料攪拌均勻，萬能麻醬汁即可完成。"
+    ],
+    "notes": [
+        "本食譜依據常理估算單人份量，所有未標明用量的食材皆已換算為公克（g）與毫升（ml）。",
+        "一杓芝麻醬估算約為 15 g。",
+        "潑熱油用的食用油用量估算為 30 ml，操作時請注意高溫油花飛濺。"
+    ]
+}
