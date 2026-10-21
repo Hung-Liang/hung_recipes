@@ -1,0 +1,272 @@
+[
+  {
+    "original": "0% 希臘優格",
+    "standardized": "零脂希臘優格",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 1
+  },
+  {
+    "original": "0% 脂肪希臘優格",
+    "standardized": "零脂希臘優格",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 1
+  },
+  {
+    "original": "0%希臘優格",
+    "standardized": "零脂希臘優格",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 1
+  },
+  {
+    "original": "OREO 餅乾",
+    "standardized": "OREO餅乾",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 1
+  },
+  {
+    "original": "Oreo 餅乾碎",
+    "standardized": "OREO餅乾",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 1
+  },
+  {
+    "original": "二號砂糖",
+    "standardized": "二砂",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 1
+  },
+  {
+    "original": "原味脫脂希臘優格",
+    "standardized": "零脂希臘優格",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 1
+  },
+  {
+    "original": "味霖",
+    "standardized": "味醂",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 1
+  },
+  {
+    "original": "新鮮巴西里 (裝飾)",
+    "standardized": "新鮮巴西里",
+    "reason": "去除純用途/步驟備註: '裝飾'",
+    "recipes_count": 1
+  },
+  {
+    "original": "水（加入蛋液中）",
+    "standardized": "水",
+    "reason": "去除純用途/步驟備註: '加入蛋液中'",
+    "recipes_count": 1
+  },
+  {
+    "original": "水（加入醬汁中）",
+    "standardized": "水",
+    "reason": "去除純用途/步驟備註: '加入醬汁中'",
+    "recipes_count": 1
+  },
+  {
+    "original": "水（麻婆醬用）",
+    "standardized": "水",
+    "reason": "去除純用途/步驟備註: '麻婆醬用'",
+    "recipes_count": 1
+  },
+  {
+    "original": "清水",
+    "standardized": "水",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 7
+  },
+  {
+    "original": "無脂希臘優格",
+    "standardized": "零脂希臘優格",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 1
+  },
+  {
+    "original": "生雞胸肉",
+    "standardized": "雞胸肉",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 1
+  },
+  {
+    "original": "白砂糖",
+    "standardized": "砂糖",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 3
+  },
+  {
+    "original": "白糖",
+    "standardized": "砂糖",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 10
+  },
+  {
+    "original": "白胡椒粉（醃料）",
+    "standardized": "白胡椒粉",
+    "reason": "去除純用途/步驟備註: '醃料'",
+    "recipes_count": 1
+  },
+  {
+    "original": "砂糖 (醃料與醬汁總計)",
+    "standardized": "砂糖",
+    "reason": "去除純用途/步驟備註: '醃料與醬汁總計'",
+    "recipes_count": 1
+  },
+  {
+    "original": "米酒（醃料）",
+    "standardized": "米酒",
+    "reason": "去除純用途/步驟備註: '醃料'",
+    "recipes_count": 1
+  },
+  {
+    "original": "細砂糖",
+    "standardized": "砂糖",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 1
+  },
+  {
+    "original": "蒜粉 (用於牛肉)",
+    "standardized": "蒜粉",
+    "reason": "去除純用途/步驟備註: '用於牛肉'",
+    "recipes_count": 1
+  },
+  {
+    "original": "蒜粉 (用於醬汁)",
+    "standardized": "蒜粉",
+    "reason": "去除純用途/步驟備註: '用於醬汁'",
+    "recipes_count": 1
+  },
+  {
+    "original": "蒜粉 (醬汁用)",
+    "standardized": "蒜粉",
+    "reason": "去除純用途/步驟備註: '醬汁用'",
+    "recipes_count": 1
+  },
+  {
+    "original": "蒜粉 (雞肉醃料)",
+    "standardized": "蒜粉",
+    "reason": "去除純用途/步驟備註: '雞肉醃料'",
+    "recipes_count": 1
+  },
+  {
+    "original": "蠔油 (醃料與醬汁總計)",
+    "standardized": "蠔油",
+    "reason": "去除純用途/步驟備註: '醃料與醬汁總計'",
+    "recipes_count": 1
+  },
+  {
+    "original": "蠔油（醃料）",
+    "standardized": "蠔油",
+    "reason": "去除純用途/步驟備註: '醃料'",
+    "recipes_count": 1
+  },
+  {
+    "original": "酸黃瓜丁 (用於牛肉)",
+    "standardized": "酸黃瓜丁",
+    "reason": "去除純用途/步驟備註: '用於牛肉'",
+    "recipes_count": 1
+  },
+  {
+    "original": "酸黃瓜丁 (用於醬汁)",
+    "standardized": "酸黃瓜丁",
+    "reason": "去除純用途/步驟備註: '用於醬汁'",
+    "recipes_count": 1
+  },
+  {
+    "original": "醬油 (醃料與醬汁總計)",
+    "standardized": "醬油",
+    "reason": "去除純用途/步驟備註: '醃料與醬汁總計'",
+    "recipes_count": 1
+  },
+  {
+    "original": "醬油（醃料）",
+    "standardized": "醬油",
+    "reason": "去除純用途/步驟備註: '醃料'",
+    "recipes_count": 1
+  },
+  {
+    "original": "醬油（麻婆醬用）",
+    "standardized": "醬油",
+    "reason": "去除純用途/步驟備註: '麻婆醬用'",
+    "recipes_count": 1
+  },
+  {
+    "original": "雞蛋 (1顆)",
+    "standardized": "雞蛋",
+    "reason": "去除純用途/步驟備註: '1顆'",
+    "recipes_count": 1
+  },
+  {
+    "original": "青辣椒 (切片)",
+    "standardized": "青辣椒",
+    "reason": "去除純用途/步驟備註: '切片'",
+    "recipes_count": 1
+  },
+  {
+    "original": "飲用水",
+    "standardized": "水",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 5
+  },
+  {
+    "original": "鹽 (用於牛肉)",
+    "standardized": "鹽",
+    "reason": "去除純用途/步驟備註: '用於牛肉'",
+    "recipes_count": 1
+  },
+  {
+    "original": "鹽 (用於醬汁)",
+    "standardized": "鹽",
+    "reason": "去除純用途/步驟備註: '用於醬汁'",
+    "recipes_count": 1
+  },
+  {
+    "original": "鹽 (醬汁用)",
+    "standardized": "鹽",
+    "reason": "去除純用途/步驟備註: '醬汁用'",
+    "recipes_count": 1
+  },
+  {
+    "original": "鹽巴",
+    "standardized": "鹽",
+    "reason": "純寫法/異體字/同義詞歸一",
+    "recipes_count": 13
+  },
+  {
+    "original": "鹽巴（調味用）",
+    "standardized": "鹽",
+    "reason": "去除純用途/步驟備註: '調味用'",
+    "recipes_count": 1
+  },
+  {
+    "original": "鹽巴（豆腐醬用）",
+    "standardized": "鹽",
+    "reason": "去除純用途/步驟備註: '豆腐醬用'",
+    "recipes_count": 1
+  },
+  {
+    "original": "鹽（醃料）",
+    "standardized": "鹽",
+    "reason": "去除純用途/步驟備註: '醃料'",
+    "recipes_count": 1
+  },
+  {
+    "original": "黑胡椒 (用於牛肉)",
+    "standardized": "黑胡椒",
+    "reason": "去除純用途/步驟備註: '用於牛肉'",
+    "recipes_count": 1
+  },
+  {
+    "original": "黑胡椒 (用於醬汁)",
+    "standardized": "黑胡椒",
+    "reason": "去除純用途/步驟備註: '用於醬汁'",
+    "recipes_count": 1
+  },
+  {
+    "original": "黑胡椒 (醬汁用)",
+    "standardized": "黑胡椒",
+    "reason": "去除純用途/步驟備註: '醬汁用'",
+    "recipes_count": 1
+  }
+]

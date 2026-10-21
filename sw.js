@@ -1,11 +1,13 @@
-const CACHE_NAME = 'my-recipes-v1.5.1'; // Update this version string when deploying changes
+const CACHE_NAME = 'my-recipes-v1.6.0'; // Update this version string when deploying changes
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './css/style.css',
+  './js/nutrition.js',
   './js/app.js',
   './manifest.json',
-  './asset/icon.png'
+  './asset/icon.png',
+  './asset/nutrition.json'
 ];
 
 // Install Service Worker and cache static core assets

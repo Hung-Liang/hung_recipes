@@ -1,17 +1,22 @@
 import os
 import json
 import re
+import sys
 
 def update_recipe_list():
     """
     Dynamically updates asset/recipes.json and asset/info.json by recursively
     scanning the recipes directory for JSON files.
-    Also synchronizes the application version across files.
+    Also synchronizes application version, standardizes ingredients,
+    validates that all ingredients exist in asset/nutrition.json,
+    and synchronizes js/nutrition.js.
     """
     script_dir = os.path.dirname(os.path.abspath(__file__))
     recipes_dir = os.path.join(script_dir, 'recipes')
     recipes_output_path = os.path.join(script_dir, 'asset', 'recipes.json')
     info_path = os.path.join(script_dir, 'asset', 'info.json')
+    nutrition_path = os.path.join(script_dir, 'asset', 'nutrition.json')
+    nutrition_js_path = os.path.join(script_dir, 'js', 'nutrition.js')
 
     # --- 1. Version Synchronization ---
     sw_path = os.path.join(script_dir, 'sw.js')
@@ -46,10 +51,20 @@ def update_recipe_list():
         
         print(f"Successfully synchronized version {version} to index.html and app.js")
 
-    # --- 2. Recipe Update Logic ---
+    # --- 2. Nutrition Database & Ingredient Standardization Validation ---
+    nutrition_db = {}
+    if os.path.exists(nutrition_path):
+        with open(nutrition_path, 'r', encoding='utf-8') as f:
+            nutrition_db = json.load(f)
+        print(f"Loaded {len(nutrition_db)} standard ingredients from {nutrition_path}")
+    else:
+        print(f"WARNING: {nutrition_path} does not exist!")
+
+    # --- 3. Recipe Update Logic & Ingredient Verification ---
     recipe_summaries = []
     all_recipes_data = {}
     all_tags = set()
+    missing_ingredients = {}
 
     for root, _, files in os.walk(recipes_dir):
         for file in files:
@@ -61,6 +76,14 @@ def update_recipe_list():
                     with open(file_path, 'r', encoding='utf-8') as f:
                         recipe_data = json.load(f)
                     
+                    # Validate ingredients against standard nutrition table
+                    for ing in recipe_data.get("ingredients", []):
+                        ing_name = ing.get("name", "").strip()
+                        if ing_name and ing_name not in nutrition_db:
+                            if ing_name not in missing_ingredients:
+                                missing_ingredients[ing_name] = []
+                            missing_ingredients[ing_name].append(relative_path)
+
                     summary = {
                         "path": relative_path,
                         "filename": os.path.splitext(file)[0],
@@ -75,6 +98,39 @@ def update_recipe_list():
                         all_tags.add(tag)
                 except Exception as e:
                     print(f"Error processing {file_path}: {e}")
+
+    # Check for missing ingredients
+    if missing_ingredients:
+        print("\n[ERROR] 發現未在 asset/nutrition.json 中的非標準食材！")
+        print("為了確保「食材標準化」與「熱量確定化」，請先將以下食材及其每 100g 熱量新增至 asset/nutrition.json：")
+        for ing_name, file_list in sorted(missing_ingredients.items()):
+            files_str = ", ".join(file_list[:2]) + ("..." if len(file_list) > 2 else "")
+            print(f"  * {ing_name} (見於: {files_str})")
+        print("\n請補齊 asset/nutrition.json 後再重新執行 update_recipes.py！\n")
+        sys.exit(1)
+
+    print("[OK] All ingredients in all recipes strictly match asset/nutrition.json!")
+
+    # --- 4. Synchronize js/nutrition.js with asset/nutrition.json ---
+    if os.path.exists(nutrition_js_path) and nutrition_db:
+        entries = []
+        for k in sorted(nutrition_db.keys()):
+            v = nutrition_db[k]
+            safe_k = k.replace("'", "\\'")
+            entries.append(f"        '{safe_k}': {v}")
+        db_str = ",\n".join(entries)
+        
+        with open(nutrition_js_path, 'r', encoding='utf-8') as f:
+            js_code = f.read()
+
+        new_js_code = re.sub(
+            r'const FOOD_CALORIE_DB = \{[\s\S]*?\};',
+            f'const FOOD_CALORIE_DB = {{\n{db_str}\n    }};',
+            js_code
+        )
+        with open(nutrition_js_path, 'w', encoding='utf-8') as f:
+            f.write(new_js_code)
+        print("Successfully synchronized asset/nutrition.json -> js/nutrition.js")
 
     # Sort recipes by category (directory name)
     recipe_summaries.sort(key=lambda x: x['path'])

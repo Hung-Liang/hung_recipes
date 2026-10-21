@@ -1,7 +1,7 @@
 // Use a self-contained closure to avoid polluting the global namespace.
 (function () {
     // Current application version (Sync with sw.js CACHE_NAME)
-    const APP_VERSION = "v1.5.1";
+    const APP_VERSION = "v1.6.0";
 
     // 1. Update Version Display IMMEDIATELY (Script is at bottom of body, so element should exist)
     try {
@@ -28,6 +28,14 @@
     const clearTagsButton = document.getElementById("clear-tags");
     const searchInput = document.getElementById("search-input");
     const categoryNav = document.getElementById("category-nav");
+    const caloriesPerServingEl = document.getElementById("calories-per-serving");
+    const caloriesTotalEl = document.getElementById("calories-total");
+    const caloriesCoverageBadge = document.getElementById("calories-coverage-badge");
+    const toggleCaloriesBtn = document.getElementById("toggle-calories-breakdown");
+    const caloriesBreakdownPanel = document.getElementById("calories-breakdown-panel");
+    const caloriesChevron = document.getElementById("calories-chevron");
+    const caloriesVisualBar = document.getElementById("calories-visual-bar");
+    const caloriesBreakdownList = document.getElementById("calories-breakdown-list");
 
     // Category mapping
     const CATEGORY_MAP = {
@@ -273,8 +281,9 @@
             const displayVal = formatQuantity(origQty * factor);
 
             li.innerHTML = `
-                <div class="flex-1 min-w-0 pr-1">
-                    <span class="text-gray-800 font-medium truncate block text-sm sm:text-base">${ing.name}</span>
+                <div class="flex-1 min-w-0 pr-1 flex items-center flex-wrap gap-x-2">
+                    <span class="ingredient-name text-gray-800 font-medium truncate text-sm sm:text-base">${ing.name}</span>
+                    <span class="ingredient-kcal-tag text-[11px] font-medium transition-colors"></span>
                 </div>
                 <div class="flex items-center space-x-2 shrink-0">
                     <input 
@@ -285,7 +294,7 @@
                         class="ingredient-input w-20 sm:w-24 px-2.5 py-1.5 text-right border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white transition-all shadow-sm" 
                         data-orig="${ing.quantity}"
                     >
-                    <span class="text-gray-500 text-xs sm:text-sm w-8 sm:w-10 shrink-0 text-left">${ing.unit}</span>
+                    <span class="ingredient-unit text-gray-500 text-xs sm:text-sm w-8 sm:w-10 shrink-0 text-left">${ing.unit}</span>
                     <label class="flex items-center space-x-1 cursor-pointer select-none text-xs text-gray-500 hover:text-gray-800 px-2 py-1.5 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 transition-colors shrink-0 shadow-sm" title="鎖定此食材份量（不隨份數變動，修改亦不影響其他欄位）">
                         <input type="checkbox" class="ingredient-lock rounded text-amber-600 focus:ring-amber-500 h-3.5 w-3.5 sm:h-4 sm:w-4 border-gray-300">
                         <span class="lock-icon text-sm leading-none opacity-40 grayscale hover:opacity-75 transition-opacity">🔒</span>
@@ -303,6 +312,7 @@
         });
 
         updateUnlockAllButtonVisibility();
+        updateCaloriesDisplay();
     }
 
     function handleIngredientInput(e) {
@@ -310,8 +320,9 @@
         const row = targetInput.closest("li");
         const lockCheckbox = row ? row.querySelector(".ingredient-lock") : null;
 
-        // 若已鎖定：變更此欄位不影響其他欄位，亦不改動份數
+        // 若已鎖定：變更此欄位不影響其他欄位，亦不改動份數，但熱量需即時重算
         if (lockCheckbox && lockCheckbox.checked) {
+            updateCaloriesDisplay();
             return;
         }
 
@@ -344,6 +355,8 @@
                 input.value = formatQuantity(orig * factor);
             }
         });
+
+        updateCaloriesDisplay();
     }
 
     function handleLockChange(e) {
@@ -395,6 +408,7 @@
         }
 
         updateUnlockAllButtonVisibility();
+        updateCaloriesDisplay();
     }
 
     function updateIngredientsFromServings() {
@@ -419,9 +433,135 @@
                 input.value = formatQuantity(orig * factor);
             }
         });
+
+        updateCaloriesDisplay();
+    }
+
+    function updateCaloriesDisplay() {
+        if (!window.NutritionCalculator || !recipeDetailIngredients) return;
+
+        const rows = recipeDetailIngredients.querySelectorAll("li");
+        const ingredientItems = [];
+
+        rows.forEach(row => {
+            const nameEl = row.querySelector(".ingredient-name");
+            const input = row.querySelector(".ingredient-input");
+            const unitEl = row.querySelector(".ingredient-unit");
+            const kcalTagEl = row.querySelector(".ingredient-kcal-tag");
+
+            const rawName = nameEl ? nameEl.textContent.trim() : "";
+            const qty = input ? (parseFloat(input.value) || 0) : 0;
+            const unit = unitEl ? unitEl.textContent.trim() : "g";
+
+            ingredientItems.push({
+                name: rawName,
+                quantity: qty,
+                unit: unit,
+                kcalTagEl: kcalTagEl
+            });
+        });
+
+        const baseServings = currentRecipe && currentRecipe.servings ? (parseFloat(currentRecipe.servings.quantity) || 1) : 1;
+        const currentServings = servingsInput ? (parseFloat(servingsInput.value) || baseServings) : baseServings;
+
+        const result = window.NutritionCalculator.calculate(ingredientItems, currentServings);
+
+        // 1. 更新主熱量與每份熱量
+        if (caloriesPerServingEl) {
+            caloriesPerServingEl.textContent = result.perServingCalories.toLocaleString();
+        }
+        if (caloriesTotalEl) {
+            caloriesTotalEl.textContent = result.totalCalories.toLocaleString();
+        }
+
+        // 2. 更新涵蓋率徽章
+        if (caloriesCoverageBadge) {
+            if (result.coveragePercent >= 98) {
+                caloriesCoverageBadge.textContent = "完整估算";
+                caloriesCoverageBadge.className = "text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-semibold border border-emerald-200/60";
+            } else {
+                caloriesCoverageBadge.textContent = `約 ${result.coveragePercent}% 涵蓋`;
+                caloriesCoverageBadge.className = "text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-semibold border border-amber-200/60";
+            }
+        }
+
+        // 3. 更新每一列食材上的個別熱量標籤
+        ingredientItems.forEach(item => {
+            if (!item.kcalTagEl) return;
+            const matchInfo = window.NutritionCalculator.findCaloriePer100(item.name);
+            if (matchInfo) {
+                const itemKcal = Math.round((item.quantity * matchInfo.kcalPer100) / 100);
+                if (matchInfo.kcalPer100 === 0) {
+                    item.kcalTagEl.textContent = "0 kcal";
+                    item.kcalTagEl.className = "ingredient-kcal-tag text-[11px] text-gray-400 font-normal ml-2";
+                } else {
+                    item.kcalTagEl.textContent = `~${itemKcal.toLocaleString()} kcal`;
+                    item.kcalTagEl.className = "ingredient-kcal-tag text-[11px] text-orange-600 font-medium ml-2";
+                }
+            } else {
+                item.kcalTagEl.textContent = "";
+            }
+        });
+
+        // 4. 更新明細面板（長條圖與清單）
+        if (caloriesVisualBar) {
+            caloriesVisualBar.innerHTML = "";
+            const colors = ["bg-orange-500", "bg-amber-400", "bg-yellow-400", "bg-emerald-400", "bg-sky-400", "bg-indigo-400"];
+            
+            const activeItems = result.items.filter(it => it.roundedKcal > 0);
+            activeItems.forEach((it, idx) => {
+                if (it.percentage <= 0) return;
+                const segment = document.createElement("div");
+                const colorClass = colors[idx % colors.length];
+                segment.className = `h-full ${colorClass} transition-all duration-300`;
+                segment.style.width = `${it.percentage}%`;
+                segment.title = `${it.name}: ${it.roundedKcal} kcal (${it.percentage}%)`;
+                caloriesVisualBar.appendChild(segment);
+            });
+        }
+
+        if (caloriesBreakdownList) {
+            caloriesBreakdownList.innerHTML = "";
+            const colors = ["bg-orange-500", "bg-amber-400", "bg-yellow-400", "bg-emerald-400", "bg-sky-400", "bg-indigo-400"];
+            
+            result.items.forEach((it, idx) => {
+                const li = document.createElement("li");
+                li.className = "flex items-center justify-between py-1 text-xs";
+                
+                const dotColor = it.roundedKcal > 0 ? colors[idx % colors.length] : "bg-gray-300";
+                const displayKcal = it.isKnown ? `${it.roundedKcal.toLocaleString()} kcal` : "未計入";
+                const percentText = it.isKnown && result.totalCalories > 0 ? `(${it.percentage}%)` : "";
+
+                li.innerHTML = `
+                    <div class="flex items-center space-x-2 min-w-0 pr-2">
+                        <span class="w-2 h-2 rounded-full ${dotColor} shrink-0"></span>
+                        <span class="text-gray-700 font-medium truncate">${it.name}</span>
+                        <span class="text-gray-400 text-[11px]">${it.quantity} ${it.unit}</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5 shrink-0">
+                        <span class="font-semibold ${it.roundedKcal > 0 ? 'text-gray-800' : 'text-gray-400'}">${displayKcal}</span>
+                        <span class="text-gray-400 text-[11px] w-10 text-right">${percentText}</span>
+                    </div>
+                `;
+                caloriesBreakdownList.appendChild(li);
+            });
+        }
     }
 
     function updateUnlockAllButtonVisibility() {
+        if (toggleCaloriesBtn && caloriesBreakdownPanel) {
+            toggleCaloriesBtn.addEventListener("click", () => {
+                const isHidden = caloriesBreakdownPanel.classList.toggle("hidden");
+                if (caloriesChevron) {
+                    if (isHidden) {
+                        caloriesChevron.classList.remove("rotate-180");
+                    } else {
+                        caloriesChevron.classList.add("rotate-180");
+                    }
+                }
+            });
+        }
+
         const unlockAllBtn = document.getElementById("unlock-all-ingredients");
         if (!unlockAllBtn || !recipeDetailIngredients) return;
         const anyLocked = Array.from(recipeDetailIngredients.querySelectorAll(".ingredient-lock")).some(cb => cb.checked);

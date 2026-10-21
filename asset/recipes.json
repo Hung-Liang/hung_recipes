@@ -8378,7 +8378,7 @@
             {
                 "name": "雞高湯（或水）",
                 "quantity": 60,
-                "ml": "ml"
+                "unit": "ml"
             },
             {
                 "name": "甜菊糖",
@@ -10272,7 +10272,7 @@
             {
                 "name": "醬油",
                 "quantity": 25,
-                "ml": "ml"
+                "unit": "ml"
             },
             {
                 "name": "砂糖",
@@ -10282,7 +10282,7 @@
             {
                 "name": "料理酒",
                 "quantity": 15,
-                "ml": "ml"
+                "unit": "ml"
             },
             {
                 "name": "味噌",
@@ -10292,7 +10292,7 @@
             {
                 "name": "味醂",
                 "quantity": 7.5,
-                "ml": "ml"
+                "unit": "ml"
             },
             {
                 "name": "無鹽奶油",

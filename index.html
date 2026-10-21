@@ -1,273 +1,656 @@
 <!DOCTYPE html>
+
 <html lang="zh-TW">
+
   <head>
+
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>我的食譜</title>
+
     <!-- Favicon -->
+
     <link rel="icon" type="image/png" href="asset/icon.png" />
+
     <!-- PWA Support -->
+
     <link rel="manifest" href="manifest.json" />
+
     <meta name="theme-color" content="#3b82f6" />
+
     <link rel="apple-touch-icon" href="asset/icon.png" />
+
     <meta name="mobile-web-app-capable" content="yes" />
+
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
     <meta name="apple-mobile-web-app-title" content="Hung的食譜" />
+
     <link rel="apple-touch-icon" href="asset/icon.png" />
+
     <!-- 載入外部 CSS 檔案，路徑已更新為 css/style.css -->
+
     <link rel="stylesheet" href="css/style.css" />
+
     <!-- 載入 Tailwind CSS CDN -->
+
     <script src="https://cdn.tailwindcss.com"></script>
+
   </head>
+
   <body class="bg-gray-100 text-gray-800">
+
     <div class="container py-8">
+
       <header class="text-center mb-12">
+
         <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+
           Hung的食譜
+
         </h1>
+
         <p class="text-lg text-gray-600">
+
           所有食譜都在這裡，點擊查看詳細內容！
+
         </p>
+
       </header>
 
+
+
       <!-- Search and Tags filter section -->
+
       <div class="mb-8 space-y-6">
+
         <!-- Search Bar -->
+
         <div class="relative max-w-xl mx-auto md:mx-0">
+
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+
             <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+
             </svg>
+
           </div>
+
           <input
+
             id="search-input"
+
             type="text"
+
             placeholder="搜尋食譜名稱、描述或標籤..."
+
             class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm shadow-sm transition-all"
+
           />
+
         </div>
+
+
 
         <!-- Category Navigation -->
+
         <div class="flex flex-col space-y-2">
+
           <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider">快速跳轉</h2>
+
           <div id="category-nav" class="flex flex-wrap gap-2">
+
             <!-- Category buttons will be injected here -->
+
           </div>
+
         </div>
+
+
 
         <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+
           <button
+
             id="toggle-tags"
+
             class="w-full flex items-center justify-between text-left focus:outline-none"
+
           >
+
             <div class="flex items-center space-x-2">
+
               <h2 class="text-xl font-bold text-gray-900">標籤篩選</h2>
+
               <span id="tag-count-badge" class="hidden bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full"></span>
+
             </div>
+
             <svg id="toggle-icon" class="h-6 w-6 text-gray-500 transform transition-transform duration-200 md:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+
             </svg>
+
           </button>
+
           
+
           <div id="tags-filter-section" class="hidden md:block mt-4 pt-4 border-t border-gray-100">
+
             <div id="tags-container" class="flex flex-wrap gap-2 mb-4">
+
               <!-- Tags will be injected here by JavaScript -->
+
             </div>
+
             <div class="text-sm text-gray-600 flex items-center flex-wrap gap-2">
+
               <span>已選擇標籤：</span>
+
               <span id="selected-tags" class="font-medium">無</span>
+
               <button
+
                 id="clear-tags"
+
                 class="text-blue-600 hover:text-blue-800 underline hidden"
+
               >
+
                 清除所有篩選
+
               </button>
+
             </div>
+
           </div>
+
         </div>
+
       </div>
+
+
 
       <!-- Recipe list section -->
-      <div
-        id="recipe-list-container"
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-      >
-        <!-- Skeleton placeholders -->
-        <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 animate-pulse">
-          <div class="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
-          <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
-          <div class="h-4 bg-gray-200 rounded w-5/6 mb-4"></div>
-          <div class="flex gap-2">
-            <div class="h-6 bg-gray-200 rounded-full w-12"></div>
-            <div class="h-6 bg-gray-200 rounded-full w-16"></div>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 animate-pulse hidden md:block">
-          <div class="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
-          <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
-          <div class="h-4 bg-gray-200 rounded w-5/6 mb-4"></div>
-          <div class="flex gap-2">
-            <div class="h-6 bg-gray-200 rounded-full w-12"></div>
-            <div class="h-6 bg-gray-200 rounded-full w-16"></div>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 animate-pulse hidden lg:block">
-          <div class="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
-          <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
-          <div class="h-4 bg-gray-200 rounded w-5/6 mb-4"></div>
-          <div class="flex gap-2">
-            <div class="h-6 bg-gray-200 rounded-full w-12"></div>
-            <div class="h-6 bg-gray-200 rounded-full w-16"></div>
-          </div>
-        </div>
-      </div>
 
       <div
-        id="recipe-detail-container"
-        class="hidden bg-white p-8 rounded-2xl shadow-xl border border-gray-200"
+
+        id="recipe-list-container"
+
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+
       >
+
+        <!-- Skeleton placeholders -->
+
+        <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 animate-pulse">
+
+          <div class="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
+
+          <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+
+          <div class="h-4 bg-gray-200 rounded w-5/6 mb-4"></div>
+
+          <div class="flex gap-2">
+
+            <div class="h-6 bg-gray-200 rounded-full w-12"></div>
+
+            <div class="h-6 bg-gray-200 rounded-full w-16"></div>
+
+          </div>
+
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 animate-pulse hidden md:block">
+
+          <div class="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
+
+          <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+
+          <div class="h-4 bg-gray-200 rounded w-5/6 mb-4"></div>
+
+          <div class="flex gap-2">
+
+            <div class="h-6 bg-gray-200 rounded-full w-12"></div>
+
+            <div class="h-6 bg-gray-200 rounded-full w-16"></div>
+
+          </div>
+
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 animate-pulse hidden lg:block">
+
+          <div class="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
+
+          <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+
+          <div class="h-4 bg-gray-200 rounded w-5/6 mb-4"></div>
+
+          <div class="flex gap-2">
+
+            <div class="h-6 bg-gray-200 rounded-full w-12"></div>
+
+            <div class="h-6 bg-gray-200 rounded-full w-16"></div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <div
+
+        id="recipe-detail-container"
+
+        class="hidden bg-white p-8 rounded-2xl shadow-xl border border-gray-200"
+
+      >
+
         <div class="flex justify-between items-center mb-6">
+
           <button
+
             id="back-button"
+
             class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-full transition-colors duration-200 flex items-center"
+
           >
+
             <svg
+
               xmlns="http://www.w3.org/2000/svg"
+
               class="h-5 w-5 mr-2"
+
               viewBox="0 0 20 20"
+
               fill="currentColor"
+
             >
+
               <path
+
                 fill-rule="evenodd"
+
                 d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z"
+
                 clip-rule="evenodd"
+
               />
+
             </svg>
+
             返回食譜清單
+
           </button>
+
           
+
           <button
+
             id="share-button"
+
             class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition-colors duration-200 flex items-center shadow-md"
+
           >
+
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+
             </svg>
+
             分享食譜
+
           </button>
+
         </div>
+
         <h2
+
           id="recipe-detail-name"
+
           class="text-3xl font-bold text-gray-900 mb-4"
+
         ></h2>
+
         <div id="recipe-detail-tags" class="flex flex-wrap gap-2 mb-4">
+
             <!-- Tags will be injected here -->
+
         </div>
+
         <p id="recipe-detail-description" class="text-gray-600 mb-6"></p>
 
-        <!-- Servings control section -->
-        <div class="mb-6 p-4 bg-gray-50 rounded-lg">
-          <div class="flex items-center space-x-4">
-            <label
-              for="servings-input"
-              class="text-lg font-semibold text-gray-700"
-              >份數：</label
-            >
-            <input
-              id="servings-input"
-              type="number"
-              min="0.1"
-              step="0.1"
-              class="appearance-none block w-20 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-            <span id="servings-unit" class="text-gray-600"></span>
+
+
+        <!-- Servings and Calories Dashboard -->
+
+        <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <!-- Servings control section -->
+
+          <div class="p-4 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between">
+
+            <div class="flex items-center space-x-3">
+
+              <label
+
+                for="servings-input"
+
+                class="text-base sm:text-lg font-semibold text-gray-700 whitespace-nowrap"
+
+                >份數：</label
+
+              >
+
+              <input
+
+                id="servings-input"
+
+                type="number"
+
+                min="0.1"
+
+                step="0.1"
+
+                class="appearance-none block w-20 px-3 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-base bg-white"
+
+              />
+
+              <span id="servings-unit" class="text-gray-600 font-medium"></span>
+
+            </div>
+
+            <span class="text-xs text-gray-400">可自由增減份數</span>
+
           </div>
+
+
+
+          <!-- Calories Summary Card -->
+
+          <div id="recipe-calories-card" class="p-4 bg-gradient-to-br from-amber-50/90 via-orange-50/60 to-amber-50/40 rounded-2xl border border-orange-200/80 flex flex-col justify-between shadow-sm">
+
+            <div class="flex items-center justify-between">
+
+              <div class="flex items-center space-x-2">
+
+                <span class="text-orange-500 text-base sm:text-lg">🔥</span>
+
+                <span class="text-xs sm:text-sm font-bold text-gray-800">估計熱量</span>
+
+                <span id="calories-coverage-badge" class="text-[10px] px-2 py-0.5 rounded-full bg-orange-100 text-orange-700 font-semibold border border-orange-200/60">計算中</span>
+
+              </div>
+
+              <button
+
+                id="toggle-calories-breakdown"
+
+                type="button"
+
+                class="text-xs text-orange-600 hover:text-orange-800 font-medium flex items-center space-x-1 transition-colors cursor-pointer"
+
+              >
+
+                <span>營養明細</span>
+
+                <svg id="calories-chevron" class="w-3.5 h-3.5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+
+                </svg>
+
+              </button>
+
+            </div>
+
+            
+
+            <div class="mt-2 flex items-baseline justify-between">
+
+              <div class="flex items-baseline space-x-1">
+
+                <span id="calories-per-serving" class="text-2xl sm:text-3xl font-extrabold text-orange-600 tracking-tight">--</span>
+
+                <span class="text-xs sm:text-sm font-medium text-gray-600">kcal / 份</span>
+
+              </div>
+
+              <div class="text-xs text-gray-500">
+
+                整道總計約 <span id="calories-total" class="font-bold text-gray-700">--</span> kcal
+
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
+
+
+
+        <!-- Calories breakdown expandable panel -->
+
+        <div id="calories-breakdown-panel" class="hidden mb-6 p-4 bg-orange-50/40 rounded-2xl border border-orange-100 transition-all">
+
+          <div class="flex items-center justify-between mb-2.5">
+
+            <h4 class="text-xs sm:text-sm font-bold text-gray-800 flex items-center gap-1.5">
+
+              <span>📊</span>
+
+              <span>食材熱量貢獻明細</span>
+
+            </h4>
+
+            <span class="text-[11px] text-gray-400">依卡路里排序（基準食材估算）</span>
+
+          </div>
+
+          <!-- Calorie distribution visual bar -->
+
+          <div id="calories-visual-bar" class="w-full h-2.5 bg-gray-200/80 rounded-full overflow-hidden flex mb-3">
+
+            <!-- Dynamic segmented bar -->
+
+          </div>
+
+          <!-- Calorie list -->
+
+          <ul id="calories-breakdown-list" class="space-y-1.5 text-xs text-gray-600 divide-y divide-orange-100/50">
+
+            <!-- Dynamic items -->
+
+          </ul>
+
+        </div>
+
+
 
         <!-- Ingredients and scaling UI -->
+
         <div class="mb-8">
+
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+
             <div class="flex items-center space-x-3">
+
               <h3 class="text-2xl font-bold text-gray-900">材料</h3>
+
               <button
+
                 id="unlock-all-ingredients"
+
                 type="button"
+
                 class="hidden text-xs text-blue-600 hover:text-blue-800 underline font-medium cursor-pointer"
+
               >
+
                 全部解鎖
+
               </button>
+
             </div>
+
             <span class="text-xs text-gray-500 bg-gray-50 border border-gray-200 px-2.5 py-1 rounded-full w-fit">
+
               💡 勾選 🔒 可自訂個別份量，不隨總份數變動
+
             </span>
+
           </div>
+
           <ul id="recipe-detail-ingredients" class="space-y-2.5">
+
             <!-- Ingredients will be injected here by JavaScript -->
+
           </ul>
+
         </div>
+
+
 
         <!-- Steps -->
+
         <div class="mb-8">
+
           <h3 class="text-2xl font-bold text-gray-900 mb-4">步驟</h3>
+
           <ol
+
             id="recipe-detail-steps"
+
             class="list-decimal list-inside space-y-2 text-gray-700"
+
           >
+
             <!-- Steps will be injected here by JavaScript -->
+
           </ol>
+
         </div>
+
+
 
         <!-- Important notes -->
+
         <div
+
           id="recipe-detail-notes-container"
+
           class="mt-8 pt-6 border-t border-gray-200"
+
         >
+
           <h3 class="text-2xl font-bold text-gray-900 mb-4">重要事項</h3>
+
           <ul
+
             id="recipe-detail-notes"
+
             class="list-disc list-inside space-y-2 text-gray-700"
+
           >
+
             <!-- Notes will be injected here by JavaScript -->
+
           </ul>
+
         </div>
+
       </div>
+
     </div>
 
+
+
     <footer class="mt-12 pb-8 text-center text-gray-400 text-xs">
+
       <p>© 2026 Hung's Recipes</p>
-      <p id="app-version" class="mt-1 text-gray-400">Version: v1.5.1</p>
+
+      <p id="app-version" class="mt-1 text-gray-400">Version: v1.6.0</p>
+
     </footer>
 
+
+
+    <script src="js/nutrition.js"></script>
+
     <script src="js/app.js"></script>
+
     <script>
+
       if ('serviceWorker' in navigator) {
+
         window.addEventListener('load', () => {
+
           navigator.serviceWorker.register('./sw.js').then(reg => {
+
             console.log('SW registered');
+
             
+
             // Monitor for updates
+
             reg.onupdatefound = () => {
+
               const installingWorker = reg.installing;
+
               installingWorker.onstatechange = () => {
+
                 if (installingWorker.state === 'installed') {
+
                   if (navigator.serviceWorker.controller) {
+
                     // New content is available, but the user must reload or we can auto-reload
+
                     console.log('New content is available; please refresh.');
+
                   }
+
                 }
+
               };
+
             };
+
           }).catch(err => console.log('SW registration failed', err));
+
         });
 
+
+
         // Refresh the page when the new service worker takes over
+
         let refreshing = false;
+
         navigator.serviceWorker.addEventListener('controllerchange', () => {
+
           if (refreshing) return;
+
           refreshing = true;
+
           window.location.reload();
+
         });
+
       }
+
     </script>
+
   </body>
+
 </html>
+
