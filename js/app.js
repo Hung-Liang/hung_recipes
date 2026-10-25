@@ -11,33 +11,53 @@
         console.error("Failed to set version:", e);
     }
 
-    // --- DOM References ---
-    const recipeListContainer = document.getElementById("recipe-list-container");
-    const recipeDetailContainer = document.getElementById("recipe-detail-container");
-    const recipeDetailName = document.getElementById("recipe-detail-name");
-    const recipeDetailDescription = document.getElementById("recipe-detail-description");
-    const recipeDetailIngredients = document.getElementById("recipe-detail-ingredients");
-    const recipeDetailSteps = document.getElementById("recipe-detail-steps");
-    const recipeDetailNotes = document.getElementById("recipe-detail-notes");
-    const recipeDetailNotesContainer = document.getElementById("recipe-detail-notes-container");
-    const backButton = document.getElementById("back-button");
-    const servingsInput = document.getElementById("servings-input");
-    const servingsUnit = document.getElementById("servings-unit");
-    const tagsContainer = document.getElementById("tags-container");
-    const selectedTagsSpan = document.getElementById("selected-tags");
-    const clearTagsButton = document.getElementById("clear-tags");
-    const searchInput = document.getElementById("search-input");
-    const categoryNav = document.getElementById("category-nav");
-    const caloriesPerServingEl = document.getElementById("calories-per-serving");
-    const caloriesTotalEl = document.getElementById("calories-total");
-    const caloriesCoverageBadge = document.getElementById("calories-coverage-badge");
-    const toggleCaloriesBtn = document.getElementById("toggle-calories-breakdown");
-    const caloriesBreakdownPanel = document.getElementById("calories-breakdown-panel");
-    const caloriesChevron = document.getElementById("calories-chevron");
-    const caloriesVisualBar = document.getElementById("calories-visual-bar");
-    const caloriesBreakdownList = document.getElementById("calories-breakdown-list");
+    const $ = (id) => document.getElementById(id);
 
-    // Category mapping
+    // --- DOM References ---
+    const listView = $("list-view");
+    const detailView = $("detail-view");
+    const listTitle = $("list-title");
+    const listSub = $("list-sub");
+    const recipeList = $("recipe-list");
+    const kcalHeader = $("kcal-header");
+    const sortKcalButton = $("sort-kcal");
+    const searchInput = $("search-input");
+    const tagsContainer = $("tags-container");
+    const tagsPanel = $("tags-panel");
+    const toggleTagsButton = $("toggle-tags");
+    const tagCountBadge = $("tag-count-badge");
+    const clearTagsButton = $("clear-tags");
+    const categoryNav = $("category-nav");
+    const sidebar = $("sidebar");
+    const menuButton = $("menu-button");
+    const menuClose = $("menu-close");
+    const topbarTitle = $("topbar-title");
+    const topbarBack = $("topbar-back");
+    const topbarShare = $("topbar-share");
+
+    const recipeDetailName = $("recipe-detail-name");
+    const recipeDetailDescription = $("recipe-detail-description");
+    const recipeDetailTags = $("recipe-detail-tags");
+    const detailCategory = $("detail-category");
+    const recipeDetailIngredients = $("recipe-detail-ingredients");
+    const recipeDetailSteps = $("recipe-detail-steps");
+    const stepsMeta = $("steps-meta");
+    const recipeDetailNotes = $("recipe-detail-notes");
+    const recipeDetailNotesContainer = $("recipe-detail-notes-container");
+    const servingsInput = $("servings-input");
+    const servingsUnit = $("servings-unit");
+    const servingsMinus = $("servings-minus");
+    const servingsPlus = $("servings-plus");
+    const caloriesPerServingEl = $("calories-per-serving");
+    const caloriesTotalEl = $("calories-total");
+    const caloriesCoverageEl = $("calories-coverage");
+    const caloriesMissingEl = $("calories-missing");
+    const ingredientsTotalEl = $("ingredients-total");
+    const unlockAllButton = $("release-locks");
+    const shareButton = $("share-button");
+    const toast = $("toast");
+
+    // Category mapping (folder name -> label), in nav order
     const CATEGORY_MAP = {
         'poultry': '家禽/雞肉',
         'meat': '肉類料理',
@@ -50,13 +70,27 @@
         'unsort': '待分類'
     };
 
+    // Tag groups for the filter panel; tags not listed here fall into 其他
+    const TAG_GROUPS = [
+        ["菜系", ["中式", "日式", "西式", "韓式", "港式"]],
+        ["食材", ["豬肉", "雞肉", "牛肉", "海鮮", "豆腐", "蔬食"]],
+        ["類型", ["主食", "澱粉", "點心", "甜點", "醬汁", "飲品", "紅燒", "煙燻"]],
+        ["工具", ["氣炸鍋", "電鍋", "烤箱"]],
+        ["飲食", ["高蛋白", "低碳", "懶人料理"]]
+    ];
+
     // State
     let currentRecipe = null;
-    let recipes = []; 
-    let recipeCache = new Map(); 
-    let allTags = new Set(); 
-    let selectedTags = new Set(); 
+    let recipes = [];
+    let recipeCache = new Map();
+    let allTags = new Set();
+    let selectedTags = new Set();
     let searchTerm = "";
+    let currentCategory = "";      // "" = all recipes
+    let kcalSort = "none";         // none | ascending | descending
+    let summariesState = "loading"; // loading | ready | error
+    const kcalByPath = new Map();
+    const doneSteps = new Map();   // path -> Set of step indexes marked done
 
     // Escape text before interpolating it into innerHTML templates
     function escapeHtml(value) {
@@ -68,21 +102,31 @@
             .replace(/'/g, "&#39;");
     }
 
+    const fmt = (n) => Number(n).toLocaleString("zh-TW");
+    const categoryOf = (path) => path.split('/')[0];
+    const categoryLabel = (cat) => CATEGORY_MAP[cat] || cat;
+
+    function showToast(message) {
+        if (!toast) return;
+        toast.textContent = message;
+        toast.hidden = false;
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => { toast.hidden = true; }, 2000);
+    }
+
+    // --- Data loading ---
     async function fetchRecipeSummaries() {
         const CACHE_KEY = "recipe_summaries_cache";
-        const cachedData = localStorage.getItem(CACHE_KEY);
+        let cachedData = null;
+        try { cachedData = localStorage.getItem(CACHE_KEY); } catch (e) { /* storage blocked */ }
         if (cachedData) {
             try {
                 const parsed = JSON.parse(cachedData);
                 if (parsed.recipes && parsed.recipes.length > 0) {
-                    recipes = parsed.recipes;
-                    allTags.clear();
-                    if (parsed.allTags) parsed.allTags.forEach(tag => allTags.add(tag));
-                    renderTags();
-                    renderRecipeList();
+                    applySummaries(parsed);
                 }
             } catch (e) {
-                localStorage.removeItem(CACHE_KEY);
+                try { localStorage.removeItem(CACHE_KEY); } catch (err) { /* ignore */ }
             }
         }
 
@@ -90,15 +134,20 @@
             const response = await fetch("asset/info.json", { cache: "no-cache" });
             if (!response.ok) throw new Error(`Fetch failed`);
             const data = await response.json();
-            recipes = data.recipes || [];
-            allTags.clear();
-            if (data.allTags) data.allTags.forEach(tag => allTags.add(tag));
-            localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-            renderTags();
-            renderRecipeList();
+            applySummaries(data);
+            try { localStorage.setItem(CACHE_KEY, JSON.stringify(data)); } catch (e) { /* ignore */ }
         } catch (error) {
             console.error(error);
+            if (summariesState !== "ready") summariesState = "error";
         }
+    }
+
+    function applySummaries(data) {
+        recipes = data.recipes || [];
+        allTags.clear();
+        if (data.allTags) data.allTags.forEach(tag => allTags.add(tag));
+        summariesState = "ready";
+        renderNav();
     }
 
     async function loadRecipeDetails(path) {
@@ -140,51 +189,79 @@
         return allRecipesPromise;
     }
 
-    function renderTags() {
-        if (!tagsContainer) return;
-        tagsContainer.innerHTML = "";
-        Array.from(allTags).sort().forEach((tag) => {
-            const btn = document.createElement("button");
-            btn.className = selectedTags.has(tag)
-                ? "px-3 py-1 text-sm rounded-full border-2 border-blue-500 bg-blue-500 text-white"
-                : "px-3 py-1 text-sm rounded-full border-2 border-gray-300 bg-white text-gray-700";
-            btn.textContent = tag;
-            btn.onclick = () => {
-                if (selectedTags.has(tag)) selectedTags.delete(tag);
-                else selectedTags.add(tag);
-                renderTags();
-                renderRecipeList();
-            };
-            tagsContainer.appendChild(btn);
+    // --- Calories ---
+    // One row per ingredient: kcal rounded as displayed, so totals are sums of what is on screen
+    function kcalRows(ingredients) {
+        const calc = window.NutritionCalculator;
+        return ingredients.map(ing => {
+            const qty = parseFloat(ing.quantity) || 0;
+            const match = calc ? calc.findCaloriePer100(ing.name) : null;
+            const ratio = calc ? calc.getCalorieRatio(ing) : 1;
+            if (!match) return { known: false, kcal: 0, ratio };
+            return { known: true, kcal: Math.round((qty * match.kcalPer100 * ratio) / 100), ratio };
         });
-        updateSelectedTagsDisplay();
     }
 
-    function updateSelectedTagsDisplay() {
-        const badge = document.getElementById("tag-count-badge");
-        if (selectedTags.size === 0) {
-            if (selectedTagsSpan) selectedTagsSpan.textContent = "無";
-            if (clearTagsButton) clearTagsButton.classList.add("hidden");
-            if (badge) badge.classList.add("hidden");
-        } else {
-            if (selectedTagsSpan) selectedTagsSpan.textContent = Array.from(selectedTags).join(", ");
-            if (clearTagsButton) clearTagsButton.classList.remove("hidden");
-            if (badge) {
-                badge.textContent = selectedTags.size;
-                badge.classList.remove("hidden");
-            }
+    function summarize(rows, servings) {
+        const total = rows.reduce((sum, r) => sum + r.kcal, 0);
+        const known = rows.filter(r => r.known).length;
+        const safeServings = servings > 0 ? servings : 1;
+        return { total, perServing: Math.round(total / safeServings), known, count: rows.length };
+    }
+
+    function recipeKcal(path) {
+        if (kcalByPath.has(path)) return kcalByPath.get(path);
+        const recipe = recipeCache.get(path);
+        if (!recipe || !window.NutritionCalculator) return null;
+        const servings = recipe.servings ? parseFloat(recipe.servings.quantity) || 1 : 1;
+        const info = summarize(kcalRows(recipe.ingredients || []), servings);
+        kcalByPath.set(path, info);
+        return info;
+    }
+
+    function kcalCell(path) {
+        if (!recipeCache.has(path)) {
+            return `<span class="skeleton" style="width: 4em"></span>`;
         }
+        const info = recipeKcal(path);
+        if (!info || info.known === 0) return `<span class="dash">–</span>`;
+        return `${fmt(info.perServing)}<small>kcal</small>`;
     }
 
-    function renderRecipeList() {
-        if (!recipeListContainer) return;
-        recipeListContainer.classList.remove("hidden");
-        if (recipeDetailContainer) recipeDetailContainer.classList.add("hidden");
-        recipeListContainer.innerHTML = "";
-        if (categoryNav) categoryNav.innerHTML = "";
-        
+    // --- Navigation ---
+    function renderNav() {
+        if (!categoryNav) return;
+        const present = new Set(recipes.map(r => categoryOf(r.path)));
+        const cats = [
+            ...Object.keys(CATEGORY_MAP).filter(cat => present.has(cat)),
+            ...[...present].filter(cat => !CATEGORY_MAP[cat])
+        ];
+        categoryNav.innerHTML = `<a class="nav-item" href="#/" data-cat="">全部食譜</a>` +
+            cats.map(cat => `<a class="nav-item" href="#/c/${encodeURIComponent(cat)}" data-cat="${escapeHtml(cat)}">${escapeHtml(categoryLabel(cat))}</a>`).join("");
+        updateNavCurrent();
+    }
+
+    function updateNavCurrent() {
+        if (!categoryNav) return;
+        const active = detailView && !detailView.hidden && currentRecipe ? categoryOf(currentRecipe.path) : currentCategory;
+        categoryNav.querySelectorAll(".nav-item").forEach(a => {
+            if (a.dataset.cat === active) a.setAttribute("aria-current", "page");
+            else a.removeAttribute("aria-current");
+        });
+    }
+
+    function setMenuOpen(open) {
+        if (!sidebar) return;
+        sidebar.classList.toggle("open", open);
+        if (menuButton) menuButton.setAttribute("aria-expanded", String(open));
+        if (open && menuClose) menuClose.focus();
+    }
+
+    // --- List screen ---
+    function filterRecipes({ ignoreTags = false } = {}) {
         let filtered = recipes;
-        if (selectedTags.size > 0) {
+        if (currentCategory) filtered = filtered.filter(r => categoryOf(r.path) === currentCategory);
+        if (!ignoreTags && selectedTags.size > 0) {
             filtered = filtered.filter(r => Array.from(selectedTags).every(t => r.tags && r.tags.includes(t)));
         }
         if (searchTerm) {
@@ -195,98 +272,180 @@
                 (r.tags || []).some(t => t.toLowerCase().includes(low))
             );
         }
+        return filtered;
+    }
 
-        if (filtered.length === 0) {
-            recipeListContainer.innerHTML = `<div class="col-span-full text-center py-8 text-gray-500">沒有找到符合條件的食譜</div>`;
+    function renderTags(filtered) {
+        if (!tagsContainer) return;
+        // Counts follow the view: how many of the recipes now listed carry each tag
+        const counts = new Map();
+        filtered.forEach(r => (r.tags || []).forEach(t => counts.set(t, (counts.get(t) || 0) + 1)));
+
+        const grouped = new Set(TAG_GROUPS.flatMap(([, tags]) => tags));
+        const others = Array.from(allTags).filter(t => !grouped.has(t)).sort();
+        const groups = [...TAG_GROUPS, ...(others.length ? [["其他", others]] : [])];
+
+        tagsContainer.innerHTML = groups.map(([label, tags]) => {
+            const present = tags.filter(t => allTags.has(t));
+            if (!present.length) return "";
+            return `<div class="tag-group" role="group" aria-label="${escapeHtml(label)}">
+                <span class="tag-group-label" aria-hidden="true">${escapeHtml(label)}</span>
+                <div class="tag-list">${present.map(tag => {
+                    const pressed = selectedTags.has(tag);
+                    const n = counts.get(tag) || 0;
+                    return `<button type="button" class="tag" data-tag="${escapeHtml(tag)}" aria-pressed="${pressed}" ${!pressed && n === 0 ? "disabled" : ""}>${escapeHtml(tag)}<span class="n">${n}</span></button>`;
+                }).join("")}</div>
+            </div>`;
+        }).join("");
+
+        const size = selectedTags.size;
+        if (clearTagsButton) clearTagsButton.hidden = size === 0;
+        if (tagCountBadge) {
+            tagCountBadge.hidden = size === 0;
+            tagCountBadge.textContent = size;
+        }
+    }
+
+    function recipeRow(r) {
+        // Each tag keeps its words together; the separator travels with the tag after it
+        const tagsHtml = (r.tags || []).map((t, i) => `<span class="tag-word">${i ? "· " : ""}${escapeHtml(t)}</span>`).join(" ");
+        const servings = r.servings || (recipeCache.get(r.path) || {}).servings;
+        const servingsText = servings
+            ? `${fmt(servings.quantity)}<small>${escapeHtml(servings.unit)}</small>`
+            : recipeCache.has(r.path) ? `<span class="dash">–</span>` : `<span class="skeleton" style="width: 3em"></span>`;
+        return `<tr class="recipe-row" data-path="${escapeHtml(r.path)}">
+            <td>
+                <a class="recipe-name" href="#recipe/${escapeHtml(r.path)}">${escapeHtml(r.name)}</a>
+                <span class="recipe-desc">${escapeHtml(r.description)}</span>
+                <span class="phone-meta">${tagsHtml}</span>
+            </td>
+            <td class="col-tags recipe-tags">${tagsHtml}</td>
+            <td class="n col-servings recipe-num">${servingsText}</td>
+            <td class="n col-kcal recipe-num">${kcalCell(r.path)}</td>
+        </tr>`;
+    }
+
+    function renderRecipeList() {
+        if (!recipeList) return;
+
+        const title = currentCategory ? categoryLabel(currentCategory) : "全部食譜";
+        if (listTitle) listTitle.textContent = title;
+        if (topbarTitle && listView && !listView.hidden) topbarTitle.textContent = "Hung的食譜";
+
+        if (summariesState === "loading") return; // keep the loading rows
+        if (summariesState === "error" && recipes.length === 0) {
+            if (listSub) listSub.textContent = "目前無法取得食譜清單";
+            recipeList.innerHTML = `<tr class="empty-row"><td colspan="4" class="empty-cell"><div class="empty"><span>無法載入食譜清單，請確認網路連線。</span><button type="button" class="card-link" data-action="retry">重試</button></div></td></tr>`;
             return;
         }
 
-        const groups = {};
-        filtered.forEach(r => {
-            const cat = r.path.split('/')[0];
-            if (!groups[cat]) groups[cat] = [];
-            groups[cat].push(r);
-        });
+        const filtered = filterRecipes();
+        renderTags(filtered);
 
-        const presentCats = Object.keys(groups);
-        const orderedCats = [
-            ...Object.keys(CATEGORY_MAP).filter(cat => groups[cat]),
-            ...presentCats.filter(cat => !CATEGORY_MAP[cat])
-        ];
-
-        orderedCats.forEach(cat => {
-            const catTitle = CATEGORY_MAP[cat] || cat;
-            const navBtn = document.createElement("button");
-            navBtn.className = "px-4 py-2 text-sm font-medium rounded-lg bg-white border border-gray-200 shadow-sm";
-            navBtn.textContent = catTitle;
-            navBtn.onclick = () => {
-                const el = document.getElementById(`section-${cat}`);
-                if (el) window.scrollTo({ top: el.offsetTop - 20, behavior: "smooth" });
-            };
-            if (categoryNav) categoryNav.appendChild(navBtn);
-
-            const header = document.createElement("div");
-            header.id = `section-${cat}`;
-            header.className = "col-span-full mt-8 mb-4 first:mt-0";
-            header.innerHTML = `<div class="flex items-center space-x-4"><h2 class="text-2xl font-bold text-gray-900">${escapeHtml(catTitle)}</h2><div class="flex-grow h-px bg-gray-200"></div></div>`;
-            recipeListContainer.appendChild(header);
-
-            groups[cat].forEach(r => {
-                const card = document.createElement("div");
-                card.className = "bg-white rounded-2xl shadow-lg p-6 border border-gray-200 cursor-pointer flex flex-col h-full";
-                
-                // Create tags HTML
-                const tagsHtml = r.tags ? r.tags.map(tag => 
-                    `<span class="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-full border border-gray-200">${escapeHtml(tag)}</span>`
-                ).join('') : '';
-
-                card.innerHTML = `
-                    <div class="flex-grow">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">${escapeHtml(r.name)}</h3>
-                        <p class="text-gray-600 line-clamp-2 text-sm mb-4">${escapeHtml(r.description)}</p>
-                    </div>
-                    <div class="flex flex-wrap gap-1 mt-auto">
-                        ${tagsHtml}
-                    </div>
-                `;
-                card.onclick = () => window.location.hash = `recipe/${r.path}`;
-                recipeListContainer.appendChild(card);
-            });
-        });
-    }
-
-    async function showRecipeDetail(path) {
-        if (!recipeDetailContainer) return;
-        recipeDetailName.textContent = "載入中...";
-        const recipe = await loadRecipeDetails(path);
-        if (!recipe) { window.location.hash = ""; return; }
-        currentRecipe = recipe;
-        if (recipeListContainer) recipeListContainer.classList.add("hidden");
-        recipeDetailContainer.classList.remove("hidden");
-        window.scrollTo(0, 0);
-
-        recipeDetailName.textContent = recipe.name;
-        
-        // Render Tags in Detail View
-        const detailTagsContainer = document.getElementById("recipe-detail-tags");
-        if (detailTagsContainer) {
-            detailTagsContainer.innerHTML = recipe.tags ? recipe.tags.map(tag => 
-                `<span class="px-3 py-1 bg-blue-50 text-blue-700 text-sm rounded-full border border-blue-200">${escapeHtml(tag)}</span>`
-            ).join('') : '';
+        const inScope = filterRecipes({ ignoreTags: true }).length;
+        const scopeTotal = currentCategory ? recipes.filter(r => categoryOf(r.path) === currentCategory).length : recipes.length;
+        const narrowed = selectedTags.size > 0 || searchTerm;
+        if (listSub) {
+            listSub.textContent = narrowed
+                ? `符合條件 ${fmt(filtered.length)} 道，共 ${fmt(scopeTotal)} 道`
+                : `${fmt(inScope)} 道食譜`;
         }
 
-        recipeDetailDescription.textContent = recipe.description;
+        if (kcalHeader) kcalHeader.setAttribute("aria-sort", kcalSort);
+
+        if (filtered.length === 0) {
+            recipeList.innerHTML = `<tr class="empty-row"><td colspan="4" class="empty-cell"><div class="empty"><span>沒有符合條件的食譜。</span><button type="button" class="card-link" data-action="clear-filters">清除搜尋與標籤</button></div></td></tr>`;
+            return;
+        }
+
+        if (kcalSort !== "none") {
+            const dir = kcalSort === "ascending" ? 1 : -1;
+            const value = (r) => {
+                const info = recipeCache.has(r.path) ? recipeKcal(r.path) : null;
+                return info && info.known > 0 ? info.perServing : null;
+            };
+            const sorted = [...filtered].sort((a, b) => {
+                const va = value(a), vb = value(b);
+                if (va === null && vb === null) return 0;
+                if (va === null) return 1; // unknown values last either way
+                if (vb === null) return -1;
+                return (va - vb) * dir;
+            });
+            recipeList.innerHTML = sorted.map(recipeRow).join("");
+            return;
+        }
+
+        // Grouped by category when listing every category
+        if (currentCategory) {
+            recipeList.innerHTML = filtered.map(recipeRow).join("");
+            return;
+        }
+        const groups = {};
+        filtered.forEach(r => {
+            const cat = categoryOf(r.path);
+            (groups[cat] = groups[cat] || []).push(r);
+        });
+        const orderedCats = [
+            ...Object.keys(CATEGORY_MAP).filter(cat => groups[cat]),
+            ...Object.keys(groups).filter(cat => !CATEGORY_MAP[cat])
+        ];
+        recipeList.innerHTML = orderedCats.map(cat =>
+            `<tr class="group-row"><th colspan="4" scope="colgroup"><h2>${escapeHtml(categoryLabel(cat))}</h2><span class="meta">${groups[cat].length} 道</span></th></tr>` +
+            groups[cat].map(recipeRow).join("")
+        ).join("");
+    }
+
+    function showList(category) {
+        currentCategory = category && (CATEGORY_MAP[category] || recipes.some(r => categoryOf(r.path) === category)) ? category : "";
+        currentRecipe = null;
+        if (detailView) detailView.hidden = true;
+        if (listView) listView.hidden = false;
+        if (topbarBack) topbarBack.hidden = true;
+        if (topbarShare) topbarShare.hidden = true;
+        if (menuButton) menuButton.hidden = false;
+        document.title = currentCategory ? `${categoryLabel(currentCategory)} · Hung的食譜` : "Hung的食譜";
+        renderRecipeList();
+        updateNavCurrent();
+    }
+
+    // --- Detail screen ---
+    async function showRecipeDetail(path) {
+        if (!detailView) return;
+        const recipe = await loadRecipeDetails(path);
+        if (!recipe) { window.location.hash = "#/"; return; }
+        currentRecipe = recipe;
+        if (listView) listView.hidden = true;
+        detailView.hidden = false;
+        if (topbarBack) topbarBack.hidden = false;
+        if (topbarShare) topbarShare.hidden = false;
+        if (menuButton) menuButton.hidden = true;
+        if (topbarTitle) topbarTitle.textContent = categoryLabel(categoryOf(path));
+        document.title = `${recipe.name} · Hung的食譜`;
+        window.scrollTo(0, 0);
+        updateNavCurrent();
+
+        const cat = categoryOf(path);
+        if (detailCategory) {
+            detailCategory.textContent = categoryLabel(cat);
+            detailCategory.href = `#/c/${encodeURIComponent(cat)}`;
+        }
+        recipeDetailName.textContent = recipe.name;
+        recipeDetailDescription.textContent = recipe.description || "";
+
+        // Tags link back to the list filtered by that tag
+        if (recipeDetailTags) {
+            recipeDetailTags.innerHTML = (recipe.tags || []).map(tag =>
+                `<a href="#/" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</a>`
+            ).join("");
+        }
+
         if (recipe.servings && servingsInput) {
             servingsInput.value = recipe.servings.quantity;
             servingsUnit.textContent = recipe.servings.unit;
         }
         renderIngredients();
-        recipeDetailSteps.innerHTML = "";
-        recipe.steps.forEach(s => {
-            const li = document.createElement("li");
-            li.textContent = s;
-            recipeDetailSteps.appendChild(li);
-        });
+        renderSteps();
+
         recipeDetailNotes.innerHTML = "";
         if (recipe.notes && recipe.notes.length > 0) {
             recipe.notes.forEach(n => {
@@ -294,10 +453,30 @@
                 li.textContent = n;
                 recipeDetailNotes.appendChild(li);
             });
-            recipeDetailNotesContainer.classList.remove("hidden");
+            recipeDetailNotesContainer.hidden = false;
         } else {
-            recipeDetailNotesContainer.classList.add("hidden");
+            recipeDetailNotesContainer.hidden = true;
         }
+    }
+
+    function renderSteps() {
+        if (!currentRecipe || !recipeDetailSteps) return;
+        const path = currentRecipe.path;
+        if (!doneSteps.has(path)) doneSteps.set(path, new Set());
+        const done = doneSteps.get(path);
+        recipeDetailSteps.innerHTML = currentRecipe.steps.map((s, i) =>
+            `<li><button type="button" class="step" data-step="${i}" aria-pressed="${done.has(i)}">
+                <span class="step-no">${i + 1}</span><span class="step-text">${escapeHtml(s)}</span>
+            </button></li>`
+        ).join("");
+        updateStepsMeta();
+    }
+
+    function updateStepsMeta() {
+        if (!stepsMeta || !currentRecipe) return;
+        const total = currentRecipe.steps.length;
+        const done = (doneSteps.get(currentRecipe.path) || new Set()).size;
+        stepsMeta.textContent = done > 0 ? `完成 ${done} / ${total} 步` : `${total} 步`;
     }
 
     function formatQuantity(num) {
@@ -306,63 +485,53 @@
         return rounded.toString();
     }
 
+    const LOCK_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>`;
+
+    function baseServings() {
+        return currentRecipe && currentRecipe.servings ? (parseFloat(currentRecipe.servings.quantity) || 1) : 1;
+    }
+
     function renderIngredients() {
         if (!currentRecipe || !recipeDetailIngredients) return;
-        const baseServings = currentRecipe.servings ? (parseFloat(currentRecipe.servings.quantity) || 1) : 1;
-        const currentServings = servingsInput ? (parseFloat(servingsInput.value) || baseServings) : baseServings;
-        const factor = currentServings / baseServings;
+        const base = baseServings();
+        const current = servingsInput ? (parseFloat(servingsInput.value) || base) : base;
+        const factor = current / base;
 
-        recipeDetailIngredients.innerHTML = "";
-        currentRecipe.ingredients.forEach((ing) => {
-            const li = document.createElement("li");
-            li.className = "flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors gap-2 sm:gap-4 border border-gray-100";
-            
-            const origQty = parseFloat(ing.quantity);
-            const displayVal = formatQuantity(origQty * factor);
-
-            li.innerHTML = `
-                <div class="flex-1 min-w-0 pr-1 flex items-center flex-wrap gap-x-2">
-                    <span class="ingredient-name text-gray-800 font-medium truncate text-sm sm:text-base">${escapeHtml(ing.name)}</span>
-                    ${ing.note ? `<span class="ingredient-note text-xs text-gray-400 truncate">${escapeHtml(ing.note)}</span>` : ""}
-                    <span class="ingredient-kcal-tag text-[11px] font-medium transition-colors"></span>
-                </div>
-                <div class="flex items-center space-x-2 shrink-0">
-                    <input 
-                        type="number" 
-                        step="any" 
-                        min="0"
-                        value="${displayVal}" 
-                        class="ingredient-input w-20 sm:w-24 px-2.5 py-1.5 text-right border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white transition-all shadow-sm" 
-                        data-orig="${escapeHtml(ing.quantity)}"
-                    >
-                    <span class="ingredient-unit text-gray-500 text-xs sm:text-sm w-8 sm:w-10 shrink-0 text-left">${escapeHtml(ing.unit)}</span>
-                    <label class="flex items-center space-x-1 cursor-pointer select-none text-xs text-gray-500 hover:text-gray-800 px-2 py-1.5 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 transition-colors shrink-0 shadow-sm" title="鎖定此食材份量（不隨份數變動，修改亦不影響其他欄位）">
-                        <input type="checkbox" class="ingredient-lock rounded text-amber-600 focus:ring-amber-500 h-3.5 w-3.5 sm:h-4 sm:w-4 border-gray-300">
-                        <span class="lock-icon text-sm leading-none opacity-40 grayscale hover:opacity-75 transition-opacity">🔒</span>
-                    </label>
-                </div>
-            `;
-
-            const input = li.querySelector(".ingredient-input");
-            const lockCheckbox = li.querySelector(".ingredient-lock");
-
-            input.addEventListener("input", handleIngredientInput);
-            lockCheckbox.addEventListener("change", handleLockChange);
-
-            recipeDetailIngredients.appendChild(li);
-        });
+        recipeDetailIngredients.innerHTML = currentRecipe.ingredients.map((ing, idx) => {
+            const displayVal = formatQuantity(parseFloat(ing.quantity) * factor);
+            const label = `${ing.name}${ing.note ? `（${ing.note}）` : ""}`;
+            return `<tr class="ing-row" data-index="${idx}">
+                <td>
+                    <span class="ing-name">${escapeHtml(ing.name)}</span>${ing.note ? `<span class="ing-note">${escapeHtml(ing.note)}</span>` : ""}
+                    <span class="share" aria-hidden="true"><i style="transform: scaleX(0)"></i></span>
+                </td>
+                <td class="n">
+                    <span class="qty">
+                        <input type="number" step="any" min="0" inputmode="decimal" class="qty-input" value="${displayVal}" data-orig="${escapeHtml(ing.quantity)}" aria-label="${escapeHtml(label)}的份量（${escapeHtml(ing.unit)}）">
+                        <span class="qty-unit">${escapeHtml(ing.unit)}</span>
+                    </span>
+                </td>
+                <td class="n kcal"></td>
+                <td class="col-lock">
+                    <button type="button" class="lock-btn" aria-pressed="false" aria-label="鎖定${escapeHtml(label)}的份量" title="鎖定：份量不隨份數變動">${LOCK_ICON}</button>
+                </td>
+            </tr>`;
+        }).join("");
 
         updateUnlockAllButtonVisibility();
         updateCaloriesDisplay();
     }
 
-    function handleIngredientInput(e) {
-        const targetInput = e.target;
-        const row = targetInput.closest("li");
-        const lockCheckbox = row ? row.querySelector(".ingredient-lock") : null;
+    function rowsOf() {
+        return Array.from(recipeDetailIngredients.querySelectorAll("tr.ing-row"));
+    }
+    const isLocked = (row) => row.classList.contains("locked");
+
+    function handleIngredientInput(targetInput) {
+        const row = targetInput.closest("tr");
 
         // 若已鎖定：變更此欄位不影響其他欄位，亦不改動份數，但熱量需即時重算
-        if (lockCheckbox && lockCheckbox.checked) {
+        if (row && isLocked(row)) {
             updateCaloriesDisplay();
             return;
         }
@@ -374,255 +543,225 @@
         }
 
         const factor = currentVal / origVal;
-        const baseServings = currentRecipe && currentRecipe.servings ? (parseFloat(currentRecipe.servings.quantity) || 1) : 1;
 
         // 同步更新份數顯示
         if (servingsInput) {
-            servingsInput.value = formatQuantity(baseServings * factor);
+            servingsInput.value = formatQuantity(baseServings() * factor);
         }
 
         // 更新其他「未鎖定」的食材
-        const rows = recipeDetailIngredients.querySelectorAll("li");
-        rows.forEach(r => {
-            const input = r.querySelector(".ingredient-input");
-            const lock = r.querySelector(".ingredient-lock");
-            if (!input || input === targetInput) return;
-
-            // 已鎖定的食材維持自訂值不隨之變動
-            if (lock && lock.checked) return;
-
+        rowsOf().forEach(r => {
+            const input = r.querySelector(".qty-input");
+            if (!input || input === targetInput || isLocked(r)) return;
             const orig = parseFloat(input.dataset.orig);
-            if (!isNaN(orig)) {
-                input.value = formatQuantity(orig * factor);
-            }
+            if (!isNaN(orig)) input.value = formatQuantity(orig * factor);
         });
 
         updateCaloriesDisplay();
     }
 
-    function handleLockChange(e) {
-        const checkbox = e.target;
-        const row = checkbox.closest("li");
-        if (!row) return;
-
-        const input = row.querySelector(".ingredient-input");
-        const iconSpan = row.querySelector(".lock-icon");
-        const labelEl = checkbox.closest("label");
-
-        if (checkbox.checked) {
-            // 啟用鎖定視覺效果
-            if (input) {
-                input.classList.add("bg-amber-50", "border-amber-400", "text-amber-900", "font-semibold", "ring-1", "ring-amber-300");
-                input.classList.remove("bg-white", "border-gray-300", "text-gray-800");
-                input.title = "已鎖定：變更此食材不影響其他欄位，亦不受份數變動影響";
-            }
-            if (labelEl) {
-                labelEl.classList.add("bg-amber-100", "border-amber-300", "text-amber-800", "font-medium");
-                labelEl.classList.remove("bg-white", "border-gray-200", "text-gray-500");
-            }
-            if (iconSpan) {
-                iconSpan.className = "lock-icon text-sm leading-none opacity-100";
-            }
-        } else {
-            // 解除鎖定視覺效果
-            if (input) {
-                input.classList.remove("bg-amber-50", "border-amber-400", "text-amber-900", "font-semibold", "ring-1", "ring-amber-300");
-                input.classList.add("bg-white", "border-gray-300", "text-gray-800");
-                input.removeAttribute("title");
-
-                // 解除鎖定時，自動根據當前份數重算該食材
-                const baseServings = currentRecipe && currentRecipe.servings ? (parseFloat(currentRecipe.servings.quantity) || 1) : 1;
-                const currentServings = servingsInput ? (parseFloat(servingsInput.value) || baseServings) : baseServings;
-                const factor = currentServings / baseServings;
-                const orig = parseFloat(input.dataset.orig);
-                if (!isNaN(orig) && !isNaN(factor)) {
-                    input.value = formatQuantity(orig * factor);
-                }
-            }
-            if (labelEl) {
-                labelEl.classList.remove("bg-amber-100", "border-amber-300", "text-amber-800", "font-medium");
-                labelEl.classList.add("bg-white", "border-gray-200", "text-gray-500");
-            }
-            if (iconSpan) {
-                iconSpan.className = "lock-icon text-sm leading-none opacity-40 grayscale hover:opacity-75 transition-opacity";
-            }
+    function setLocked(row, locked) {
+        const button = row.querySelector(".lock-btn");
+        const input = row.querySelector(".qty-input");
+        row.classList.toggle("locked", locked);
+        if (button) {
+            button.setAttribute("aria-pressed", String(locked));
+            button.title = locked ? "已鎖定：份量不隨份數變動" : "鎖定：份量不隨份數變動";
         }
-
-        updateUnlockAllButtonVisibility();
-        updateCaloriesDisplay();
+        if (!locked && input) {
+            // 解除鎖定時，自動根據當前份數重算該食材
+            const base = baseServings();
+            const current = servingsInput ? (parseFloat(servingsInput.value) || base) : base;
+            const orig = parseFloat(input.dataset.orig);
+            if (!isNaN(orig)) input.value = formatQuantity(orig * current / base);
+        }
     }
 
     function updateIngredientsFromServings() {
         if (!currentRecipe || !servingsInput || !recipeDetailIngredients) return;
-        const baseServings = currentRecipe.servings ? (parseFloat(currentRecipe.servings.quantity) || 1) : 1;
-        const currentServings = parseFloat(servingsInput.value);
-        if (isNaN(currentServings) || currentServings <= 0) return;
+        const current = parseFloat(servingsInput.value);
+        if (isNaN(current) || current <= 0) return;
+        const factor = current / baseServings();
 
-        const factor = currentServings / baseServings;
-
-        const rows = recipeDetailIngredients.querySelectorAll("li");
-        rows.forEach(row => {
-            const lockCheckbox = row.querySelector(".ingredient-lock");
-            const input = row.querySelector(".ingredient-input");
-            if (!lockCheckbox || !input) return;
-
+        rowsOf().forEach(row => {
             // 已鎖定的食材不隨份數變動！
-            if (lockCheckbox.checked) return;
-
+            if (isLocked(row)) return;
+            const input = row.querySelector(".qty-input");
             const orig = parseFloat(input.dataset.orig);
-            if (!isNaN(orig)) {
-                input.value = formatQuantity(orig * factor);
-            }
+            if (!isNaN(orig)) input.value = formatQuantity(orig * factor);
         });
 
         updateCaloriesDisplay();
     }
 
-    function updateCaloriesDisplay() {
-        if (!window.NutritionCalculator || !recipeDetailIngredients) return;
+    function stepServings(direction) {
+        if (!servingsInput || !currentRecipe) return;
+        const unit = currentRecipe.servings ? currentRecipe.servings.unit : "";
+        const step = unit === "g" ? 50 : 1;
+        const current = parseFloat(servingsInput.value) || baseServings();
+        // Snap to the step grid, never below one step
+        const next = direction > 0
+            ? Math.floor(current / step + 1e-9) * step + step
+            : Math.ceil(current / step - 1e-9) * step - step;
+        servingsInput.value = formatQuantity(Math.max(step, next));
+        updateIngredientsFromServings();
+    }
 
-        const rows = recipeDetailIngredients.querySelectorAll("li");
-        const ingredientItems = [];
+    function updateCaloriesDisplay() {
+        if (!currentRecipe || !recipeDetailIngredients) return;
+        const rows = rowsOf();
+        const items = rows.map((row, idx) => {
+            const source = currentRecipe.ingredients[idx] || {};
+            const input = row.querySelector(".qty-input");
+            return { name: source.name, calorieRatio: source.calorieRatio, quantity: input ? (parseFloat(input.value) || 0) : 0 };
+        });
+        const kcal = kcalRows(items);
+        const current = servingsInput ? (parseFloat(servingsInput.value) || baseServings()) : baseServings();
+        const info = summarize(kcal, current);
 
         rows.forEach((row, idx) => {
-            const nameEl = row.querySelector(".ingredient-name");
-            const input = row.querySelector(".ingredient-input");
-            const unitEl = row.querySelector(".ingredient-unit");
-            const kcalTagEl = row.querySelector(".ingredient-kcal-tag");
-
-            const rawName = nameEl ? nameEl.textContent.trim() : "";
-            const qty = input ? (parseFloat(input.value) || 0) : 0;
-            const unit = unitEl ? unitEl.textContent.trim() : "g";
-
-            const sourceIng = currentRecipe && currentRecipe.ingredients ? currentRecipe.ingredients[idx] : null;
-
-            ingredientItems.push({
-                name: rawName,
-                note: sourceIng ? sourceIng.note : undefined,
-                quantity: qty,
-                unit: unit,
-                calorieRatio: sourceIng ? sourceIng.calorieRatio : undefined,
-                kcalTagEl: kcalTagEl
-            });
+            const k = kcal[idx];
+            const cell = row.querySelector(".kcal");
+            const bar = row.querySelector(".share i");
+            if (cell) {
+                if (!k.known) cell.innerHTML = `<span class="dash" title="尚無熱量資料">–</span>`;
+                else cell.innerHTML = `${fmt(k.kcal)}${k.ratio < 1 ? `<span class="kcal-sub">計入 ${Math.round(k.ratio * 100)}%</span>` : ""}`;
+            }
+            if (bar) bar.style.transform = `scaleX(${info.total > 0 && k.known ? k.kcal / info.total : 0})`;
         });
 
-        const baseServings = currentRecipe && currentRecipe.servings ? (parseFloat(currentRecipe.servings.quantity) || 1) : 1;
-        const currentServings = servingsInput ? (parseFloat(servingsInput.value) || baseServings) : baseServings;
-
-        const result = window.NutritionCalculator.calculate(ingredientItems, currentServings);
-
-        // 1. 更新主熱量與每份熱量
-        if (caloriesPerServingEl) {
-            caloriesPerServingEl.textContent = result.perServingCalories.toLocaleString();
-        }
-        if (caloriesTotalEl) {
-            caloriesTotalEl.textContent = result.totalCalories.toLocaleString();
-        }
-
-        // 2. 更新涵蓋率徽章
-        if (caloriesCoverageBadge) {
-            if (result.coveragePercent >= 98) {
-                caloriesCoverageBadge.textContent = "完整估算";
-                caloriesCoverageBadge.className = "text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-semibold border border-emerald-200/60";
-            } else {
-                caloriesCoverageBadge.textContent = `約 ${result.coveragePercent}% 涵蓋`;
-                caloriesCoverageBadge.className = "text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-semibold border border-amber-200/60";
-            }
-        }
-
-        // 3. 更新每一列食材上的個別熱量標籤
-        ingredientItems.forEach(item => {
-            if (!item.kcalTagEl) return;
-            const matchInfo = window.NutritionCalculator.findCaloriePer100(item.name);
-            if (matchInfo) {
-                const ratio = window.NutritionCalculator.getCalorieRatio(item);
-                const itemKcal = Math.round((item.quantity * matchInfo.kcalPer100 * ratio) / 100);
-                if (matchInfo.kcalPer100 === 0) {
-                    item.kcalTagEl.textContent = "0 kcal";
-                    item.kcalTagEl.className = "ingredient-kcal-tag text-[11px] text-gray-400 font-normal ml-2";
-                } else {
-                    item.kcalTagEl.textContent = ratio < 1
-                        ? `~${itemKcal.toLocaleString()} kcal（計入 ${Math.round(ratio * 100)}%）`
-                        : `~${itemKcal.toLocaleString()} kcal`;
-                    item.kcalTagEl.className = "ingredient-kcal-tag text-[11px] text-orange-600 font-medium ml-2";
-                }
-            } else {
-                item.kcalTagEl.textContent = "";
-            }
-        });
-
-        // 4. 更新明細面板（長條圖與清單）
-        if (caloriesVisualBar) {
-            caloriesVisualBar.innerHTML = "";
-            const colors = ["bg-orange-500", "bg-amber-400", "bg-yellow-400", "bg-emerald-400", "bg-sky-400", "bg-indigo-400"];
-            
-            const activeItems = result.items.filter(it => it.roundedKcal > 0);
-            activeItems.forEach((it, idx) => {
-                if (it.percentage <= 0) return;
-                const segment = document.createElement("div");
-                const colorClass = colors[idx % colors.length];
-                segment.className = `h-full ${colorClass} transition-all duration-300`;
-                segment.style.width = `${it.percentage}%`;
-                segment.title = `${it.name}: ${it.roundedKcal} kcal (${it.percentage}%)`;
-                caloriesVisualBar.appendChild(segment);
-            });
-        }
-
-        if (caloriesBreakdownList) {
-            caloriesBreakdownList.innerHTML = "";
-            const colors = ["bg-orange-500", "bg-amber-400", "bg-yellow-400", "bg-emerald-400", "bg-sky-400", "bg-indigo-400"];
-            
-            result.items.forEach((it, idx) => {
-                const li = document.createElement("li");
-                li.className = "flex items-center justify-between py-1 text-xs";
-                
-                const dotColor = it.roundedKcal > 0 ? colors[idx % colors.length] : "bg-gray-300";
-                const displayKcal = it.isKnown ? `${it.roundedKcal.toLocaleString()} kcal` : "未計入";
-                const percentText = it.isKnown && result.totalCalories > 0 ? `(${it.percentage}%)` : "";
-
-                li.innerHTML = `
-                    <div class="flex items-center space-x-2 min-w-0 pr-2">
-                        <span class="w-2 h-2 rounded-full ${dotColor} shrink-0"></span>
-                        <span class="text-gray-700 font-medium truncate">${escapeHtml(it.name)}${it.note ? `<span class="text-gray-400 font-normal">（${escapeHtml(it.note)}）</span>` : ""}</span>
-                        <span class="text-gray-400 text-[11px]">${escapeHtml(it.quantity)} ${escapeHtml(it.unit)}${it.calorieRatio < 1 ? `（計入 ${Math.round(it.calorieRatio * 100)}%）` : ""}</span>
-                    </div>
-                    <div class="flex items-center space-x-1.5 shrink-0">
-                        <span class="font-semibold ${it.roundedKcal > 0 ? 'text-gray-800' : 'text-gray-400'}">${displayKcal}</span>
-                        <span class="text-gray-400 text-[11px] w-10 text-right">${percentText}</span>
-                    </div>
-                `;
-                caloriesBreakdownList.appendChild(li);
-            });
+        const hasData = info.known > 0;
+        if (caloriesPerServingEl) caloriesPerServingEl.textContent = hasData ? fmt(info.perServing) : "–";
+        if (caloriesTotalEl) caloriesTotalEl.textContent = hasData ? fmt(info.total) : "–";
+        if (ingredientsTotalEl) ingredientsTotalEl.textContent = hasData ? fmt(info.total) : "–";
+        if (caloriesCoverageEl) caloriesCoverageEl.innerHTML = `${info.known}<small>/ ${info.count} 項</small>`;
+        if (caloriesMissingEl) {
+            const missing = currentRecipe.ingredients.filter((_, idx) => !kcal[idx].known).map(i => i.name);
+            caloriesMissingEl.textContent = missing.length ? `未計入：${missing.join("、")}` : "全部計入";
+            caloriesMissingEl.title = caloriesMissingEl.textContent;
         }
     }
 
     function updateUnlockAllButtonVisibility() {
-        const unlockAllBtn = document.getElementById("unlock-all-ingredients");
-        if (!unlockAllBtn || !recipeDetailIngredients) return;
-        const anyLocked = Array.from(recipeDetailIngredients.querySelectorAll(".ingredient-lock")).some(cb => cb.checked);
-        if (anyLocked) {
-            unlockAllBtn.classList.remove("hidden");
-        } else {
-            unlockAllBtn.classList.add("hidden");
-        }
+        if (!unlockAllButton || !recipeDetailIngredients) return;
+        unlockAllButton.hidden = !rowsOf().some(isLocked);
     }
 
-    function unlockAllIngredients() {
-        if (!recipeDetailIngredients) return;
-        const checkboxes = recipeDetailIngredients.querySelectorAll(".ingredient-lock");
-        checkboxes.forEach(cb => {
-            if (cb.checked) {
-                cb.checked = false;
-                cb.dispatchEvent(new Event("change"));
-            }
-        });
+    async function shareCurrentRecipe(button) {
+        if (!currentRecipe) return;
+        const data = { title: `Hung的食譜 - ${currentRecipe.name}`, url: window.location.href };
+        if (navigator.share) {
+            await navigator.share(data).catch(() => {});
+            return;
+        }
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            showToast("已複製食譜連結");
+        } catch (e) {
+            showToast("無法複製連結");
+        }
     }
 
     function handleRouting() {
         const hash = window.location.hash;
-        if (hash.startsWith("#recipe/")) showRecipeDetail(hash.substring(8));
-        else renderRecipeList();
+        setMenuOpen(false);
+        if (hash.startsWith("#recipe/")) showRecipeDetail(decodeURIComponent(hash.substring(8)));
+        else if (hash.startsWith("#/c/")) showList(decodeURIComponent(hash.substring(4)));
+        else showList("");
     }
+
+    // --- Events ---
+    if (searchInput) searchInput.addEventListener("input", (e) => { searchTerm = e.target.value.trim(); renderRecipeList(); });
+
+    if (tagsContainer) tagsContainer.addEventListener("click", (e) => {
+        const btn = e.target.closest(".tag");
+        if (!btn || btn.disabled) return;
+        const tag = btn.dataset.tag;
+        if (selectedTags.has(tag)) selectedTags.delete(tag);
+        else selectedTags.add(tag);
+        renderRecipeList();
+        const again = tagsContainer.querySelector(`.tag[data-tag="${CSS.escape(tag)}"]`);
+        if (again) again.focus();
+    });
+
+    if (clearTagsButton) clearTagsButton.addEventListener("click", () => { selectedTags.clear(); renderRecipeList(); });
+
+    if (toggleTagsButton && tagsPanel) toggleTagsButton.addEventListener("click", () => {
+        const open = tagsPanel.classList.toggle("open");
+        toggleTagsButton.setAttribute("aria-expanded", String(open));
+    });
+
+    if (recipeList) recipeList.addEventListener("click", (e) => {
+        const action = e.target.closest("[data-action]");
+        if (action && action.dataset.action === "clear-filters") {
+            selectedTags.clear();
+            searchTerm = "";
+            if (searchInput) searchInput.value = "";
+            renderRecipeList();
+            return;
+        }
+        if (action && action.dataset.action === "retry") {
+            summariesState = "loading";
+            fetchRecipeSummaries().then(renderRecipeList);
+        }
+    });
+
+    if (sortKcalButton) sortKcalButton.addEventListener("click", () => {
+        kcalSort = kcalSort === "none" ? "ascending" : kcalSort === "ascending" ? "descending" : "none";
+        renderRecipeList();
+    });
+
+    if (recipeDetailTags) recipeDetailTags.addEventListener("click", (e) => {
+        const a = e.target.closest("a[data-tag]");
+        if (!a) return;
+        selectedTags = new Set([a.dataset.tag]);
+        searchTerm = "";
+        if (searchInput) searchInput.value = "";
+    });
+
+    if (recipeDetailIngredients) {
+        recipeDetailIngredients.addEventListener("input", (e) => {
+            if (e.target.classList.contains("qty-input")) handleIngredientInput(e.target);
+        });
+        recipeDetailIngredients.addEventListener("click", (e) => {
+            const btn = e.target.closest(".lock-btn");
+            if (!btn) return;
+            const row = btn.closest("tr");
+            setLocked(row, !isLocked(row));
+            updateUnlockAllButtonVisibility();
+            updateCaloriesDisplay();
+        });
+    }
+
+    if (unlockAllButton) unlockAllButton.addEventListener("click", () => {
+        rowsOf().filter(isLocked).forEach(row => setLocked(row, false));
+        updateUnlockAllButtonVisibility();
+        updateCaloriesDisplay();
+    });
+
+    if (recipeDetailSteps) recipeDetailSteps.addEventListener("click", (e) => {
+        const btn = e.target.closest(".step");
+        if (!btn || !currentRecipe) return;
+        const done = doneSteps.get(currentRecipe.path);
+        const i = Number(btn.dataset.step);
+        if (done.has(i)) done.delete(i); else done.add(i);
+        btn.setAttribute("aria-pressed", String(done.has(i)));
+        updateStepsMeta();
+    });
+
+    if (servingsInput) servingsInput.addEventListener("input", updateIngredientsFromServings);
+    if (servingsMinus) servingsMinus.addEventListener("click", () => stepServings(-1));
+    if (servingsPlus) servingsPlus.addEventListener("click", () => stepServings(1));
+    if (shareButton) shareButton.addEventListener("click", () => shareCurrentRecipe(shareButton));
+    if (topbarShare) topbarShare.addEventListener("click", () => shareCurrentRecipe(topbarShare));
+    if (menuButton) menuButton.addEventListener("click", () => setMenuOpen(true));
+    if (menuClose) menuClose.addEventListener("click", () => { setMenuOpen(false); if (menuButton) menuButton.focus(); });
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && sidebar && sidebar.classList.contains("open")) {
+            setMenuOpen(false);
+            if (menuButton) menuButton.focus();
+        }
+    });
 
     // --- Initialization ---
     document.addEventListener("DOMContentLoaded", async () => {
@@ -630,59 +769,15 @@
         const versionEl = document.getElementById("app-version");
         if (versionEl) versionEl.textContent = `Version: ${APP_VERSION}`;
 
-        const toggleBtn = document.getElementById("toggle-tags");
-        const tagsSection = document.getElementById("tags-filter-section");
-        const toggleIcon = document.getElementById("toggle-icon");
-        const shareBtn = document.getElementById("share-button");
-
-        if (toggleBtn && tagsSection && toggleIcon) {
-            toggleBtn.onclick = () => {
-                const isHidden = tagsSection.classList.toggle("hidden");
-                if (isHidden) {
-                    toggleIcon.classList.remove("rotate-180");
-                    toggleIcon.classList.remove("md:rotate-180");
-                } else {
-                    toggleIcon.classList.add("rotate-180");
-                }
-            };
-        }
-
-        if (shareBtn) {
-            shareBtn.onclick = async () => {
-                if (!currentRecipe) return;
-                const data = { title: `Hung的食譜 - ${currentRecipe.name}`, url: window.location.href };
-                if (navigator.share) await navigator.share(data).catch(() => {});
-                else {
-                    await navigator.clipboard.writeText(window.location.href);
-                    const origText = shareBtn.innerHTML;
-                    shareBtn.innerHTML = "已複製網址";
-                    setTimeout(() => shareBtn.innerHTML = origText, 2000);
-                }
-            };
-        }
-
-        if (toggleCaloriesBtn && caloriesBreakdownPanel) {
-            toggleCaloriesBtn.addEventListener("click", () => {
-                const isHidden = caloriesBreakdownPanel.classList.toggle("hidden");
-                if (caloriesChevron) caloriesChevron.classList.toggle("rotate-180", !isHidden);
-            });
-        }
-
-        const unlockAllBtn = document.getElementById("unlock-all-ingredients");
-        if (unlockAllBtn) unlockAllBtn.onclick = unlockAllIngredients;
-
-        if (clearTagsButton) clearTagsButton.onclick = () => { selectedTags.clear(); renderTags(); renderRecipeList(); };
-        if (searchInput) searchInput.oninput = (e) => { searchTerm = e.target.value; renderRecipeList(); };
-        if (backButton) backButton.onclick = () => window.location.hash = "";
-
         await Promise.all([
             fetchRecipeSummaries(),
             window.NutritionCalculator ? window.NutritionCalculator.load() : null
         ]);
         handleRouting();
-        loadAllRecipes();
+        // The bundle fills the kcal column and makes every recipe available offline
+        await loadAllRecipes();
+        if (listView && !listView.hidden) renderRecipeList();
     });
 
     window.addEventListener("hashchange", handleRouting);
-    if (servingsInput) servingsInput.addEventListener("input", updateIngredientsFromServings);
 })();

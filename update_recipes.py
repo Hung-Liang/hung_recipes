@@ -130,7 +130,7 @@ def update_recipe_list():
         if os.path.exists(index_path):
             with open(index_path, 'r', encoding='utf-8') as f:
                 content = f.read()
-            new_content = re.sub(r'id="app-version".*?>Version: v[\d\.]+<', f'id="app-version" class="mt-1 text-gray-400">Version: {version}<', content)
+            new_content = re.sub(r'(id="app-version"[^>]*>Version: )v[\d\.]+<', rf'\g<1>{version}<', content)
             with open(index_path, 'w', encoding='utf-8') as f:
                 f.write(new_content)
 
