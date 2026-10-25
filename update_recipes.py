@@ -8,15 +8,13 @@ def update_recipe_list():
     Dynamically updates asset/recipes.json and asset/info.json by recursively
     scanning the recipes directory for JSON files.
     Also synchronizes application version, standardizes ingredients,
-    validates that all ingredients exist in asset/nutrition.json,
-    and synchronizes js/nutrition.js.
+    and validates that all ingredients exist in asset/nutrition.json.
     """
     script_dir = os.path.dirname(os.path.abspath(__file__))
     recipes_dir = os.path.join(script_dir, 'recipes')
     recipes_output_path = os.path.join(script_dir, 'asset', 'recipes.json')
     info_path = os.path.join(script_dir, 'asset', 'info.json')
     nutrition_path = os.path.join(script_dir, 'asset', 'nutrition.json')
-    nutrition_js_path = os.path.join(script_dir, 'js', 'nutrition.js')
 
     # --- 1. Version Synchronization ---
     sw_path = os.path.join(script_dir, 'sw.js')
@@ -111,26 +109,18 @@ def update_recipe_list():
 
     print("[OK] All ingredients in all recipes strictly match asset/nutrition.json!")
 
-    # --- 4. Synchronize js/nutrition.js with asset/nutrition.json ---
-    if os.path.exists(nutrition_js_path) and nutrition_db:
-        entries = []
-        for k in sorted(nutrition_db.keys()):
-            v = nutrition_db[k]
-            safe_k = k.replace("'", "\\'")
-            entries.append(f"        '{safe_k}': {v}")
-        db_str = ",\n".join(entries)
-        
-        with open(nutrition_js_path, 'r', encoding='utf-8') as f:
-            js_code = f.read()
+    # --- 4. Report ingredients whose calorie value is still unknown (null) ---
+    invalid_values = {k: v for k, v in nutrition_db.items()
+                      if v is not None and (not isinstance(v, (int, float)) or isinstance(v, bool) or v < 0)}
+    if invalid_values:
+        print("\n[ERROR] asset/nutrition.json 中有無效的熱量數值（須為 >= 0 的數字或 null）：")
+        for k, v in sorted(invalid_values.items()):
+            print(f"  * {k}: {v!r}")
+        sys.exit(1)
 
-        new_js_code = re.sub(
-            r'const FOOD_CALORIE_DB = \{[\s\S]*?\};',
-            f'const FOOD_CALORIE_DB = {{\n{db_str}\n    }};',
-            js_code
-        )
-        with open(nutrition_js_path, 'w', encoding='utf-8') as f:
-            f.write(new_js_code)
-        print("Successfully synchronized asset/nutrition.json -> js/nutrition.js")
+    unknown_kcal = sorted(k for k, v in nutrition_db.items() if v is None)
+    if unknown_kcal:
+        print(f"[WARN] {len(unknown_kcal)} 項食材尚未建立熱量資料 (null)：{', '.join(unknown_kcal[:10])}{' ...' if len(unknown_kcal) > 10 else ''}")
 
     # Sort recipes by category (directory name)
     recipe_summaries.sort(key=lambda x: x['path'])

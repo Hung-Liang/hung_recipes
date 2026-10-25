@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-recipes-v1.7.0'; // Update this version string when deploying changes
+const CACHE_NAME = 'my-recipes-v1.8.0'; // Update this version string when deploying changes
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -49,7 +49,7 @@ self.addEventListener('fetch', (event) => {
 
   // Network-First for recipe summaries and individual recipe JSON
   // Always attempts to fetch freshest data from network; falls back to cache when offline
-  if (url.pathname.includes('asset/info.json') || url.pathname.includes('asset/recipes.json') || url.pathname.includes('/recipes/')) {
+  if (url.pathname.includes('asset/info.json') || url.pathname.includes('asset/nutrition.json') || url.pathname.includes('asset/recipes.json') || url.pathname.includes('/recipes/')) {
     event.respondWith(
       fetch(event.request)
         .then((fetchResponse) => {

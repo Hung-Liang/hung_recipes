@@ -1,7 +1,7 @@
 // Use a self-contained closure to avoid polluting the global namespace.
 (function () {
     // Current application version (Sync with sw.js CACHE_NAME)
-    const APP_VERSION = "v1.7.0";
+    const APP_VERSION = "v1.8.0";
 
     // 1. Update Version Display IMMEDIATELY (Script is at bottom of body, so element should exist)
     try {
@@ -667,7 +667,10 @@
         if (searchInput) searchInput.oninput = (e) => { searchTerm = e.target.value; renderRecipeList(); };
         if (backButton) backButton.onclick = () => window.location.hash = "";
 
-        await fetchRecipeSummaries();
+        await Promise.all([
+            fetchRecipeSummaries(),
+            window.NutritionCalculator ? window.NutritionCalculator.load() : null
+        ]);
         handleRouting();
         loadAllRecipes();
     });

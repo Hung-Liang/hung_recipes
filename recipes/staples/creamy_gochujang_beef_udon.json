@@ -50,7 +50,7 @@
         {
             "name": "雞高湯（或水）",
             "quantity": 60,
-            "ml": "ml"
+            "unit": "ml"
         },
         {
             "name": "甜菊糖",
