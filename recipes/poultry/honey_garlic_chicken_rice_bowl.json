@@ -12,9 +12,10 @@
     ],
     "ingredients": [
         {
-            "name": "無骨雞腿肉，切丁",
+            "name": "無骨雞腿肉",
             "quantity": 1100,
-            "unit": "g"
+            "unit": "g",
+            "note": "切丁"
         },
         {
             "name": "鹽",
@@ -57,9 +58,10 @@
             "unit": "ml"
         },
         {
-            "name": "優格（原味或希臘優格）",
+            "name": "優格",
             "quantity": 80,
-            "unit": "g"
+            "unit": "g",
+            "note": "原味或希臘優格"
         },
         {
             "name": "蜂蜜",
@@ -67,19 +69,22 @@
             "unit": "g"
         },
         {
-            "name": "紅洋蔥，切薄片",
+            "name": "紅洋蔥",
             "quantity": 200,
-            "unit": "g"
+            "unit": "g",
+            "note": "切薄片"
         },
         {
-            "name": "新鮮巴西里，切碎",
+            "name": "新鮮巴西里",
             "quantity": 30,
-            "unit": "g"
+            "unit": "g",
+            "note": "切碎"
         },
         {
-            "name": "漆樹粉（中東香料）",
+            "name": "漆樹粉",
             "quantity": 12,
-            "unit": "g"
+            "unit": "g",
+            "note": "中東香料"
         },
         {
             "name": "檸檬汁",
@@ -87,9 +92,10 @@
             "unit": "ml"
         },
         {
-            "name": "生巴斯馬蒂米（需提前煮熟）",
+            "name": "生巴斯馬蒂米",
             "quantity": 250,
-            "unit": "g"
+            "unit": "g",
+            "note": "需提前煮熟"
         },
         {
             "name": "輕奶油奶油",

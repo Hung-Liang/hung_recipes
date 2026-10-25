@@ -15,9 +15,10 @@
     ],
     "ingredients": [
         {
-            "name": "低碳捲餅皮（捲餅尺寸）",
+            "name": "低碳捲餅皮",
             "quantity": 70,
-            "unit": "g"
+            "unit": "g",
+            "note": "捲餅尺寸"
         },
         {
             "name": "摩佐羅拉起司條",

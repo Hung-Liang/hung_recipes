@@ -12,9 +12,10 @@
     ],
     "ingredients": [
         {
-            "name": "肋眼牛肉 (Prime Rib)",
+            "name": "肋眼牛肉",
             "quantity": 2500,
-            "unit": "g"
+            "unit": "g",
+            "note": "Prime Rib"
         },
         {
             "name": "鹽",
@@ -22,9 +23,10 @@
             "unit": "g"
         },
         {
-            "name": "無鹽奶油 (軟化)",
+            "name": "無鹽奶油",
             "quantity": 454,
-            "unit": "g"
+            "unit": "g",
+            "note": "軟化"
         },
         {
             "name": "大蒜末",
@@ -37,9 +39,10 @@
             "unit": "g"
         },
         {
-            "name": "新鮮迷迭香 (切碎)",
+            "name": "新鮮迷迭香",
             "quantity": 12,
-            "unit": "g"
+            "unit": "g",
+            "note": "切碎"
         },
         {
             "name": "第戎芥末醬",

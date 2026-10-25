@@ -25,9 +25,10 @@
             "unit": "g"
         },
         {
-            "name": "水（加入蛋液中）",
+            "name": "水",
             "quantity": 100,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "加入蛋液中"
         },
         {
             "name": "絞肉",
@@ -50,9 +51,10 @@
             "unit": "g"
         },
         {
-            "name": "水（加入醬汁中）",
+            "name": "水",
             "quantity": 60,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "加入醬汁中"
         }
     ],
     "steps": [

@@ -23,9 +23,10 @@
             "unit": "g"
         },
         {
-            "name": "蒜粉 (雞肉醃料)",
+            "name": "蒜粉",
             "quantity": 5,
-            "unit": "g"
+            "unit": "g",
+            "note": "雞肉醃料"
         },
         {
             "name": "洋蔥粉",
@@ -38,14 +39,16 @@
             "unit": "g"
         },
         {
-            "name": "鹽 (雞肉用)",
+            "name": "鹽",
             "quantity": 3,
-            "unit": "g"
+            "unit": "g",
+            "note": "雞肉用"
         },
         {
-            "name": "黑胡椒 (雞肉用)",
+            "name": "黑胡椒",
             "quantity": 2,
-            "unit": "g"
+            "unit": "g",
+            "note": "雞肉用"
         },
         {
             "name": "檸檬汁",
@@ -53,17 +56,19 @@
             "unit": "g"
         },
         {
-            "name": "彎管通心粉 (乾麵)",
+            "name": "彎管通心粉",
             "quantity": 226,
-            "unit": "g"
+            "unit": "g",
+            "note": "乾麵"
         },
         {
-            "name": "低脂茅屋起司 (Cottage Cheese)",
+            "name": "低脂茅屋起司",
             "quantity": 240,
-            "unit": "g"
+            "unit": "g",
+            "note": "Cottage Cheese"
         },
         {
-            "name": "無脂希臘優格",
+            "name": "零脂希臘優格",
             "quantity": 120,
             "unit": "g"
         },
@@ -78,9 +83,10 @@
             "unit": "g"
         },
         {
-            "name": "煮麵水 (預留)",
+            "name": "煮麵水",
             "quantity": 120,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "預留"
         },
         {
             "name": "黑松露油",
@@ -88,24 +94,28 @@
             "unit": "g"
         },
         {
-            "name": "蒜粉 (醬汁用)",
+            "name": "蒜粉",
             "quantity": 5,
-            "unit": "g"
+            "unit": "g",
+            "note": "醬汁用"
         },
         {
-            "name": "鹽 (醬汁用)",
+            "name": "鹽",
             "quantity": 3,
-            "unit": "g"
+            "unit": "g",
+            "note": "醬汁用"
         },
         {
-            "name": "黑胡椒 (醬汁用)",
+            "name": "黑胡椒",
             "quantity": 2,
-            "unit": "g"
+            "unit": "g",
+            "note": "醬汁用"
         },
         {
-            "name": "新鮮巴西里 (裝飾)",
+            "name": "新鮮巴西里",
             "quantity": 5,
-            "unit": "g"
+            "unit": "g",
+            "note": "裝飾"
         }
     ],
     "steps": [

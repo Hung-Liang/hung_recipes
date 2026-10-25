@@ -13,9 +13,10 @@
     ],
     "ingredients": [
         {
-            "name": "豬肉片 (涮涮鍋用)",
+            "name": "豬肉片",
             "quantity": 300,
-            "unit": "g"
+            "unit": "g",
+            "note": "涮涮鍋用"
         },
         {
             "name": "米酒",

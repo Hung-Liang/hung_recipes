@@ -13,9 +13,10 @@
     ],
     "ingredients": [
         {
-            "name": "全雞（或雞腿 2–3 隻）",
+            "name": "全雞",
             "quantity": 1000,
-            "unit": "g"
+            "unit": "g",
+            "note": "或雞腿 2–3 隻"
         },
         {
             "name": "薑片",
@@ -33,34 +34,40 @@
             "unit": "ml"
         },
         {
-            "name": "醬油（最後淋上用）",
+            "name": "醬油",
             "quantity": 10,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "最後淋上用"
         },
         {
-            "name": "鹽（醃料）",
+            "name": "鹽",
             "quantity": 5,
-            "unit": "g"
+            "unit": "g",
+            "note": "醃料"
         },
         {
-            "name": "醬油（醃料）",
+            "name": "醬油",
             "quantity": 30,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "醃料"
         },
         {
-            "name": "米酒（醃料）",
+            "name": "米酒",
             "quantity": 15,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "醃料"
         },
         {
-            "name": "蠔油（醃料）",
+            "name": "蠔油",
             "quantity": 15,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "醃料"
         },
         {
-            "name": "白胡椒粉（醃料）",
+            "name": "白胡椒粉",
             "quantity": 1,
-            "unit": "g"
+            "unit": "g",
+            "note": "醃料"
         }
     ],
     "steps": [

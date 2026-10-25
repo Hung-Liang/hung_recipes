@@ -13,14 +13,16 @@
     ],
     "ingredients": [
         {
-            "name": "馬鈴薯（去皮）",
+            "name": "馬鈴薯",
             "quantity": 600,
-            "unit": "g"
+            "unit": "g",
+            "note": "去皮"
         },
         {
-            "name": "無鹽奶油（融化）",
+            "name": "無鹽奶油",
             "quantity": 30,
-            "unit": "g"
+            "unit": "g",
+            "note": "融化"
         },
         {
             "name": "中筋麵粉",
@@ -33,9 +35,10 @@
             "unit": "g"
         },
         {
-            "name": "西班牙喬利佐香腸（切碎）",
+            "name": "西班牙喬利佐香腸",
             "quantity": 30,
-            "unit": "g"
+            "unit": "g",
+            "note": "切碎"
         },
         {
             "name": "橄欖油",

@@ -33,9 +33,10 @@
             "unit": "g"
         },
         {
-            "name": "蒜末 (醃漬用)",
+            "name": "蒜末",
             "quantity": 15,
-            "unit": "g"
+            "unit": "g",
+            "note": "醃漬用"
         },
         {
             "name": "醬油",
@@ -58,9 +59,10 @@
             "unit": "g"
         },
         {
-            "name": "蒜末 (淋醬用)",
+            "name": "蒜末",
             "quantity": 60,
-            "unit": "g"
+            "unit": "g",
+            "note": "淋醬用"
         },
         {
             "name": "鹽",

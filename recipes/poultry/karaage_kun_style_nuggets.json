@@ -37,9 +37,10 @@
             "unit": "g"
         },
         {
-            "name": "清燉肉湯粉 (Consomme)",
+            "name": "清燉肉湯粉",
             "quantity": 3,
-            "unit": "g"
+            "unit": "g",
+            "note": "Consomme"
         },
         {
             "name": "雞粉",

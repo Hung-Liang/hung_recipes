@@ -27,9 +27,10 @@
             "unit": "g"
         },
         {
-            "name": "山核桃木屑 (Hickory wood chips)",
+            "name": "山核桃木屑",
             "quantity": 50,
-            "unit": "g"
+            "unit": "g",
+            "note": "Hickory wood chips"
         },
         {
             "name": "Honeycrisp蘋果西打",
@@ -37,9 +38,10 @@
             "unit": "ml"
         },
         {
-            "name": "BaconUp (培根油)",
+            "name": "BaconUp",
             "quantity": 45,
-            "unit": "g"
+            "unit": "g",
+            "note": "培根油"
         },
         {
             "name": "紅糖",

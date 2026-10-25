@@ -11,9 +11,10 @@
     ],
     "ingredients": [
         {
-            "name": "馬鈴薯（大顆，煮熟並搗碎）",
+            "name": "馬鈴薯",
             "quantity": 750,
-            "unit": "g"
+            "unit": "g",
+            "note": "大顆，煮熟並搗碎"
         },
         {
             "name": "紅椒粉",
@@ -41,9 +42,10 @@
             "unit": "g"
         },
         {
-            "name": "乾燥巴西里（內餡用）",
+            "name": "乾燥巴西里",
             "quantity": 1,
-            "unit": "g"
+            "unit": "g",
+            "note": "內餡用"
         },
         {
             "name": "玉米澱粉",
@@ -56,30 +58,35 @@
             "unit": "g"
         },
         {
-            "name": "中筋麵粉（Maida）",
+            "name": "中筋麵粉",
             "quantity": 45,
-            "unit": "g"
+            "unit": "g",
+            "note": "Maida"
         },
         {
-            "name": "水（粉漿用）",
+            "name": "水",
             "quantity": 80,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "粉漿用"
         },
         {
-            "name": "麵包粉（Panko）",
+            "name": "麵包粉",
             "quantity": 60,
-            "unit": "g"
+            "unit": "g",
+            "note": "Panko"
         },
         {
-            "name": "乾燥巴西里（裹粉用）",
+            "name": "乾燥巴西里",
             "quantity": 1,
-            "unit": "g"
+            "unit": "g",
+            "note": "裹粉用"
         },
         {
-            "name": "油（油炸用）",
+            "name": "油",
             "quantity": 500,
             "unit": "ml",
-            "calorieRatio": 0.1
+            "calorieRatio": 0.1,
+            "note": "油炸用"
         }
     ],
     "steps": [

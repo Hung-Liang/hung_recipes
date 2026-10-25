@@ -28,9 +28,10 @@
             "unit": "g"
         },
         {
-            "name": "食用油 (熱油)",
+            "name": "食用油",
             "quantity": 15,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "熱油"
         },
         {
             "name": "麵條",
@@ -48,7 +49,7 @@
             "unit": "g"
         },
         {
-            "name": "白砂糖",
+            "name": "砂糖",
             "quantity": 15,
             "unit": "g"
         },

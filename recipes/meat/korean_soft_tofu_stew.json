@@ -22,9 +22,10 @@
             "unit": "ml"
         },
         {
-            "name": "自製豆腐鍋辣醬 (見備註)",
+            "name": "自製豆腐鍋辣醬",
             "quantity": 50,
-            "unit": "g"
+            "unit": "g",
+            "note": "見備註"
         },
         {
             "name": "豬五花肉片",
@@ -32,9 +33,10 @@
             "unit": "g"
         },
         {
-            "name": "雞蛋 (1顆)",
+            "name": "雞蛋",
             "quantity": 50,
-            "unit": "g"
+            "unit": "g",
+            "note": "1顆"
         },
         {
             "name": "蛤蜊",
@@ -42,14 +44,16 @@
             "unit": "g"
         },
         {
-            "name": "洋蔥 (切絲)",
+            "name": "洋蔥",
             "quantity": 30,
-            "unit": "g"
+            "unit": "g",
+            "note": "切絲"
         },
         {
-            "name": "青蔥 (切花)",
+            "name": "青蔥",
             "quantity": 10,
-            "unit": "g"
+            "unit": "g",
+            "note": "切花"
         }
     ],
     "steps": [

@@ -13,9 +13,10 @@
     ],
     "ingredients": [
         {
-            "name": "鮪魚罐頭 (瀝乾油)",
+            "name": "鮪魚罐頭",
             "quantity": 150,
-            "unit": "g"
+            "unit": "g",
+            "note": "瀝乾油"
         },
         {
             "name": "白飯",
@@ -53,9 +54,10 @@
             "unit": "g"
         },
         {
-            "name": "奶油 (選配)",
+            "name": "奶油",
             "quantity": 10,
-            "unit": "g"
+            "unit": "g",
+            "note": "選配"
         },
         {
             "name": "海苔",

@@ -13,14 +13,16 @@
     ],
     "ingredients": [
         {
-            "name": "燕麥粉 (或市售燕麥打碎)",
+            "name": "燕麥粉",
             "quantity": 35,
-            "unit": "g"
+            "unit": "g",
+            "note": "或市售燕麥打碎"
         },
         {
-            "name": "香草乳清蛋白粉 (蛋糕本體)",
+            "name": "香草乳清蛋白粉",
             "quantity": 50,
-            "unit": "g"
+            "unit": "g",
+            "note": "蛋糕本體"
         },
         {
             "name": "肉桂粉",
@@ -38,9 +40,10 @@
             "unit": "g"
         },
         {
-            "name": "無脂希臘優格 (蛋糕本體)",
+            "name": "零脂希臘優格",
             "quantity": 100,
-            "unit": "g"
+            "unit": "g",
+            "note": "蛋糕本體"
         },
         {
             "name": "蛋白",
@@ -48,9 +51,10 @@
             "unit": "g"
         },
         {
-            "name": "無糖楓糖漿 (或顆粒代糖)",
+            "name": "無糖楓糖漿",
             "quantity": 15,
-            "unit": "g"
+            "unit": "g",
+            "note": "或顆粒代糖"
         },
         {
             "name": "香草精",
@@ -63,19 +67,22 @@
             "unit": "g"
         },
         {
-            "name": "無脂希臘優格 (抹醬用)",
+            "name": "零脂希臘優格",
             "quantity": 100,
-            "unit": "g"
+            "unit": "g",
+            "note": "抹醬用"
         },
         {
-            "name": "香草乳清蛋白粉 (抹醬用)",
+            "name": "香草乳清蛋白粉",
             "quantity": 15,
-            "unit": "g"
+            "unit": "g",
+            "note": "抹醬用"
         },
         {
-            "name": "顆粒代糖 (抹醬用)",
+            "name": "顆粒代糖",
             "quantity": 5,
-            "unit": "g"
+            "unit": "g",
+            "note": "抹醬用"
         }
     ],
     "steps": [

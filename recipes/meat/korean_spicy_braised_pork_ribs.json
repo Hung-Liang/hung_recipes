@@ -27,9 +27,10 @@
             "unit": "g"
         },
         {
-            "name": "梨子飲料 (갈아만든 배)",
+            "name": "梨子飲料",
             "quantity": 500,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "갈아만든 배"
         },
         {
             "name": "食用油",
@@ -57,9 +58,10 @@
             "unit": "g"
         },
         {
-            "name": "Yeondu (韓式純素精華液)",
+            "name": "Yeondu",
             "quantity": 15,
-            "unit": "g"
+            "unit": "g",
+            "note": "韓式純素精華液"
         }
     ],
     "steps": [

@@ -42,9 +42,10 @@
             "unit": "g"
         },
         {
-            "name": "食用油 (煎肉用)",
+            "name": "食用油",
             "quantity": 15,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "煎肉用"
         }
     ],
     "steps": [

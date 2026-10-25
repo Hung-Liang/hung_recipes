@@ -24,9 +24,10 @@
             "unit": "g"
         },
         {
-            "name": "鮮奶油 (12%)",
+            "name": "鮮奶油",
             "quantity": 200,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "12%"
         },
         {
             "name": "番茄糊",

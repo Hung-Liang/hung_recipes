@@ -48,9 +48,10 @@
             "unit": "g"
         },
         {
-            "name": "雞高湯（或水）",
+            "name": "雞高湯",
             "quantity": 60,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "或水"
         },
         {
             "name": "甜菊糖",

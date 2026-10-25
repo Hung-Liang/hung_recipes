@@ -37,14 +37,16 @@
             "unit": "g"
         },
         {
-            "name": "佩克里諾羅馬諾起司 (Pecorino Romano)",
+            "name": "佩克里諾羅馬諾起司",
             "quantity": 30,
-            "unit": "g"
+            "unit": "g",
+            "note": "Pecorino Romano"
         },
         {
-            "name": "帕瑪森起司 (Parmesan)",
+            "name": "帕瑪森起司",
             "quantity": 30,
-            "unit": "g"
+            "unit": "g",
+            "note": "Parmesan"
         },
         {
             "name": "乾燥薄荷",
@@ -52,9 +54,10 @@
             "unit": "g"
         },
         {
-            "name": "義大利寬帶麵 (Pappardelle)",
+            "name": "義大利寬帶麵",
             "quantity": 120,
-            "unit": "g"
+            "unit": "g",
+            "note": "Pappardelle"
         },
         {
             "name": "煮麵水",

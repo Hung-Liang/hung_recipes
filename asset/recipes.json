@@ -169,9 +169,10 @@
                 "unit": "g"
             },
             {
-                "name": "奶油 (有鹽或無鹽皆可)",
+                "name": "奶油",
                 "quantity": 30,
-                "unit": "g"
+                "unit": "g",
+                "note": "有鹽或無鹽皆可"
             },
             {
                 "name": "蒜末",
@@ -189,9 +190,10 @@
                 "unit": "g"
             },
             {
-                "name": "鹽 (煮馬鈴薯用)",
+                "name": "鹽",
                 "quantity": 30,
-                "unit": "g"
+                "unit": "g",
+                "note": "煮馬鈴薯用"
             },
             {
                 "name": "豆豉",
@@ -289,9 +291,10 @@
                 "unit": "g"
             },
             {
-                "name": "食用油 (煎肉用)",
+                "name": "食用油",
                 "quantity": 15,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "煎肉用"
             }
         ],
         "steps": [
@@ -388,9 +391,10 @@
         ],
         "ingredients": [
             {
-                "name": "低脂牛絞肉（5%或以下）",
+                "name": "低脂牛絞肉",
                 "quantity": 800,
-                "unit": "g"
+                "unit": "g",
+                "note": "5%或以下"
             },
             {
                 "name": "中型洋蔥",
@@ -423,9 +427,10 @@
                 "unit": "g"
             },
             {
-                "name": "鹽 (內餡用)",
+                "name": "鹽",
                 "quantity": 12,
-                "unit": "g"
+                "unit": "g",
+                "note": "內餡用"
             },
             {
                 "name": "全麥皮塔餅",
@@ -433,12 +438,13 @@
                 "unit": "g"
             },
             {
-                "name": "烹飪噴油（酪梨油）",
+                "name": "烹飪噴油",
                 "quantity": 5,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "酪梨油"
             },
             {
-                "name": "0% 脂肪希臘優格",
+                "name": "零脂希臘優格",
                 "quantity": 120,
                 "unit": "g"
             },
@@ -463,9 +469,10 @@
                 "unit": "g"
             },
             {
-                "name": "鹽 (白蒜醬用)",
+                "name": "鹽",
                 "quantity": 1.5,
-                "unit": "g"
+                "unit": "g",
+                "note": "白蒜醬用"
             }
         ],
         "steps": [
@@ -509,9 +516,10 @@
                 "unit": "g"
             },
             {
-                "name": "鹽 (鹽水用)",
+                "name": "鹽",
                 "quantity": 10,
-                "unit": "g"
+                "unit": "g",
+                "note": "鹽水用"
             },
             {
                 "name": "小蘇打粉",
@@ -519,19 +527,22 @@
                 "unit": "g"
             },
             {
-                "name": "醬油 (醃料與醬汁總計)",
+                "name": "醬油",
                 "quantity": 75,
-                "unit": "g"
+                "unit": "g",
+                "note": "醃料與醬汁總計"
             },
             {
-                "name": "蠔油 (醃料與醬汁總計)",
+                "name": "蠔油",
                 "quantity": 45,
-                "unit": "g"
+                "unit": "g",
+                "note": "醃料與醬汁總計"
             },
             {
-                "name": "砂糖 (醃料與醬汁總計)",
+                "name": "砂糖",
                 "quantity": 20,
-                "unit": "g"
+                "unit": "g",
+                "note": "醃料與醬汁總計"
             },
             {
                 "name": "孜然粉",
@@ -596,9 +607,10 @@
         ],
         "ingredients": [
             {
-                "name": "豬肉片 (涮涮鍋用)",
+                "name": "豬肉片",
                 "quantity": 300,
-                "unit": "g"
+                "unit": "g",
+                "note": "涮涮鍋用"
             },
             {
                 "name": "米酒",
@@ -690,9 +702,10 @@
                 "unit": "g"
             },
             {
-                "name": "大蒜（切末）",
+                "name": "大蒜",
                 "quantity": 15,
-                "unit": "g"
+                "unit": "g",
+                "note": "切末"
             },
             {
                 "name": "食用油",
@@ -759,12 +772,12 @@
                 "unit": "ml"
             },
             {
-                "name": "飲用水",
+                "name": "水",
                 "quantity": 60,
                 "unit": "ml"
             },
             {
-                "name": "細砂糖",
+                "name": "砂糖",
                 "quantity": 18,
                 "unit": "g"
             },
@@ -774,9 +787,10 @@
                 "unit": "g"
             },
             {
-                "name": "青辣椒 (切片)",
+                "name": "青辣椒",
                 "quantity": 10,
-                "unit": "g"
+                "unit": "g",
+                "note": "切片"
             },
             {
                 "name": "蔥花",
@@ -836,9 +850,10 @@
                 "unit": "ml"
             },
             {
-                "name": "自製豆腐鍋辣醬 (見備註)",
+                "name": "自製豆腐鍋辣醬",
                 "quantity": 50,
-                "unit": "g"
+                "unit": "g",
+                "note": "見備註"
             },
             {
                 "name": "豬五花肉片",
@@ -846,9 +861,10 @@
                 "unit": "g"
             },
             {
-                "name": "雞蛋 (1顆)",
+                "name": "雞蛋",
                 "quantity": 50,
-                "unit": "g"
+                "unit": "g",
+                "note": "1顆"
             },
             {
                 "name": "蛤蜊",
@@ -856,14 +872,16 @@
                 "unit": "g"
             },
             {
-                "name": "洋蔥 (切絲)",
+                "name": "洋蔥",
                 "quantity": 30,
-                "unit": "g"
+                "unit": "g",
+                "note": "切絲"
             },
             {
-                "name": "青蔥 (切花)",
+                "name": "青蔥",
                 "quantity": 10,
-                "unit": "g"
+                "unit": "g",
+                "note": "切花"
             }
         ],
         "steps": [
@@ -909,9 +927,10 @@
                 "unit": "g"
             },
             {
-                "name": "梨子飲料 (갈아만든 배)",
+                "name": "梨子飲料",
                 "quantity": 500,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "갈아만든 배"
             },
             {
                 "name": "食用油",
@@ -939,9 +958,10 @@
                 "unit": "g"
             },
             {
-                "name": "Yeondu (韓式純素精華液)",
+                "name": "Yeondu",
                 "quantity": 15,
-                "unit": "g"
+                "unit": "g",
+                "note": "韓式純素精華液"
             }
         ],
         "steps": [
@@ -1279,7 +1299,7 @@
                 "unit": "g"
             },
             {
-                "name": "白糖",
+                "name": "砂糖",
                 "quantity": 3,
                 "unit": "g"
             },
@@ -1402,7 +1422,7 @@
                 "unit": "g"
             },
             {
-                "name": "鹽巴",
+                "name": "鹽",
                 "quantity": 3,
                 "unit": "g"
             },
@@ -1515,7 +1535,7 @@
                 "unit": "g"
             },
             {
-                "name": "鹽巴",
+                "name": "鹽",
                 "quantity": 3,
                 "unit": "g"
             },
@@ -1558,9 +1578,10 @@
         ],
         "ingredients": [
             {
-                "name": "五花肉 (切成約 5 公分厚條狀)",
+                "name": "五花肉",
                 "quantity": 907,
-                "unit": "g"
+                "unit": "g",
+                "note": "切成約 5 公分厚條狀"
             },
             {
                 "name": "叉燒醬",
@@ -1573,9 +1594,10 @@
                 "unit": "g"
             },
             {
-                "name": "焦糖色素 (醬色)",
+                "name": "焦糖色素",
                 "quantity": 7,
-                "unit": "g"
+                "unit": "g",
+                "note": "醬色"
             },
             {
                 "name": "蜂蜜",
@@ -1588,14 +1610,16 @@
                 "unit": "ml"
             },
             {
-                "name": "麥芽糖 (或砂糖)",
+                "name": "麥芽糖",
                 "quantity": 20,
-                "unit": "g"
+                "unit": "g",
+                "note": "或砂糖"
             },
             {
-                "name": "味精 (或雞粉)",
+                "name": "味精",
                 "quantity": 3,
-                "unit": "g"
+                "unit": "g",
+                "note": "或雞粉"
             },
             {
                 "name": "蠔油",
@@ -1608,9 +1632,10 @@
                 "unit": "g"
             },
             {
-                "name": "醬油 (淋醬用)",
+                "name": "醬油",
                 "quantity": 30,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "淋醬用"
             }
         ],
         "steps": [
@@ -1644,9 +1669,10 @@
         ],
         "ingredients": [
             {
-                "name": "肋眼牛肉 (Prime Rib)",
+                "name": "肋眼牛肉",
                 "quantity": 2500,
-                "unit": "g"
+                "unit": "g",
+                "note": "Prime Rib"
             },
             {
                 "name": "鹽",
@@ -1654,9 +1680,10 @@
                 "unit": "g"
             },
             {
-                "name": "無鹽奶油 (軟化)",
+                "name": "無鹽奶油",
                 "quantity": 454,
-                "unit": "g"
+                "unit": "g",
+                "note": "軟化"
             },
             {
                 "name": "大蒜末",
@@ -1669,9 +1696,10 @@
                 "unit": "g"
             },
             {
-                "name": "新鮮迷迭香 (切碎)",
+                "name": "新鮮迷迭香",
                 "quantity": 12,
-                "unit": "g"
+                "unit": "g",
+                "note": "切碎"
             },
             {
                 "name": "第戎芥末醬",
@@ -1937,7 +1965,7 @@
                 "unit": "g"
             },
             {
-                "name": "食鹽",
+                "name": "鹽",
                 "quantity": 1,
                 "unit": "g"
             },
@@ -2102,9 +2130,10 @@
                 "unit": "g"
             },
             {
-                "name": "山核桃木屑 (Hickory wood chips)",
+                "name": "山核桃木屑",
                 "quantity": 50,
-                "unit": "g"
+                "unit": "g",
+                "note": "Hickory wood chips"
             },
             {
                 "name": "Honeycrisp蘋果西打",
@@ -2112,9 +2141,10 @@
                 "unit": "ml"
             },
             {
-                "name": "BaconUp (培根油)",
+                "name": "BaconUp",
                 "quantity": 45,
-                "unit": "g"
+                "unit": "g",
+                "note": "培根油"
             },
             {
                 "name": "紅糖",
@@ -2193,9 +2223,10 @@
                 "unit": "g"
             },
             {
-                "name": "月桂葉 (香葉)",
+                "name": "月桂葉",
                 "quantity": 1,
-                "unit": "g"
+                "unit": "g",
+                "note": "香葉"
             },
             {
                 "name": "熱開水",
@@ -2240,9 +2271,10 @@
                 "unit": "g"
             },
             {
-                "name": "大蒜（蒜片或蒜末）",
+                "name": "大蒜",
                 "quantity": 15,
-                "unit": "g"
+                "unit": "g",
+                "note": "蒜片或蒜末"
             },
             {
                 "name": "醬油",
@@ -2255,7 +2287,7 @@
                 "unit": "g"
             },
             {
-                "name": "白砂糖",
+                "name": "砂糖",
                 "quantity": 5,
                 "unit": "g"
             },
@@ -2561,7 +2593,7 @@
                 "unit": "g"
             },
             {
-                "name": "鹽巴",
+                "name": "鹽",
                 "quantity": 3,
                 "unit": "g"
             },
@@ -2911,7 +2943,7 @@
                 "unit": "g"
             },
             {
-                "name": "鹽巴",
+                "name": "鹽",
                 "quantity": 5,
                 "unit": "g"
             },
@@ -3101,7 +3133,7 @@
                 "unit": "g"
             },
             {
-                "name": "鹽巴",
+                "name": "鹽",
                 "quantity": 4,
                 "unit": "g"
             },
@@ -3141,9 +3173,10 @@
         ],
         "ingredients": [
             {
-                "name": "去骨去皮雞腿肉（去脂肪）",
+                "name": "去骨去皮雞腿肉",
                 "quantity": 650,
-                "unit": "g"
+                "unit": "g",
+                "note": "去脂肪"
             },
             {
                 "name": "洋蔥粉",
@@ -3176,7 +3209,7 @@
                 "unit": "ml"
             },
             {
-                "name": "0%希臘優格",
+                "name": "零脂希臘優格",
                 "quantity": 190,
                 "unit": "g"
             },
@@ -3201,14 +3234,16 @@
                 "unit": "ml"
             },
             {
-                "name": "迷你玉米餅（品牌：Mission）",
+                "name": "迷你玉米餅",
                 "quantity": 200,
-                "unit": "g"
+                "unit": "g",
+                "note": "品牌：Mission"
             },
             {
-                "name": "低脂乳酪（50%減脂）",
+                "name": "低脂乳酪",
                 "quantity": 160,
-                "unit": "g"
+                "unit": "g",
+                "note": "50%減脂"
             },
             {
                 "name": "烹飪噴油",
@@ -3327,9 +3362,10 @@
                 "unit": "g"
             },
             {
-                "name": "韓式辣醬（Gochujang）",
+                "name": "韓式辣醬",
                 "quantity": 60,
-                "unit": "g"
+                "unit": "g",
+                "note": "Gochujang"
             },
             {
                 "name": "蜂蜜",
@@ -3372,9 +3408,10 @@
                 "unit": "ml"
             },
             {
-                "name": "生糯米或壽司米（洗淨）",
+                "name": "生糯米或壽司米",
                 "quantity": 250,
-                "unit": "g"
+                "unit": "g",
+                "note": "洗淨"
             },
             {
                 "name": "米醋",
@@ -3387,9 +3424,10 @@
                 "unit": "g"
             },
             {
-                "name": "鹽（糯米飯用）",
+                "name": "鹽",
                 "quantity": 3,
-                "unit": "g"
+                "unit": "g",
+                "note": "糯米飯用"
             }
         ],
         "steps": [
@@ -3424,9 +3462,10 @@
         ],
         "ingredients": [
             {
-                "name": "無骨雞腿肉，切丁",
+                "name": "無骨雞腿肉",
                 "quantity": 1100,
-                "unit": "g"
+                "unit": "g",
+                "note": "切丁"
             },
             {
                 "name": "鹽",
@@ -3469,9 +3508,10 @@
                 "unit": "ml"
             },
             {
-                "name": "優格（原味或希臘優格）",
+                "name": "優格",
                 "quantity": 80,
-                "unit": "g"
+                "unit": "g",
+                "note": "原味或希臘優格"
             },
             {
                 "name": "蜂蜜",
@@ -3479,19 +3519,22 @@
                 "unit": "g"
             },
             {
-                "name": "紅洋蔥，切薄片",
+                "name": "紅洋蔥",
                 "quantity": 200,
-                "unit": "g"
+                "unit": "g",
+                "note": "切薄片"
             },
             {
-                "name": "新鮮巴西里，切碎",
+                "name": "新鮮巴西里",
                 "quantity": 30,
-                "unit": "g"
+                "unit": "g",
+                "note": "切碎"
             },
             {
-                "name": "漆樹粉（中東香料）",
+                "name": "漆樹粉",
                 "quantity": 12,
-                "unit": "g"
+                "unit": "g",
+                "note": "中東香料"
             },
             {
                 "name": "檸檬汁",
@@ -3499,9 +3542,10 @@
                 "unit": "ml"
             },
             {
-                "name": "生巴斯馬蒂米（需提前煮熟）",
+                "name": "生巴斯馬蒂米",
                 "quantity": 250,
-                "unit": "g"
+                "unit": "g",
+                "note": "需提前煮熟"
             },
             {
                 "name": "輕奶油奶油",
@@ -3598,7 +3642,7 @@
                 "unit": "g"
             },
             {
-                "name": "清水",
+                "name": "水",
                 "quantity": 1000,
                 "unit": "ml"
             },
@@ -3668,9 +3712,10 @@
                 "unit": "g"
             },
             {
-                "name": "清燉肉湯粉 (Consomme)",
+                "name": "清燉肉湯粉",
                 "quantity": 3,
-                "unit": "g"
+                "unit": "g",
+                "note": "Consomme"
             },
             {
                 "name": "雞粉",
@@ -3741,7 +3786,7 @@
                 "unit": "ml"
             },
             {
-                "name": "二號砂糖",
+                "name": "二砂",
                 "quantity": 24,
                 "unit": "g"
             }
@@ -3995,9 +4040,10 @@
         ],
         "ingredients": [
             {
-                "name": "全雞（或雞腿 2–3 隻）",
+                "name": "全雞",
                 "quantity": 1000,
-                "unit": "g"
+                "unit": "g",
+                "note": "或雞腿 2–3 隻"
             },
             {
                 "name": "薑片",
@@ -4015,34 +4061,40 @@
                 "unit": "ml"
             },
             {
-                "name": "醬油（最後淋上用）",
+                "name": "醬油",
                 "quantity": 10,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "最後淋上用"
             },
             {
-                "name": "鹽（醃料）",
+                "name": "鹽",
                 "quantity": 5,
-                "unit": "g"
+                "unit": "g",
+                "note": "醃料"
             },
             {
-                "name": "醬油（醃料）",
+                "name": "醬油",
                 "quantity": 30,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "醃料"
             },
             {
-                "name": "米酒（醃料）",
+                "name": "米酒",
                 "quantity": 15,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "醃料"
             },
             {
-                "name": "蠔油（醃料）",
+                "name": "蠔油",
                 "quantity": 15,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "醃料"
             },
             {
-                "name": "白胡椒粉（醃料）",
+                "name": "白胡椒粉",
                 "quantity": 1,
-                "unit": "g"
+                "unit": "g",
+                "note": "醃料"
             }
         ],
         "steps": [
@@ -4151,9 +4203,10 @@
         ],
         "ingredients": [
             {
-                "name": "雞腿（帶骨）",
+                "name": "雞腿",
                 "quantity": 750,
-                "unit": "g"
+                "unit": "g",
+                "note": "帶骨"
             },
             {
                 "name": "黑胡椒粉",
@@ -4171,9 +4224,10 @@
                 "unit": "g"
             },
             {
-                "name": "紅椒粉（匈牙利甜椒粉）",
+                "name": "紅椒粉",
                 "quantity": 2,
-                "unit": "g"
+                "unit": "g",
+                "note": "匈牙利甜椒粉"
             },
             {
                 "name": "薑黃粉",
@@ -4231,7 +4285,7 @@
                 "unit": "g"
             },
             {
-                "name": "鹽巴",
+                "name": "鹽",
                 "quantity": 2,
                 "unit": "g"
             },
@@ -4378,9 +4432,10 @@
                 "unit": "g"
             },
             {
-                "name": "中濃醬 (Chūno Sauce)",
+                "name": "中濃醬",
                 "quantity": 30,
-                "unit": "g"
+                "unit": "g",
+                "note": "Chūno Sauce"
             },
             {
                 "name": "味醂",
@@ -4432,7 +4487,7 @@
                 "unit": "g"
             },
             {
-                "name": "清水",
+                "name": "水",
                 "quantity": 60,
                 "unit": "ml"
             }
@@ -4513,7 +4568,7 @@
                 "unit": "g"
             },
             {
-                "name": "白糖",
+                "name": "砂糖",
                 "quantity": 15,
                 "unit": "g"
             },
@@ -4619,7 +4674,7 @@
                 "unit": "ml"
             },
             {
-                "name": "白糖",
+                "name": "砂糖",
                 "quantity": 15,
                 "unit": "g"
             },
@@ -4629,7 +4684,7 @@
                 "unit": "g"
             },
             {
-                "name": "清水",
+                "name": "水",
                 "quantity": 60,
                 "unit": "ml"
             }
@@ -4733,9 +4788,10 @@
         ],
         "ingredients": [
             {
-                "name": "奶油乳酪 (Cream Cheese)",
+                "name": "奶油乳酪",
                 "quantity": 30,
-                "unit": "g"
+                "unit": "g",
+                "note": "Cream Cheese"
             },
             {
                 "name": "柴魚片",
@@ -4795,12 +4851,12 @@
                 "unit": "g"
             },
             {
-                "name": "白糖",
+                "name": "砂糖",
                 "quantity": 15,
                 "unit": "g"
             },
             {
-                "name": "清水",
+                "name": "水",
                 "quantity": 60,
                 "unit": "ml"
             }
@@ -4862,7 +4918,7 @@
                 "unit": "ml"
             },
             {
-                "name": "白糖",
+                "name": "砂糖",
                 "quantity": 7.5,
                 "unit": "g"
             }
@@ -4908,7 +4964,7 @@
                 "unit": "ml"
             },
             {
-                "name": "白糖",
+                "name": "砂糖",
                 "quantity": 15,
                 "unit": "g"
             },
@@ -4918,7 +4974,7 @@
                 "unit": "g"
             },
             {
-                "name": "清水",
+                "name": "水",
                 "quantity": 60,
                 "unit": "ml"
             }
@@ -5019,7 +5075,7 @@
                 "unit": "g"
             },
             {
-                "name": "白糖",
+                "name": "砂糖",
                 "quantity": 15,
                 "unit": "g"
             },
@@ -5029,7 +5085,7 @@
                 "unit": "ml"
             },
             {
-                "name": "清水",
+                "name": "水",
                 "quantity": 125,
                 "unit": "ml"
             },
@@ -5087,7 +5143,7 @@
                 "unit": "ml"
             },
             {
-                "name": "白糖",
+                "name": "砂糖",
                 "quantity": 15,
                 "unit": "g"
             },
@@ -5329,7 +5385,7 @@
                 "unit": "ml"
             },
             {
-                "name": "白糖",
+                "name": "砂糖",
                 "quantity": 7.5,
                 "unit": "g"
             },
@@ -5410,7 +5466,7 @@
         ],
         "ingredients": [
             {
-                "name": "飲用水",
+                "name": "水",
                 "quantity": 150,
                 "unit": "ml"
             },
@@ -5495,7 +5551,7 @@
                 "unit": "ml"
             },
             {
-                "name": "清水",
+                "name": "水",
                 "quantity": 60,
                 "unit": "ml"
             }
@@ -5620,7 +5676,7 @@
                 "unit": "g"
             },
             {
-                "name": "白糖",
+                "name": "砂糖",
                 "quantity": 5,
                 "unit": "g"
             },
@@ -5763,9 +5819,10 @@
         ],
         "ingredients": [
             {
-                "name": "鮪魚罐頭 (瀝乾油)",
+                "name": "鮪魚罐頭",
                 "quantity": 150,
-                "unit": "g"
+                "unit": "g",
+                "note": "瀝乾油"
             },
             {
                 "name": "白飯",
@@ -5803,9 +5860,10 @@
                 "unit": "g"
             },
             {
-                "name": "奶油 (選配)",
+                "name": "奶油",
                 "quantity": 10,
-                "unit": "g"
+                "unit": "g",
+                "note": "選配"
             },
             {
                 "name": "海苔",
@@ -5928,9 +5986,10 @@
         ],
         "ingredients": [
             {
-                "name": "水煮鮪魚（瀝乾水分）",
+                "name": "水煮鮪魚",
                 "quantity": 266,
-                "unit": "g"
+                "unit": "g",
+                "note": "瀝乾水分"
             },
             {
                 "name": "雞蛋",
@@ -5970,9 +6029,10 @@
         ],
         "ingredients": [
             {
-                "name": "地瓜（切塊）",
+                "name": "地瓜",
                 "quantity": 450,
-                "unit": "g"
+                "unit": "g",
+                "note": "切塊"
             },
             {
                 "name": "黑胡椒",
@@ -6074,9 +6134,10 @@
         ],
         "ingredients": [
             {
-                "name": "馬鈴薯（大顆，煮熟並搗碎）",
+                "name": "馬鈴薯",
                 "quantity": 750,
-                "unit": "g"
+                "unit": "g",
+                "note": "大顆，煮熟並搗碎"
             },
             {
                 "name": "紅椒粉",
@@ -6104,9 +6165,10 @@
                 "unit": "g"
             },
             {
-                "name": "乾燥巴西里（內餡用）",
+                "name": "乾燥巴西里",
                 "quantity": 1,
-                "unit": "g"
+                "unit": "g",
+                "note": "內餡用"
             },
             {
                 "name": "玉米澱粉",
@@ -6119,30 +6181,35 @@
                 "unit": "g"
             },
             {
-                "name": "中筋麵粉（Maida）",
+                "name": "中筋麵粉",
                 "quantity": 45,
-                "unit": "g"
+                "unit": "g",
+                "note": "Maida"
             },
             {
-                "name": "水（粉漿用）",
+                "name": "水",
                 "quantity": 80,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "粉漿用"
             },
             {
-                "name": "麵包粉（Panko）",
+                "name": "麵包粉",
                 "quantity": 60,
-                "unit": "g"
+                "unit": "g",
+                "note": "Panko"
             },
             {
-                "name": "乾燥巴西里（裹粉用）",
+                "name": "乾燥巴西里",
                 "quantity": 1,
-                "unit": "g"
+                "unit": "g",
+                "note": "裹粉用"
             },
             {
-                "name": "油（油炸用）",
+                "name": "油",
                 "quantity": 500,
                 "unit": "ml",
-                "calorieRatio": 0.1
+                "calorieRatio": 0.1,
+                "note": "油炸用"
             }
         ],
         "steps": [
@@ -6179,14 +6246,16 @@
         ],
         "ingredients": [
             {
-                "name": "馬鈴薯（去皮）",
+                "name": "馬鈴薯",
                 "quantity": 600,
-                "unit": "g"
+                "unit": "g",
+                "note": "去皮"
             },
             {
-                "name": "無鹽奶油（融化）",
+                "name": "無鹽奶油",
                 "quantity": 30,
-                "unit": "g"
+                "unit": "g",
+                "note": "融化"
             },
             {
                 "name": "中筋麵粉",
@@ -6199,9 +6268,10 @@
                 "unit": "g"
             },
             {
-                "name": "西班牙喬利佐香腸（切碎）",
+                "name": "西班牙喬利佐香腸",
                 "quantity": 30,
-                "unit": "g"
+                "unit": "g",
+                "note": "切碎"
             },
             {
                 "name": "橄欖油",
@@ -6243,9 +6313,10 @@
                 "unit": "g"
             },
             {
-                "name": "牛奶（建議無糖杏仁奶）",
+                "name": "牛奶",
                 "quantity": 100,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "建議無糖杏仁奶"
             },
             {
                 "name": "蜂蜜（或楓糖漿）",
@@ -6253,9 +6324,10 @@
                 "unit": "g"
             },
             {
-                "name": "高蛋白希臘優格（或香草口味）",
+                "name": "高蛋白希臘優格",
                 "quantity": 160,
-                "unit": "g"
+                "unit": "g",
+                "note": "或香草口味"
             },
             {
                 "name": "肉桂粉",
@@ -6427,7 +6499,7 @@
                 "unit": "g"
             },
             {
-                "name": "Oreo 餅乾碎",
+                "name": "OREO餅乾",
                 "quantity": 30,
                 "unit": "g"
             },
@@ -6629,9 +6701,10 @@
         ],
         "ingredients": [
             {
-                "name": "雞絞肉（瘦肉）",
+                "name": "雞絞肉",
                 "quantity": 454,
-                "unit": "g"
+                "unit": "g",
+                "note": "瘦肉"
             },
             {
                 "name": "雞蛋",
@@ -6849,14 +6922,16 @@
         ],
         "ingredients": [
             {
-                "name": "燕麥粉 (或市售燕麥打碎)",
+                "name": "燕麥粉",
                 "quantity": 35,
-                "unit": "g"
+                "unit": "g",
+                "note": "或市售燕麥打碎"
             },
             {
-                "name": "香草乳清蛋白粉 (蛋糕本體)",
+                "name": "香草乳清蛋白粉",
                 "quantity": 50,
-                "unit": "g"
+                "unit": "g",
+                "note": "蛋糕本體"
             },
             {
                 "name": "肉桂粉",
@@ -6874,9 +6949,10 @@
                 "unit": "g"
             },
             {
-                "name": "無脂希臘優格 (蛋糕本體)",
+                "name": "零脂希臘優格",
                 "quantity": 100,
-                "unit": "g"
+                "unit": "g",
+                "note": "蛋糕本體"
             },
             {
                 "name": "蛋白",
@@ -6884,9 +6960,10 @@
                 "unit": "g"
             },
             {
-                "name": "無糖楓糖漿 (或顆粒代糖)",
+                "name": "無糖楓糖漿",
                 "quantity": 15,
-                "unit": "g"
+                "unit": "g",
+                "note": "或顆粒代糖"
             },
             {
                 "name": "香草精",
@@ -6899,19 +6976,22 @@
                 "unit": "g"
             },
             {
-                "name": "無脂希臘優格 (抹醬用)",
+                "name": "零脂希臘優格",
                 "quantity": 100,
-                "unit": "g"
+                "unit": "g",
+                "note": "抹醬用"
             },
             {
-                "name": "香草乳清蛋白粉 (抹醬用)",
+                "name": "香草乳清蛋白粉",
                 "quantity": 15,
-                "unit": "g"
+                "unit": "g",
+                "note": "抹醬用"
             },
             {
-                "name": "顆粒代糖 (抹醬用)",
+                "name": "顆粒代糖",
                 "quantity": 5,
-                "unit": "g"
+                "unit": "g",
+                "note": "抹醬用"
             }
         ],
         "steps": [
@@ -7159,7 +7239,7 @@
         ],
         "ingredients": [
             {
-                "name": "OREO 餅乾",
+                "name": "OREO餅乾",
                 "quantity": 120,
                 "unit": "g"
             },
@@ -7346,10 +7426,11 @@
         ],
         "ingredients": [
             {
-                "name": "植物油 (炸用)",
+                "name": "植物油",
                 "quantity": 500,
                 "unit": "ml",
-                "calorieRatio": 0.1
+                "calorieRatio": 0.1,
+                "note": "炸用"
             },
             {
                 "name": "薯條",
@@ -7357,9 +7438,10 @@
                 "unit": "g"
             },
             {
-                "name": "植物油 (炒用)",
+                "name": "植物油",
                 "quantity": 15,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "炒用"
             },
             {
                 "name": "洋蔥",
@@ -7433,9 +7515,10 @@
         ],
         "ingredients": [
             {
-                "name": "牛腹肉 (切薄片)",
+                "name": "牛腹肉",
                 "quantity": 907,
-                "unit": "g"
+                "unit": "g",
+                "note": "切薄片"
             },
             {
                 "name": "是拉差辣椒醬",
@@ -7443,9 +7526,10 @@
                 "unit": "ml"
             },
             {
-                "name": "蜂蜜 (或生酮蜂蜜)",
+                "name": "蜂蜜",
                 "quantity": 170,
-                "unit": "g"
+                "unit": "g",
+                "note": "或生酮蜂蜜"
             },
             {
                 "name": "蒜鹽",
@@ -7634,7 +7718,7 @@
                 "unit": "g"
             },
             {
-                "name": "飲用水",
+                "name": "水",
                 "quantity": 400,
                 "unit": "ml"
             },
@@ -7698,9 +7782,10 @@
         ],
         "ingredients": [
             {
-                "name": "低脂牛絞肉 (96% 瘦肉)",
+                "name": "低脂牛絞肉",
                 "quantity": 907,
-                "unit": "g"
+                "unit": "g",
+                "note": "96% 瘦肉"
             },
             {
                 "name": "Carb DM 帕尼尼義大利麵",
@@ -7713,14 +7798,16 @@
                 "unit": "g"
             },
             {
-                "name": "白洋蔥 (切丁)",
+                "name": "白洋蔥",
                 "quantity": 180,
-                "unit": "g"
+                "unit": "g",
+                "note": "切丁"
             },
             {
-                "name": "酸黃瓜 (切碎)",
+                "name": "酸黃瓜",
                 "quantity": 200,
-                "unit": "g"
+                "unit": "g",
+                "note": "切碎"
             },
             {
                 "name": "減脂 30% 波羅伏洛起司片",
@@ -7728,7 +7815,7 @@
                 "unit": "g"
             },
             {
-                "name": "原味脫脂希臘優格",
+                "name": "零脂希臘優格",
                 "quantity": 350,
                 "unit": "g"
             },
@@ -7780,9 +7867,10 @@
                 "unit": "g"
             },
             {
-                "name": "酸黃瓜丁 (用於牛肉)",
+                "name": "酸黃瓜丁",
                 "quantity": 30,
-                "unit": "g"
+                "unit": "g",
+                "note": "用於牛肉"
             },
             {
                 "name": "洋蔥丁",
@@ -7790,19 +7878,22 @@
                 "unit": "g"
             },
             {
-                "name": "鹽 (用於牛肉)",
+                "name": "鹽",
                 "quantity": 10,
-                "unit": "g"
+                "unit": "g",
+                "note": "用於牛肉"
             },
             {
-                "name": "黑胡椒 (用於牛肉)",
+                "name": "黑胡椒",
                 "quantity": 2,
-                "unit": "g"
+                "unit": "g",
+                "note": "用於牛肉"
             },
             {
-                "name": "蒜粉 (用於牛肉)",
+                "name": "蒜粉",
                 "quantity": 6,
-                "unit": "g"
+                "unit": "g",
+                "note": "用於牛肉"
             },
             {
                 "name": "洋蔥粉",
@@ -7840,14 +7931,16 @@
                 "unit": "g"
             },
             {
-                "name": "酸黃瓜丁 (用於醬汁)",
+                "name": "酸黃瓜丁",
                 "quantity": 15,
-                "unit": "g"
+                "unit": "g",
+                "note": "用於醬汁"
             },
             {
-                "name": "蒜粉 (用於醬汁)",
+                "name": "蒜粉",
                 "quantity": 3,
-                "unit": "g"
+                "unit": "g",
+                "note": "用於醬汁"
             },
             {
                 "name": "代糖",
@@ -7855,14 +7948,16 @@
                 "unit": "g"
             },
             {
-                "name": "鹽 (用於醬汁)",
+                "name": "鹽",
                 "quantity": 1,
-                "unit": "g"
+                "unit": "g",
+                "note": "用於醬汁"
             },
             {
-                "name": "黑胡椒 (用於醬汁)",
+                "name": "黑胡椒",
                 "quantity": 1,
-                "unit": "g"
+                "unit": "g",
+                "note": "用於醬汁"
             },
             {
                 "name": "低脂起司片 (切達口味)",
@@ -7913,9 +8008,10 @@
         ],
         "ingredients": [
             {
-                "name": "低碳捲餅皮（捲餅尺寸）",
+                "name": "低碳捲餅皮",
                 "quantity": 70,
-                "unit": "g"
+                "unit": "g",
+                "note": "捲餅尺寸"
             },
             {
                 "name": "摩佐羅拉起司條",
@@ -8153,7 +8249,7 @@
         ],
         "ingredients": [
             {
-                "name": "生雞胸肉",
+                "name": "雞胸肉",
                 "quantity": 1000,
                 "unit": "g"
             },
@@ -8378,9 +8474,10 @@
                 "unit": "g"
             },
             {
-                "name": "雞高湯（或水）",
+                "name": "雞高湯",
                 "quantity": 60,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "或水"
             },
             {
                 "name": "甜菊糖",
@@ -8535,9 +8632,10 @@
                 "unit": "ml"
             },
             {
-                "name": "鹽巴（豆腐醬用）",
+                "name": "鹽",
                 "quantity": 5,
-                "unit": "g"
+                "unit": "g",
+                "note": "豆腐醬用"
             },
             {
                 "name": "黑胡椒粉",
@@ -8545,9 +8643,10 @@
                 "unit": "g"
             },
             {
-                "name": "鹽巴（調味用）",
+                "name": "鹽",
                 "quantity": 10,
-                "unit": "g"
+                "unit": "g",
+                "note": "調味用"
             },
             {
                 "name": "水",
@@ -8603,9 +8702,10 @@
                 "unit": "g"
             },
             {
-                "name": "鮮奶油 (12%)",
+                "name": "鮮奶油",
                 "quantity": 200,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "12%"
             },
             {
                 "name": "番茄糊",
@@ -8702,7 +8802,7 @@
                 "unit": "g"
             },
             {
-                "name": "鹽巴",
+                "name": "鹽",
                 "quantity": 3,
                 "unit": "g"
             },
@@ -8949,9 +9049,10 @@
                 "unit": "g"
             },
             {
-                "name": "大蒜（蒜末）",
+                "name": "大蒜",
                 "quantity": 20,
-                "unit": "g"
+                "unit": "g",
+                "note": "蒜末"
             },
             {
                 "name": "蔥花",
@@ -9042,7 +9143,7 @@
                 "unit": "ml"
             },
             {
-                "name": "白砂糖",
+                "name": "砂糖",
                 "quantity": 30,
                 "unit": "g"
             },
@@ -9179,14 +9280,16 @@
                 "unit": "g"
             },
             {
-                "name": "大蒜（磨成泥）",
+                "name": "大蒜",
                 "quantity": 10,
-                "unit": "g"
+                "unit": "g",
+                "note": "磨成泥"
             },
             {
-                "name": "生薑（磨成泥）",
+                "name": "生薑",
                 "quantity": 15,
-                "unit": "g"
+                "unit": "g",
+                "note": "磨成泥"
             },
             {
                 "name": "醬油",
@@ -9284,7 +9387,7 @@
                 "unit": "g"
             },
             {
-                "name": "0% 希臘優格",
+                "name": "零脂希臘優格",
                 "quantity": 250,
                 "unit": "g"
             },
@@ -9487,9 +9590,10 @@
                 "unit": "g"
             },
             {
-                "name": "午餐肉 (或德式香腸)",
+                "name": "午餐肉",
                 "quantity": 50,
-                "unit": "g"
+                "unit": "g",
+                "note": "或德式香腸"
             },
             {
                 "name": "玉米粒",
@@ -9517,9 +9621,10 @@
                 "unit": "g"
             },
             {
-                "name": "披薩起司 (乳酪絲)",
+                "name": "披薩起司",
                 "quantity": 100,
-                "unit": "g"
+                "unit": "g",
+                "note": "乳酪絲"
             }
         ],
         "steps": [
@@ -9557,19 +9662,22 @@
         ],
         "ingredients": [
             {
-                "name": "粗麵（烏龍麵或刀削麵）",
+                "name": "粗麵",
                 "quantity": 300,
-                "unit": "g"
+                "unit": "g",
+                "note": "烏龍麵或刀削麵"
             },
             {
-                "name": "豬絞肉（或豆腐）",
+                "name": "豬絞肉",
                 "quantity": 200,
-                "unit": "g"
+                "unit": "g",
+                "note": "或豆腐"
             },
             {
-                "name": "蒜末（炒料用）",
+                "name": "蒜末",
                 "quantity": 15,
-                "unit": "g"
+                "unit": "g",
+                "note": "炒料用"
             },
             {
                 "name": "食用油",
@@ -9597,9 +9705,10 @@
                 "unit": "ml"
             },
             {
-                "name": "生蒜（配料用）",
+                "name": "生蒜",
                 "quantity": 15,
-                "unit": "g"
+                "unit": "g",
+                "note": "配料用"
             },
             {
                 "name": "蔥",
@@ -9808,14 +9917,16 @@
         ],
         "ingredients": [
             {
-                "name": "生拉麵 (中式拉麵)",
+                "name": "生拉麵",
                 "quantity": 300,
-                "unit": "g"
+                "unit": "g",
+                "note": "中式拉麵"
             },
             {
-                "name": "五花肉 (梅花肉亦可)",
+                "name": "五花肉",
                 "quantity": 300,
-                "unit": "g"
+                "unit": "g",
+                "note": "梅花肉亦可"
             },
             {
                 "name": "醬油",
@@ -9888,9 +9999,10 @@
         ],
         "ingredients": [
             {
-                "name": "瘦牛絞肉 (90/10)",
+                "name": "瘦牛絞肉",
                 "quantity": 500,
-                "unit": "g"
+                "unit": "g",
+                "note": "90/10"
             },
             {
                 "name": "Taco 調味粉",
@@ -10046,7 +10158,7 @@
                 "unit": "g"
             },
             {
-                "name": "鹽巴",
+                "name": "鹽",
                 "quantity": 2,
                 "unit": "g"
             },
@@ -10186,14 +10298,16 @@
                 "unit": "g"
             },
             {
-                "name": "大蒜 (切末)",
+                "name": "大蒜",
                 "quantity": 20,
-                "unit": "g"
+                "unit": "g",
+                "note": "切末"
             },
             {
-                "name": "生薑 (切末)",
+                "name": "生薑",
                 "quantity": 15,
-                "unit": "g"
+                "unit": "g",
+                "note": "切末"
             },
             {
                 "name": "豆芽菜",
@@ -10206,9 +10320,10 @@
                 "unit": "g"
             },
             {
-                "name": "青蔥 (切花)",
+                "name": "青蔥",
                 "quantity": 30,
-                "unit": "g"
+                "unit": "g",
+                "note": "切花"
             },
             {
                 "name": "無鹽奶油",
@@ -10216,7 +10331,7 @@
                 "unit": "g"
             },
             {
-                "name": "鹽巴",
+                "name": "鹽",
                 "quantity": 8,
                 "unit": "g"
             }
@@ -10660,9 +10775,10 @@
                 "unit": "g"
             },
             {
-                "name": "蒜末 (醃漬用)",
+                "name": "蒜末",
                 "quantity": 15,
-                "unit": "g"
+                "unit": "g",
+                "note": "醃漬用"
             },
             {
                 "name": "醬油",
@@ -10685,9 +10801,10 @@
                 "unit": "g"
             },
             {
-                "name": "蒜末 (淋醬用)",
+                "name": "蒜末",
                 "quantity": 60,
-                "unit": "g"
+                "unit": "g",
+                "note": "淋醬用"
             },
             {
                 "name": "鹽",
@@ -10931,12 +11048,12 @@
                 "unit": "g"
             },
             {
-                "name": "飲用水",
+                "name": "水",
                 "quantity": 2500,
                 "unit": "ml"
             },
             {
-                "name": "鹽巴",
+                "name": "鹽",
                 "quantity": 8,
                 "unit": "g"
             }
@@ -11360,14 +11477,16 @@
                 "unit": "g"
             },
             {
-                "name": "大蒜（磨成泥）",
+                "name": "大蒜",
                 "quantity": 10,
-                "unit": "g"
+                "unit": "g",
+                "note": "磨成泥"
             },
             {
-                "name": "薑（磨成泥）",
+                "name": "薑",
                 "quantity": 10,
-                "unit": "g"
+                "unit": "g",
+                "note": "磨成泥"
             },
             {
                 "name": "醬油",
@@ -11390,9 +11509,10 @@
                 "unit": "g"
             },
             {
-                "name": "芝麻醬 (Tahini)",
+                "name": "芝麻醬",
                 "quantity": 15,
-                "unit": "g"
+                "unit": "g",
+                "note": "Tahini"
             },
             {
                 "name": "味噌",
@@ -11405,9 +11525,10 @@
                 "unit": "ml"
             },
             {
-                "name": "韓式辣椒粉 (Gochugaru)",
+                "name": "韓式辣椒粉",
                 "quantity": 10,
-                "unit": "g"
+                "unit": "g",
+                "note": "Gochugaru"
             },
             {
                 "name": "小黃瓜",
@@ -11461,9 +11582,10 @@
         ],
         "ingredients": [
             {
-                "name": "牛排 (10 oz)",
+                "name": "牛排",
                 "quantity": 283,
-                "unit": "g"
+                "unit": "g",
+                "note": "10 oz"
             },
             {
                 "name": "高蛋白義大利麵",
@@ -11496,7 +11618,7 @@
                 "unit": "ml"
             },
             {
-                "name": "鹽巴",
+                "name": "鹽",
                 "quantity": 2,
                 "unit": "g"
             },
@@ -11554,9 +11676,10 @@
                 "unit": "g"
             },
             {
-                "name": "水（調醬用）",
+                "name": "水",
                 "quantity": 30,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "調醬用"
             },
             {
                 "name": "洋蔥",
@@ -11579,9 +11702,10 @@
                 "unit": "g"
             },
             {
-                "name": "水（煮飯用）",
+                "name": "水",
                 "quantity": 120,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "煮飯用"
             }
         ],
         "steps": [
@@ -11632,9 +11756,10 @@
                 "unit": "g"
             },
             {
-                "name": "食用油 (熱油)",
+                "name": "食用油",
                 "quantity": 15,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "熱油"
             },
             {
                 "name": "麵條",
@@ -11652,7 +11777,7 @@
                 "unit": "g"
             },
             {
-                "name": "白砂糖",
+                "name": "砂糖",
                 "quantity": 15,
                 "unit": "g"
             },
@@ -11852,9 +11977,10 @@
                 "unit": "g"
             },
             {
-                "name": "五花肉 (叉燒用)",
+                "name": "五花肉",
                 "quantity": 300,
-                "unit": "g"
+                "unit": "g",
+                "note": "叉燒用"
             },
             {
                 "name": "新鮮拉麵",
@@ -11887,12 +12013,12 @@
                 "unit": "g"
             },
             {
-                "name": "鹽巴",
+                "name": "鹽",
                 "quantity": 10,
                 "unit": "g"
             },
             {
-                "name": "飲用水",
+                "name": "水",
                 "quantity": 3000,
                 "unit": "ml"
             }
@@ -11937,9 +12063,10 @@
                 "unit": "g"
             },
             {
-                "name": "蒜粉 (雞肉醃料)",
+                "name": "蒜粉",
                 "quantity": 5,
-                "unit": "g"
+                "unit": "g",
+                "note": "雞肉醃料"
             },
             {
                 "name": "洋蔥粉",
@@ -11952,14 +12079,16 @@
                 "unit": "g"
             },
             {
-                "name": "鹽 (雞肉用)",
+                "name": "鹽",
                 "quantity": 3,
-                "unit": "g"
+                "unit": "g",
+                "note": "雞肉用"
             },
             {
-                "name": "黑胡椒 (雞肉用)",
+                "name": "黑胡椒",
                 "quantity": 2,
-                "unit": "g"
+                "unit": "g",
+                "note": "雞肉用"
             },
             {
                 "name": "檸檬汁",
@@ -11967,17 +12096,19 @@
                 "unit": "g"
             },
             {
-                "name": "彎管通心粉 (乾麵)",
+                "name": "彎管通心粉",
                 "quantity": 226,
-                "unit": "g"
+                "unit": "g",
+                "note": "乾麵"
             },
             {
-                "name": "低脂茅屋起司 (Cottage Cheese)",
+                "name": "低脂茅屋起司",
                 "quantity": 240,
-                "unit": "g"
+                "unit": "g",
+                "note": "Cottage Cheese"
             },
             {
-                "name": "無脂希臘優格",
+                "name": "零脂希臘優格",
                 "quantity": 120,
                 "unit": "g"
             },
@@ -11992,9 +12123,10 @@
                 "unit": "g"
             },
             {
-                "name": "煮麵水 (預留)",
+                "name": "煮麵水",
                 "quantity": 120,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "預留"
             },
             {
                 "name": "黑松露油",
@@ -12002,24 +12134,28 @@
                 "unit": "g"
             },
             {
-                "name": "蒜粉 (醬汁用)",
+                "name": "蒜粉",
                 "quantity": 5,
-                "unit": "g"
+                "unit": "g",
+                "note": "醬汁用"
             },
             {
-                "name": "鹽 (醬汁用)",
+                "name": "鹽",
                 "quantity": 3,
-                "unit": "g"
+                "unit": "g",
+                "note": "醬汁用"
             },
             {
-                "name": "黑胡椒 (醬汁用)",
+                "name": "黑胡椒",
                 "quantity": 2,
-                "unit": "g"
+                "unit": "g",
+                "note": "醬汁用"
             },
             {
-                "name": "新鮮巴西里 (裝飾)",
+                "name": "新鮮巴西里",
                 "quantity": 5,
-                "unit": "g"
+                "unit": "g",
+                "note": "裝飾"
             }
         ],
         "steps": [
@@ -12158,14 +12294,16 @@
                 "unit": "g"
             },
             {
-                "name": "佩克里諾羅馬諾起司 (Pecorino Romano)",
+                "name": "佩克里諾羅馬諾起司",
                 "quantity": 30,
-                "unit": "g"
+                "unit": "g",
+                "note": "Pecorino Romano"
             },
             {
-                "name": "帕瑪森起司 (Parmesan)",
+                "name": "帕瑪森起司",
                 "quantity": 30,
-                "unit": "g"
+                "unit": "g",
+                "note": "Parmesan"
             },
             {
                 "name": "乾燥薄荷",
@@ -12173,9 +12311,10 @@
                 "unit": "g"
             },
             {
-                "name": "義大利寬帶麵 (Pappardelle)",
+                "name": "義大利寬帶麵",
                 "quantity": 120,
-                "unit": "g"
+                "unit": "g",
+                "note": "Pappardelle"
             },
             {
                 "name": "煮麵水",
@@ -12289,7 +12428,7 @@
                 "unit": "g"
             },
             {
-                "name": "鹽巴",
+                "name": "鹽",
                 "quantity": 3,
                 "unit": "g"
             },
@@ -12337,14 +12476,16 @@
                 "unit": "ml"
             },
             {
-                "name": "水（蒸蛋用）",
+                "name": "水",
                 "quantity": 170,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "蒸蛋用"
             },
             {
-                "name": "醬油（蒸蛋上色）",
+                "name": "醬油",
                 "quantity": 2,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "蒸蛋上色"
             },
             {
                 "name": "鹽",
@@ -12382,9 +12523,10 @@
                 "unit": "g"
             },
             {
-                "name": "醬油（麻婆醬用）",
+                "name": "醬油",
                 "quantity": 7.5,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "麻婆醬用"
             },
             {
                 "name": "米酒",
@@ -12397,9 +12539,10 @@
                 "unit": "g"
             },
             {
-                "name": "水（麻婆醬用）",
+                "name": "水",
                 "quantity": 120,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "麻婆醬用"
             },
             {
                 "name": "花椒粉",
@@ -12537,7 +12680,7 @@
                 "unit": "ml"
             },
             {
-                "name": "味霖",
+                "name": "味醂",
                 "quantity": 5,
                 "unit": "ml"
             },
@@ -12649,9 +12792,10 @@
                 "unit": "g"
             },
             {
-                "name": "水（加入蛋液中）",
+                "name": "水",
                 "quantity": 100,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "加入蛋液中"
             },
             {
                 "name": "絞肉",
@@ -12674,9 +12818,10 @@
                 "unit": "g"
             },
             {
-                "name": "水（加入醬汁中）",
+                "name": "水",
                 "quantity": 60,
-                "unit": "ml"
+                "unit": "ml",
+                "note": "加入醬汁中"
             }
         ],
         "steps": [

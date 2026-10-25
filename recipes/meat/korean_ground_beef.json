@@ -18,9 +18,10 @@
             "unit": "g"
         },
         {
-            "name": "大蒜（切末）",
+            "name": "大蒜",
             "quantity": 15,
-            "unit": "g"
+            "unit": "g",
+            "note": "切末"
         },
         {
             "name": "食用油",

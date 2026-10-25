@@ -20,14 +20,16 @@
             "unit": "g"
         },
         {
-            "name": "大蒜（磨成泥）",
+            "name": "大蒜",
             "quantity": 10,
-            "unit": "g"
+            "unit": "g",
+            "note": "磨成泥"
         },
         {
-            "name": "薑（磨成泥）",
+            "name": "薑",
             "quantity": 10,
-            "unit": "g"
+            "unit": "g",
+            "note": "磨成泥"
         },
         {
             "name": "醬油",
@@ -50,9 +52,10 @@
             "unit": "g"
         },
         {
-            "name": "芝麻醬 (Tahini)",
+            "name": "芝麻醬",
             "quantity": 15,
-            "unit": "g"
+            "unit": "g",
+            "note": "Tahini"
         },
         {
             "name": "味噌",
@@ -65,9 +68,10 @@
             "unit": "ml"
         },
         {
-            "name": "韓式辣椒粉 (Gochugaru)",
+            "name": "韓式辣椒粉",
             "quantity": 10,
-            "unit": "g"
+            "unit": "g",
+            "note": "Gochugaru"
         },
         {
             "name": "小黃瓜",

@@ -35,6 +35,17 @@
    - 標準化標籤（Normalization），確保分類一致性。
    - 執行 `update_recipes.py` 更新全站索引。
 
+### 食材格式
+```json
+{ "name": "黑胡椒", "quantity": 2, "unit": "g", "note": "醬汁用" }
+{ "name": "植物油", "quantity": 500, "unit": "ml", "note": "炸用", "calorieRatio": 0.1 }
+```
+- `name`：標準食材名稱，必須存在於 `asset/nutrition.json`（kcal / 100g 或 100ml，`null` 表示尚無資料）。
+- `note`（選填）：用途、切法或替代品等備註，顯示在食材名稱旁，不影響熱量計算。
+- `calorieRatio`（選填，0–1）：實際攝取比例，例如炸油只計入吸收的部分。
+- 舊名稱或變體寫法請參考 `asset/ingredient_aliases.json`；`update_recipes.py` 遇到時會提示對應的標準名稱。
+- 修改 HTML/JS 中的 Tailwind class 後，執行 `npm run build:css` 重新產生 `css/tailwind.css`（CI 也會自動建置）。
+
 ## 🛠️ 技術架構
 - **Frontend**: Vanilla JS + Tailwind CSS (CDN)
 - **Data**: JSON 檔案儲存，純靜態實現

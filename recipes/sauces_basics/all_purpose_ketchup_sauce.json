@@ -17,9 +17,10 @@
             "unit": "g"
         },
         {
-            "name": "中濃醬 (Chūno Sauce)",
+            "name": "中濃醬",
             "quantity": 30,
-            "unit": "g"
+            "unit": "g",
+            "note": "Chūno Sauce"
         },
         {
             "name": "味醂",

@@ -12,9 +12,10 @@
     ],
     "ingredients": [
         {
-            "name": "五花肉 (切成約 5 公分厚條狀)",
+            "name": "五花肉",
             "quantity": 907,
-            "unit": "g"
+            "unit": "g",
+            "note": "切成約 5 公分厚條狀"
         },
         {
             "name": "叉燒醬",
@@ -27,9 +28,10 @@
             "unit": "g"
         },
         {
-            "name": "焦糖色素 (醬色)",
+            "name": "焦糖色素",
             "quantity": 7,
-            "unit": "g"
+            "unit": "g",
+            "note": "醬色"
         },
         {
             "name": "蜂蜜",
@@ -42,14 +44,16 @@
             "unit": "ml"
         },
         {
-            "name": "麥芽糖 (或砂糖)",
+            "name": "麥芽糖",
             "quantity": 20,
-            "unit": "g"
+            "unit": "g",
+            "note": "或砂糖"
         },
         {
-            "name": "味精 (或雞粉)",
+            "name": "味精",
             "quantity": 3,
-            "unit": "g"
+            "unit": "g",
+            "note": "或雞粉"
         },
         {
             "name": "蠔油",
@@ -62,9 +66,10 @@
             "unit": "g"
         },
         {
-            "name": "醬油 (淋醬用)",
+            "name": "醬油",
             "quantity": 30,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "淋醬用"
         }
     ],
     "steps": [

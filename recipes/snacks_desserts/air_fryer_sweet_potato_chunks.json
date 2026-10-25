@@ -13,9 +13,10 @@
     ],
     "ingredients": [
         {
-            "name": "地瓜（切塊）",
+            "name": "地瓜",
             "quantity": 450,
-            "unit": "g"
+            "unit": "g",
+            "note": "切塊"
         },
         {
             "name": "黑胡椒",

@@ -57,12 +57,12 @@
             "unit": "g"
         },
         {
-            "name": "飲用水",
+            "name": "水",
             "quantity": 2500,
             "unit": "ml"
         },
         {
-            "name": "鹽巴",
+            "name": "鹽",
             "quantity": 8,
             "unit": "g"
         }

@@ -15,19 +15,22 @@
     ],
     "ingredients": [
         {
-            "name": "粗麵（烏龍麵或刀削麵）",
+            "name": "粗麵",
             "quantity": 300,
-            "unit": "g"
+            "unit": "g",
+            "note": "烏龍麵或刀削麵"
         },
         {
-            "name": "豬絞肉（或豆腐）",
+            "name": "豬絞肉",
             "quantity": 200,
-            "unit": "g"
+            "unit": "g",
+            "note": "或豆腐"
         },
         {
-            "name": "蒜末（炒料用）",
+            "name": "蒜末",
             "quantity": 15,
-            "unit": "g"
+            "unit": "g",
+            "note": "炒料用"
         },
         {
             "name": "食用油",
@@ -55,9 +58,10 @@
             "unit": "ml"
         },
         {
-            "name": "生蒜（配料用）",
+            "name": "生蒜",
             "quantity": 15,
-            "unit": "g"
+            "unit": "g",
+            "note": "配料用"
         },
         {
             "name": "蔥",

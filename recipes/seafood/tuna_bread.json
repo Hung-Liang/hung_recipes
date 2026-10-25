@@ -15,9 +15,10 @@
     ],
     "ingredients": [
         {
-            "name": "水煮鮪魚（瀝乾水分）",
+            "name": "水煮鮪魚",
             "quantity": 266,
-            "unit": "g"
+            "unit": "g",
+            "note": "瀝乾水分"
         },
         {
             "name": "雞蛋",

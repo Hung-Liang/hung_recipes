@@ -41,9 +41,10 @@
             "unit": "g"
         },
         {
-            "name": "月桂葉 (香葉)",
+            "name": "月桂葉",
             "quantity": 1,
-            "unit": "g"
+            "unit": "g",
+            "note": "香葉"
         },
         {
             "name": "熱開水",

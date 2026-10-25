@@ -35,9 +35,10 @@
             "unit": "ml"
         },
         {
-            "name": "鹽巴（豆腐醬用）",
+            "name": "鹽",
             "quantity": 5,
-            "unit": "g"
+            "unit": "g",
+            "note": "豆腐醬用"
         },
         {
             "name": "黑胡椒粉",
@@ -45,9 +46,10 @@
             "unit": "g"
         },
         {
-            "name": "鹽巴（調味用）",
+            "name": "鹽",
             "quantity": 10,
-            "unit": "g"
+            "unit": "g",
+            "note": "調味用"
         },
         {
             "name": "水",

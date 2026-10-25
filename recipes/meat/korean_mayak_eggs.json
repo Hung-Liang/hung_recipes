@@ -21,12 +21,12 @@
             "unit": "ml"
         },
         {
-            "name": "飲用水",
+            "name": "水",
             "quantity": 60,
             "unit": "ml"
         },
         {
-            "name": "細砂糖",
+            "name": "砂糖",
             "quantity": 18,
             "unit": "g"
         },
@@ -36,9 +36,10 @@
             "unit": "g"
         },
         {
-            "name": "青辣椒 (切片)",
+            "name": "青辣椒",
             "quantity": 10,
-            "unit": "g"
+            "unit": "g",
+            "note": "切片"
         },
         {
             "name": "蔥花",

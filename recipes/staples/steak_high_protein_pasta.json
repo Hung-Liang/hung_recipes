@@ -13,9 +13,10 @@
     ],
     "ingredients": [
         {
-            "name": "牛排 (10 oz)",
+            "name": "牛排",
             "quantity": 283,
-            "unit": "g"
+            "unit": "g",
+            "note": "10 oz"
         },
         {
             "name": "高蛋白義大利麵",
@@ -48,7 +49,7 @@
             "unit": "ml"
         },
         {
-            "name": "鹽巴",
+            "name": "鹽",
             "quantity": 2,
             "unit": "g"
         },

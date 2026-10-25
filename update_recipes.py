@@ -15,6 +15,7 @@ def update_recipe_list():
     recipes_output_path = os.path.join(script_dir, 'asset', 'recipes.json')
     info_path = os.path.join(script_dir, 'asset', 'info.json')
     nutrition_path = os.path.join(script_dir, 'asset', 'nutrition.json')
+    aliases_path = os.path.join(script_dir, 'asset', 'ingredient_aliases.json')
 
     # --- 1. Version Synchronization ---
     sw_path = os.path.join(script_dir, 'sw.js')
@@ -58,6 +59,12 @@ def update_recipe_list():
     else:
         print(f"WARNING: {nutrition_path} does not exist!")
 
+    # Old/variant ingredient names -> standard name (+ note), used for error hints
+    aliases = {}
+    if os.path.exists(aliases_path):
+        with open(aliases_path, 'r', encoding='utf-8') as f:
+            aliases = json.load(f)
+
     # --- 3. Recipe Update Logic & Ingredient Verification ---
     recipe_summaries = []
     all_recipes_data = {}
@@ -80,6 +87,10 @@ def update_recipe_list():
                         ratio = ing.get("calorieRatio")
                         if ratio is not None and not (isinstance(ratio, (int, float)) and 0 <= ratio <= 1):
                             print(f"[ERROR] {relative_path}: {ing_name} 的 calorieRatio 必須介於 0–1，目前為 {ratio!r}")
+                            sys.exit(1)
+                        note = ing.get("note")
+                        if note is not None and not isinstance(note, str):
+                            print(f"[ERROR] {relative_path}: {ing_name} 的 note 必須是字串，目前為 {note!r}")
                             sys.exit(1)
                         if ing_name and ing_name not in nutrition_db:
                             if ing_name not in missing_ingredients:
@@ -107,7 +118,11 @@ def update_recipe_list():
         print("為了確保「食材標準化」與「熱量確定化」，請先將以下食材及其每 100g 熱量新增至 asset/nutrition.json：")
         for ing_name, file_list in sorted(missing_ingredients.items()):
             files_str = ", ".join(file_list[:2]) + ("..." if len(file_list) > 2 else "")
-            print(f"  * {ing_name} (見於: {files_str})")
+            hint = ""
+            if ing_name in aliases:
+                alias = aliases[ing_name]
+                hint = f" → 請改用標準名稱 \"{alias['name']}\"" + (f"，note: \"{alias['note']}\"" if alias.get('note') else "")
+            print(f"  * {ing_name} (見於: {files_str}){hint}")
         print("\n請補齊 asset/nutrition.json 後再重新執行 update_recipes.py！\n")
         sys.exit(1)
 

@@ -32,14 +32,16 @@
             "unit": "g"
         },
         {
-            "name": "大蒜 (切末)",
+            "name": "大蒜",
             "quantity": 20,
-            "unit": "g"
+            "unit": "g",
+            "note": "切末"
         },
         {
-            "name": "生薑 (切末)",
+            "name": "生薑",
             "quantity": 15,
-            "unit": "g"
+            "unit": "g",
+            "note": "切末"
         },
         {
             "name": "豆芽菜",
@@ -52,9 +54,10 @@
             "unit": "g"
         },
         {
-            "name": "青蔥 (切花)",
+            "name": "青蔥",
             "quantity": 30,
-            "unit": "g"
+            "unit": "g",
+            "note": "切花"
         },
         {
             "name": "無鹽奶油",
@@ -62,7 +65,7 @@
             "unit": "g"
         },
         {
-            "name": "鹽巴",
+            "name": "鹽",
             "quantity": 8,
             "unit": "g"
         }

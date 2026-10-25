@@ -29,9 +29,10 @@
             "unit": "g"
         },
         {
-            "name": "水（調醬用）",
+            "name": "水",
             "quantity": 30,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "調醬用"
         },
         {
             "name": "洋蔥",
@@ -54,9 +55,10 @@
             "unit": "g"
         },
         {
-            "name": "水（煮飯用）",
+            "name": "水",
             "quantity": 120,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "煮飯用"
         }
     ],
     "steps": [

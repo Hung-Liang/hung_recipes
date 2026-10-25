@@ -15,9 +15,10 @@
     ],
     "ingredients": [
         {
-            "name": "低脂牛絞肉 (96% 瘦肉)",
+            "name": "低脂牛絞肉",
             "quantity": 907,
-            "unit": "g"
+            "unit": "g",
+            "note": "96% 瘦肉"
         },
         {
             "name": "Carb DM 帕尼尼義大利麵",
@@ -30,14 +31,16 @@
             "unit": "g"
         },
         {
-            "name": "白洋蔥 (切丁)",
+            "name": "白洋蔥",
             "quantity": 180,
-            "unit": "g"
+            "unit": "g",
+            "note": "切丁"
         },
         {
-            "name": "酸黃瓜 (切碎)",
+            "name": "酸黃瓜",
             "quantity": 200,
-            "unit": "g"
+            "unit": "g",
+            "note": "切碎"
         },
         {
             "name": "減脂 30% 波羅伏洛起司片",
@@ -45,7 +48,7 @@
             "unit": "g"
         },
         {
-            "name": "原味脫脂希臘優格",
+            "name": "零脂希臘優格",
             "quantity": 350,
             "unit": "g"
         },

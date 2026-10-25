@@ -16,9 +16,10 @@
             "unit": "g"
         },
         {
-            "name": "大蒜（蒜片或蒜末）",
+            "name": "大蒜",
             "quantity": 15,
-            "unit": "g"
+            "unit": "g",
+            "note": "蒜片或蒜末"
         },
         {
             "name": "醬油",
@@ -31,7 +32,7 @@
             "unit": "g"
         },
         {
-            "name": "白砂糖",
+            "name": "砂糖",
             "quantity": 5,
             "unit": "g"
         },

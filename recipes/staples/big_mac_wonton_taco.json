@@ -19,9 +19,10 @@
             "unit": "g"
         },
         {
-            "name": "酸黃瓜丁 (用於牛肉)",
+            "name": "酸黃瓜丁",
             "quantity": 30,
-            "unit": "g"
+            "unit": "g",
+            "note": "用於牛肉"
         },
         {
             "name": "洋蔥丁",
@@ -29,19 +30,22 @@
             "unit": "g"
         },
         {
-            "name": "鹽 (用於牛肉)",
+            "name": "鹽",
             "quantity": 10,
-            "unit": "g"
+            "unit": "g",
+            "note": "用於牛肉"
         },
         {
-            "name": "黑胡椒 (用於牛肉)",
+            "name": "黑胡椒",
             "quantity": 2,
-            "unit": "g"
+            "unit": "g",
+            "note": "用於牛肉"
         },
         {
-            "name": "蒜粉 (用於牛肉)",
+            "name": "蒜粉",
             "quantity": 6,
-            "unit": "g"
+            "unit": "g",
+            "note": "用於牛肉"
         },
         {
             "name": "洋蔥粉",
@@ -79,14 +83,16 @@
             "unit": "g"
         },
         {
-            "name": "酸黃瓜丁 (用於醬汁)",
+            "name": "酸黃瓜丁",
             "quantity": 15,
-            "unit": "g"
+            "unit": "g",
+            "note": "用於醬汁"
         },
         {
-            "name": "蒜粉 (用於醬汁)",
+            "name": "蒜粉",
             "quantity": 3,
-            "unit": "g"
+            "unit": "g",
+            "note": "用於醬汁"
         },
         {
             "name": "代糖",
@@ -94,14 +100,16 @@
             "unit": "g"
         },
         {
-            "name": "鹽 (用於醬汁)",
+            "name": "鹽",
             "quantity": 1,
-            "unit": "g"
+            "unit": "g",
+            "note": "用於醬汁"
         },
         {
-            "name": "黑胡椒 (用於醬汁)",
+            "name": "黑胡椒",
             "quantity": 1,
-            "unit": "g"
+            "unit": "g",
+            "note": "用於醬汁"
         },
         {
             "name": "低脂起司片 (切達口味)",

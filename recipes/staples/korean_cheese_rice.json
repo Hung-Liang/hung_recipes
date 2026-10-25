@@ -22,9 +22,10 @@
             "unit": "g"
         },
         {
-            "name": "午餐肉 (或德式香腸)",
+            "name": "午餐肉",
             "quantity": 50,
-            "unit": "g"
+            "unit": "g",
+            "note": "或德式香腸"
         },
         {
             "name": "玉米粒",
@@ -52,9 +53,10 @@
             "unit": "g"
         },
         {
-            "name": "披薩起司 (乳酪絲)",
+            "name": "披薩起司",
             "quantity": 100,
-            "unit": "g"
+            "unit": "g",
+            "note": "乳酪絲"
         }
     ],
     "steps": [

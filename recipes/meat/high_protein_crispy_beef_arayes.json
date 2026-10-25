@@ -12,9 +12,10 @@
     ],
     "ingredients": [
         {
-            "name": "低脂牛絞肉（5%或以下）",
+            "name": "低脂牛絞肉",
             "quantity": 800,
-            "unit": "g"
+            "unit": "g",
+            "note": "5%或以下"
         },
         {
             "name": "中型洋蔥",
@@ -47,9 +48,10 @@
             "unit": "g"
         },
         {
-            "name": "鹽 (內餡用)",
+            "name": "鹽",
             "quantity": 12,
-            "unit": "g"
+            "unit": "g",
+            "note": "內餡用"
         },
         {
             "name": "全麥皮塔餅",
@@ -57,12 +59,13 @@
             "unit": "g"
         },
         {
-            "name": "烹飪噴油（酪梨油）",
+            "name": "烹飪噴油",
             "quantity": 5,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "酪梨油"
         },
         {
-            "name": "0% 脂肪希臘優格",
+            "name": "零脂希臘優格",
             "quantity": 120,
             "unit": "g"
         },
@@ -87,9 +90,10 @@
             "unit": "g"
         },
         {
-            "name": "鹽 (白蒜醬用)",
+            "name": "鹽",
             "quantity": 1.5,
-            "unit": "g"
+            "unit": "g",
+            "note": "白蒜醬用"
         }
     ],
     "steps": [

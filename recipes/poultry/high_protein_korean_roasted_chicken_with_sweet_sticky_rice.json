@@ -18,9 +18,10 @@
             "unit": "g"
         },
         {
-            "name": "韓式辣醬（Gochujang）",
+            "name": "韓式辣醬",
             "quantity": 60,
-            "unit": "g"
+            "unit": "g",
+            "note": "Gochujang"
         },
         {
             "name": "蜂蜜",
@@ -63,9 +64,10 @@
             "unit": "ml"
         },
         {
-            "name": "生糯米或壽司米（洗淨）",
+            "name": "生糯米或壽司米",
             "quantity": 250,
-            "unit": "g"
+            "unit": "g",
+            "note": "洗淨"
         },
         {
             "name": "米醋",
@@ -78,9 +80,10 @@
             "unit": "g"
         },
         {
-            "name": "鹽（糯米飯用）",
+            "name": "鹽",
             "quantity": 3,
-            "unit": "g"
+            "unit": "g",
+            "note": "糯米飯用"
         }
     ],
     "steps": [

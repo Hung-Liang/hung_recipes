@@ -20,14 +20,16 @@
             "unit": "g"
         },
         {
-            "name": "大蒜（磨成泥）",
+            "name": "大蒜",
             "quantity": 10,
-            "unit": "g"
+            "unit": "g",
+            "note": "磨成泥"
         },
         {
-            "name": "生薑（磨成泥）",
+            "name": "生薑",
             "quantity": 15,
-            "unit": "g"
+            "unit": "g",
+            "note": "磨成泥"
         },
         {
             "name": "醬油",

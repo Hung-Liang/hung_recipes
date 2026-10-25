@@ -20,9 +20,10 @@
             "unit": "g"
         },
         {
-            "name": "奶油 (有鹽或無鹽皆可)",
+            "name": "奶油",
             "quantity": 30,
-            "unit": "g"
+            "unit": "g",
+            "note": "有鹽或無鹽皆可"
         },
         {
             "name": "蒜末",
@@ -40,9 +41,10 @@
             "unit": "g"
         },
         {
-            "name": "鹽 (煮馬鈴薯用)",
+            "name": "鹽",
             "quantity": 30,
-            "unit": "g"
+            "unit": "g",
+            "note": "煮馬鈴薯用"
         },
         {
             "name": "豆豉",

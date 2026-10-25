@@ -11,9 +11,10 @@
     ],
     "ingredients": [
         {
-            "name": "奶油乳酪 (Cream Cheese)",
+            "name": "奶油乳酪",
             "quantity": 30,
-            "unit": "g"
+            "unit": "g",
+            "note": "Cream Cheese"
         },
         {
             "name": "柴魚片",

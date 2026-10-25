@@ -13,9 +13,10 @@
     ],
     "ingredients": [
         {
-            "name": "牛腹肉 (切薄片)",
+            "name": "牛腹肉",
             "quantity": 907,
-            "unit": "g"
+            "unit": "g",
+            "note": "切薄片"
         },
         {
             "name": "是拉差辣椒醬",
@@ -23,9 +24,10 @@
             "unit": "ml"
         },
         {
-            "name": "蜂蜜 (或生酮蜂蜜)",
+            "name": "蜂蜜",
             "quantity": 170,
-            "unit": "g"
+            "unit": "g",
+            "note": "或生酮蜂蜜"
         },
         {
             "name": "蒜鹽",

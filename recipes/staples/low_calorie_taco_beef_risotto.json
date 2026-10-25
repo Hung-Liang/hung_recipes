@@ -14,9 +14,10 @@
     ],
     "ingredients": [
         {
-            "name": "瘦牛絞肉 (90/10)",
+            "name": "瘦牛絞肉",
             "quantity": 500,
-            "unit": "g"
+            "unit": "g",
+            "note": "90/10"
         },
         {
             "name": "Taco 調味粉",

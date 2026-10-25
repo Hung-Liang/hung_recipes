@@ -89,6 +89,7 @@
                 matchedWeight += qty;
                 items.push({
                     name: rawName,
+                    note: ing.note,
                     quantity: qty,
                     unit: unit,
                     matchedKey: matchInfo.matchedKey,
@@ -100,6 +101,7 @@
             } else {
                 items.push({
                     name: rawName,
+                    note: ing.note,
                     quantity: qty,
                     unit: unit,
                     matchedKey: null,

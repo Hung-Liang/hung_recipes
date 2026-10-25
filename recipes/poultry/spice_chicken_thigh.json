@@ -11,9 +11,10 @@
     ],
     "ingredients": [
         {
-            "name": "雞腿（帶骨）",
+            "name": "雞腿",
             "quantity": 750,
-            "unit": "g"
+            "unit": "g",
+            "note": "帶骨"
         },
         {
             "name": "黑胡椒粉",
@@ -31,9 +32,10 @@
             "unit": "g"
         },
         {
-            "name": "紅椒粉（匈牙利甜椒粉）",
+            "name": "紅椒粉",
             "quantity": 2,
-            "unit": "g"
+            "unit": "g",
+            "note": "匈牙利甜椒粉"
         },
         {
             "name": "薑黃粉",

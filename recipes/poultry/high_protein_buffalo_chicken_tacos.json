@@ -13,9 +13,10 @@
     ],
     "ingredients": [
         {
-            "name": "去骨去皮雞腿肉（去脂肪）",
+            "name": "去骨去皮雞腿肉",
             "quantity": 650,
-            "unit": "g"
+            "unit": "g",
+            "note": "去脂肪"
         },
         {
             "name": "洋蔥粉",
@@ -48,7 +49,7 @@
             "unit": "ml"
         },
         {
-            "name": "0%希臘優格",
+            "name": "零脂希臘優格",
             "quantity": 190,
             "unit": "g"
         },
@@ -73,14 +74,16 @@
             "unit": "ml"
         },
         {
-            "name": "迷你玉米餅（品牌：Mission）",
+            "name": "迷你玉米餅",
             "quantity": 200,
-            "unit": "g"
+            "unit": "g",
+            "note": "品牌：Mission"
         },
         {
-            "name": "低脂乳酪（50%減脂）",
+            "name": "低脂乳酪",
             "quantity": 160,
-            "unit": "g"
+            "unit": "g",
+            "note": "50%減脂"
         },
         {
             "name": "烹飪噴油",

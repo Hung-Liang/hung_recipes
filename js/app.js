@@ -1,7 +1,7 @@
 // Use a self-contained closure to avoid polluting the global namespace.
 (function () {
     // Current application version (Sync with sw.js CACHE_NAME)
-    const APP_VERSION = "v1.9.0";
+    const APP_VERSION = "v1.10.0";
 
     // 1. Update Version Display IMMEDIATELY (Script is at bottom of body, so element should exist)
     try {
@@ -323,6 +323,7 @@
             li.innerHTML = `
                 <div class="flex-1 min-w-0 pr-1 flex items-center flex-wrap gap-x-2">
                     <span class="ingredient-name text-gray-800 font-medium truncate text-sm sm:text-base">${escapeHtml(ing.name)}</span>
+                    ${ing.note ? `<span class="ingredient-note text-xs text-gray-400 truncate">${escapeHtml(ing.note)}</span>` : ""}
                     <span class="ingredient-kcal-tag text-[11px] font-medium transition-colors"></span>
                 </div>
                 <div class="flex items-center space-x-2 shrink-0">
@@ -497,6 +498,7 @@
 
             ingredientItems.push({
                 name: rawName,
+                note: sourceIng ? sourceIng.note : undefined,
                 quantity: qty,
                 unit: unit,
                 calorieRatio: sourceIng ? sourceIng.calorieRatio : undefined,
@@ -581,7 +583,7 @@
                 li.innerHTML = `
                     <div class="flex items-center space-x-2 min-w-0 pr-2">
                         <span class="w-2 h-2 rounded-full ${dotColor} shrink-0"></span>
-                        <span class="text-gray-700 font-medium truncate">${escapeHtml(it.name)}</span>
+                        <span class="text-gray-700 font-medium truncate">${escapeHtml(it.name)}${it.note ? `<span class="text-gray-400 font-normal">（${escapeHtml(it.note)}）</span>` : ""}</span>
                         <span class="text-gray-400 text-[11px]">${escapeHtml(it.quantity)} ${escapeHtml(it.unit)}${it.calorieRatio < 1 ? `（計入 ${Math.round(it.calorieRatio * 100)}%）` : ""}</span>
                     </div>
                     <div class="flex items-center space-x-1.5 shrink-0">

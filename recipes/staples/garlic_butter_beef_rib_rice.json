@@ -29,9 +29,10 @@
             "unit": "g"
         },
         {
-            "name": "大蒜（蒜末）",
+            "name": "大蒜",
             "quantity": 20,
-            "unit": "g"
+            "unit": "g",
+            "note": "蒜末"
         },
         {
             "name": "蔥花",

@@ -15,14 +15,16 @@
     ],
     "ingredients": [
         {
-            "name": "生拉麵 (中式拉麵)",
+            "name": "生拉麵",
             "quantity": 300,
-            "unit": "g"
+            "unit": "g",
+            "note": "中式拉麵"
         },
         {
-            "name": "五花肉 (梅花肉亦可)",
+            "name": "五花肉",
             "quantity": 300,
-            "unit": "g"
+            "unit": "g",
+            "note": "梅花肉亦可"
         },
         {
             "name": "醬油",

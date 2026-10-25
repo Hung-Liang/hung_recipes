@@ -12,10 +12,11 @@
     ],
     "ingredients": [
         {
-            "name": "植物油 (炸用)",
+            "name": "植物油",
             "quantity": 500,
             "unit": "ml",
-            "calorieRatio": 0.1
+            "calorieRatio": 0.1,
+            "note": "炸用"
         },
         {
             "name": "薯條",
@@ -23,9 +24,10 @@
             "unit": "g"
         },
         {
-            "name": "植物油 (炒用)",
+            "name": "植物油",
             "quantity": 15,
-            "unit": "ml"
+            "unit": "ml",
+            "note": "炒用"
         },
         {
             "name": "洋蔥",

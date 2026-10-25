@@ -14,9 +14,10 @@
     ],
     "ingredients": [
         {
-            "name": "雞絞肉（瘦肉）",
+            "name": "雞絞肉",
             "quantity": 454,
-            "unit": "g"
+            "unit": "g",
+            "note": "瘦肉"
         },
         {
             "name": "雞蛋",
