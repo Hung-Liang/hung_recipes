@@ -1,7 +1,7 @@
 // Use a self-contained closure to avoid polluting the global namespace.
 (function () {
     // Current application version (Sync with sw.js CACHE_NAME)
-    const APP_VERSION = "v1.6.0";
+    const APP_VERSION = "v1.6.1";
 
     // 1. Update Version Display IMMEDIATELY (Script is at bottom of body, so element should exist)
     try {
@@ -56,7 +56,17 @@
     let recipeCache = new Map(); 
     let allTags = new Set(); 
     let selectedTags = new Set(); 
-    let searchTerm = ""; 
+    let searchTerm = "";
+
+    // Escape text before interpolating it into innerHTML templates
+    function escapeHtml(value) {
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+    }
 
     async function fetchRecipeSummaries() {
         const CACHE_KEY = "recipe_summaries_cache";
@@ -95,6 +105,7 @@
         if (recipeCache.has(path)) return recipeCache.get(path);
         try {
             const response = await fetch(`recipes/${path}`);
+            if (!response.ok) throw new Error(`Fetch failed: ${response.status}`);
             const recipe = await response.json();
             recipe.path = path;
             recipeCache.set(path, recipe);
@@ -153,7 +164,11 @@
         }
         if (searchTerm) {
             const low = searchTerm.toLowerCase();
-            filtered = filtered.filter(r => r.name.toLowerCase().includes(low) || r.description.toLowerCase().includes(low));
+            filtered = filtered.filter(r =>
+                (r.name || "").toLowerCase().includes(low) ||
+                (r.description || "").toLowerCase().includes(low) ||
+                (r.tags || []).some(t => t.toLowerCase().includes(low))
+            );
         }
 
         if (filtered.length === 0) {
@@ -188,7 +203,7 @@
             const header = document.createElement("div");
             header.id = `section-${cat}`;
             header.className = "col-span-full mt-8 mb-4 first:mt-0";
-            header.innerHTML = `<div class="flex items-center space-x-4"><h2 class="text-2xl font-bold text-gray-900">${catTitle}</h2><div class="flex-grow h-px bg-gray-200"></div></div>`;
+            header.innerHTML = `<div class="flex items-center space-x-4"><h2 class="text-2xl font-bold text-gray-900">${escapeHtml(catTitle)}</h2><div class="flex-grow h-px bg-gray-200"></div></div>`;
             recipeListContainer.appendChild(header);
 
             groups[cat].forEach(r => {
@@ -197,13 +212,13 @@
                 
                 // Create tags HTML
                 const tagsHtml = r.tags ? r.tags.map(tag => 
-                    `<span class="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-full border border-gray-200">${tag}</span>`
+                    `<span class="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-full border border-gray-200">${escapeHtml(tag)}</span>`
                 ).join('') : '';
 
                 card.innerHTML = `
                     <div class="flex-grow">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">${r.name}</h3>
-                        <p class="text-gray-600 line-clamp-2 text-sm mb-4">${r.description}</p>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">${escapeHtml(r.name)}</h3>
+                        <p class="text-gray-600 line-clamp-2 text-sm mb-4">${escapeHtml(r.description)}</p>
                     </div>
                     <div class="flex flex-wrap gap-1 mt-auto">
                         ${tagsHtml}
@@ -231,7 +246,7 @@
         const detailTagsContainer = document.getElementById("recipe-detail-tags");
         if (detailTagsContainer) {
             detailTagsContainer.innerHTML = recipe.tags ? recipe.tags.map(tag => 
-                `<span class="px-3 py-1 bg-blue-50 text-blue-700 text-sm rounded-full border border-blue-200">${tag}</span>`
+                `<span class="px-3 py-1 bg-blue-50 text-blue-700 text-sm rounded-full border border-blue-200">${escapeHtml(tag)}</span>`
             ).join('') : '';
         }
 
@@ -282,7 +297,7 @@
 
             li.innerHTML = `
                 <div class="flex-1 min-w-0 pr-1 flex items-center flex-wrap gap-x-2">
-                    <span class="ingredient-name text-gray-800 font-medium truncate text-sm sm:text-base">${ing.name}</span>
+                    <span class="ingredient-name text-gray-800 font-medium truncate text-sm sm:text-base">${escapeHtml(ing.name)}</span>
                     <span class="ingredient-kcal-tag text-[11px] font-medium transition-colors"></span>
                 </div>
                 <div class="flex items-center space-x-2 shrink-0">
@@ -292,9 +307,9 @@
                         min="0"
                         value="${displayVal}" 
                         class="ingredient-input w-20 sm:w-24 px-2.5 py-1.5 text-right border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white transition-all shadow-sm" 
-                        data-orig="${ing.quantity}"
+                        data-orig="${escapeHtml(ing.quantity)}"
                     >
-                    <span class="ingredient-unit text-gray-500 text-xs sm:text-sm w-8 sm:w-10 shrink-0 text-left">${ing.unit}</span>
+                    <span class="ingredient-unit text-gray-500 text-xs sm:text-sm w-8 sm:w-10 shrink-0 text-left">${escapeHtml(ing.unit)}</span>
                     <label class="flex items-center space-x-1 cursor-pointer select-none text-xs text-gray-500 hover:text-gray-800 px-2 py-1.5 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 transition-colors shrink-0 shadow-sm" title="鎖定此食材份量（不隨份數變動，修改亦不影響其他欄位）">
                         <input type="checkbox" class="ingredient-lock rounded text-amber-600 focus:ring-amber-500 h-3.5 w-3.5 sm:h-4 sm:w-4 border-gray-300">
                         <span class="lock-icon text-sm leading-none opacity-40 grayscale hover:opacity-75 transition-opacity">🔒</span>
@@ -535,8 +550,8 @@
                 li.innerHTML = `
                     <div class="flex items-center space-x-2 min-w-0 pr-2">
                         <span class="w-2 h-2 rounded-full ${dotColor} shrink-0"></span>
-                        <span class="text-gray-700 font-medium truncate">${it.name}</span>
-                        <span class="text-gray-400 text-[11px]">${it.quantity} ${it.unit}</span>
+                        <span class="text-gray-700 font-medium truncate">${escapeHtml(it.name)}</span>
+                        <span class="text-gray-400 text-[11px]">${escapeHtml(it.quantity)} ${escapeHtml(it.unit)}</span>
                     </div>
                     <div class="flex items-center space-x-1.5 shrink-0">
                         <span class="font-semibold ${it.roundedKcal > 0 ? 'text-gray-800' : 'text-gray-400'}">${displayKcal}</span>
@@ -549,19 +564,6 @@
     }
 
     function updateUnlockAllButtonVisibility() {
-        if (toggleCaloriesBtn && caloriesBreakdownPanel) {
-            toggleCaloriesBtn.addEventListener("click", () => {
-                const isHidden = caloriesBreakdownPanel.classList.toggle("hidden");
-                if (caloriesChevron) {
-                    if (isHidden) {
-                        caloriesChevron.classList.remove("rotate-180");
-                    } else {
-                        caloriesChevron.classList.add("rotate-180");
-                    }
-                }
-            });
-        }
-
         const unlockAllBtn = document.getElementById("unlock-all-ingredients");
         if (!unlockAllBtn || !recipeDetailIngredients) return;
         const anyLocked = Array.from(recipeDetailIngredients.querySelectorAll(".ingredient-lock")).some(cb => cb.checked);
@@ -624,6 +626,13 @@
                     setTimeout(() => shareBtn.innerHTML = origText, 2000);
                 }
             };
+        }
+
+        if (toggleCaloriesBtn && caloriesBreakdownPanel) {
+            toggleCaloriesBtn.addEventListener("click", () => {
+                const isHidden = caloriesBreakdownPanel.classList.toggle("hidden");
+                if (caloriesChevron) caloriesChevron.classList.toggle("rotate-180", !isHidden);
+            });
         }
 
         const unlockAllBtn = document.getElementById("unlock-all-ingredients");

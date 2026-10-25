@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-recipes-v1.6.0'; // Update this version string when deploying changes
+const CACHE_NAME = 'my-recipes-v1.6.1'; // Update this version string when deploying changes
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
