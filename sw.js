@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-recipes-v1.10.0'; // Update this version string when deploying changes
+const CACHE_NAME = 'my-recipes-v1.10.0-aa6bec2d'; // vX.Y.Z is the display version (edit manually); the hash suffix is stamped by update_recipes.py
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -7,7 +7,7 @@ const ASSETS_TO_CACHE = [
   './js/nutrition.js',
   './js/app.js',
   './manifest.json',
-  './asset/icon.png',
+  './asset/icon-192.png',
   './asset/nutrition.json',
   './asset/info.json'
 ];
