@@ -3,7 +3,7 @@
     "name": "巧克力慕斯蛋糕",
     "description": "僅需牛奶與巧克力，透過微波加熱與冷藏，即可做出絲滑濃郁的慕斯蛋糕。",
     "servings": {
-        "quantity": 1,
+        "quantity": 4,
         "unit": "份"
     },
     "tags": [

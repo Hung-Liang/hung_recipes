@@ -3,7 +3,7 @@
     "name": "起司馬鈴薯可樂餅",
     "description": "這是一款外皮酥脆、內餡綿密且帶有拉絲起司驚喜的馬鈴薯可樂餅，混合了多種辛香料提升風味，是絕佳的點心選擇。",
     "servings": {
-        "quantity": 1,
+        "quantity": 10,
         "unit": "份"
     },
     "tags": [
@@ -78,7 +78,8 @@
         {
             "name": "油（油炸用）",
             "quantity": 500,
-            "unit": "ml"
+            "unit": "ml",
+            "calorieRatio": 0.1
         }
     ],
     "steps": [

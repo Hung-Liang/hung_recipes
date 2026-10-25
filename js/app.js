@@ -1,7 +1,7 @@
 // Use a self-contained closure to avoid polluting the global namespace.
 (function () {
     // Current application version (Sync with sw.js CACHE_NAME)
-    const APP_VERSION = "v1.8.0";
+    const APP_VERSION = "v1.9.0";
 
     // 1. Update Version Display IMMEDIATELY (Script is at bottom of body, so element should exist)
     try {
@@ -483,7 +483,7 @@
         const rows = recipeDetailIngredients.querySelectorAll("li");
         const ingredientItems = [];
 
-        rows.forEach(row => {
+        rows.forEach((row, idx) => {
             const nameEl = row.querySelector(".ingredient-name");
             const input = row.querySelector(".ingredient-input");
             const unitEl = row.querySelector(".ingredient-unit");
@@ -493,10 +493,13 @@
             const qty = input ? (parseFloat(input.value) || 0) : 0;
             const unit = unitEl ? unitEl.textContent.trim() : "g";
 
+            const sourceIng = currentRecipe && currentRecipe.ingredients ? currentRecipe.ingredients[idx] : null;
+
             ingredientItems.push({
                 name: rawName,
                 quantity: qty,
                 unit: unit,
+                calorieRatio: sourceIng ? sourceIng.calorieRatio : undefined,
                 kcalTagEl: kcalTagEl
             });
         });
@@ -530,12 +533,15 @@
             if (!item.kcalTagEl) return;
             const matchInfo = window.NutritionCalculator.findCaloriePer100(item.name);
             if (matchInfo) {
-                const itemKcal = Math.round((item.quantity * matchInfo.kcalPer100) / 100);
+                const ratio = window.NutritionCalculator.getCalorieRatio(item);
+                const itemKcal = Math.round((item.quantity * matchInfo.kcalPer100 * ratio) / 100);
                 if (matchInfo.kcalPer100 === 0) {
                     item.kcalTagEl.textContent = "0 kcal";
                     item.kcalTagEl.className = "ingredient-kcal-tag text-[11px] text-gray-400 font-normal ml-2";
                 } else {
-                    item.kcalTagEl.textContent = `~${itemKcal.toLocaleString()} kcal`;
+                    item.kcalTagEl.textContent = ratio < 1
+                        ? `~${itemKcal.toLocaleString()} kcal（計入 ${Math.round(ratio * 100)}%）`
+                        : `~${itemKcal.toLocaleString()} kcal`;
                     item.kcalTagEl.className = "ingredient-kcal-tag text-[11px] text-orange-600 font-medium ml-2";
                 }
             } else {
@@ -576,7 +582,7 @@
                     <div class="flex items-center space-x-2 min-w-0 pr-2">
                         <span class="w-2 h-2 rounded-full ${dotColor} shrink-0"></span>
                         <span class="text-gray-700 font-medium truncate">${escapeHtml(it.name)}</span>
-                        <span class="text-gray-400 text-[11px]">${escapeHtml(it.quantity)} ${escapeHtml(it.unit)}</span>
+                        <span class="text-gray-400 text-[11px]">${escapeHtml(it.quantity)} ${escapeHtml(it.unit)}${it.calorieRatio < 1 ? `（計入 ${Math.round(it.calorieRatio * 100)}%）` : ""}</span>
                     </div>
                     <div class="flex items-center space-x-1.5 shrink-0">
                         <span class="font-semibold ${it.roundedKcal > 0 ? 'text-gray-800' : 'text-gray-400'}">${displayKcal}</span>

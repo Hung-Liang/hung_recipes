@@ -77,6 +77,10 @@ def update_recipe_list():
                     # Validate ingredients against standard nutrition table
                     for ing in recipe_data.get("ingredients", []):
                         ing_name = ing.get("name", "").strip()
+                        ratio = ing.get("calorieRatio")
+                        if ratio is not None and not (isinstance(ratio, (int, float)) and 0 <= ratio <= 1):
+                            print(f"[ERROR] {relative_path}: {ing_name} 的 calorieRatio 必須介於 0–1，目前為 {ratio!r}")
+                            sys.exit(1)
                         if ing_name and ing_name not in nutrition_db:
                             if ing_name not in missing_ingredients:
                                 missing_ingredients[ing_name] = []

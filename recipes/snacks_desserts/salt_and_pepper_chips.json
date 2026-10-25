@@ -14,7 +14,8 @@
         {
             "name": "植物油 (炸用)",
             "quantity": 500,
-            "unit": "ml"
+            "unit": "ml",
+            "calorieRatio": 0.1
         },
         {
             "name": "薯條",

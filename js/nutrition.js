@@ -51,8 +51,19 @@
     }
 
     /**
+     * 取得食材的熱量計入比例（0–1），未設定或無效時為 1
+     * @param {{ calorieRatio?: number }} ing
+     * @returns {number}
+     */
+    function getCalorieRatio(ing) {
+        const ratio = ing ? parseFloat(ing.calorieRatio) : NaN;
+        return (ratio >= 0 && ratio <= 1) ? ratio : 1;
+    }
+
+    /**
      * 計算食譜熱量與各項明細
-     * @param {Array<{ name: string, quantity: number, unit?: string }>} ingredients
+     * @param {Array<{ name: string, quantity: number, unit?: string, calorieRatio?: number }>} ingredients
+     *        calorieRatio：實際攝取比例（0–1），例如炸油只計入吸收的部分，預設 1
      * @param {number} servings
      * @returns {Object}
      */
@@ -68,11 +79,12 @@
             const unit = ing.unit || 'g';
             const rawName = ing.name ? ing.name.trim() : '未知食材';
             const matchInfo = findCaloriePer100(rawName);
+            const ratio = getCalorieRatio(ing);
 
             totalWeight += qty;
 
             if (matchInfo) {
-                const kcal = (qty * matchInfo.kcalPer100) / 100;
+                const kcal = (qty * matchInfo.kcalPer100 * ratio) / 100;
                 totalCalories += kcal;
                 matchedWeight += qty;
                 items.push({
@@ -81,6 +93,7 @@
                     unit: unit,
                     matchedKey: matchInfo.matchedKey,
                     kcalPer100: matchInfo.kcalPer100,
+                    calorieRatio: ratio,
                     kcal: kcal,
                     isKnown: true
                 });
@@ -91,6 +104,7 @@
                     unit: unit,
                     matchedKey: null,
                     kcalPer100: null,
+                    calorieRatio: ratio,
                     kcal: 0,
                     isKnown: false
                 });
@@ -120,6 +134,7 @@
         load: load,
         setDatabase: setDatabase,
         findCaloriePer100: findCaloriePer100,
+        getCalorieRatio: getCalorieRatio,
         calculate: calculate
     };
 
