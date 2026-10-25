@@ -1,7 +1,7 @@
 // Use a self-contained closure to avoid polluting the global namespace.
 (function () {
     // Current application version (Sync with sw.js CACHE_NAME)
-    const APP_VERSION = "v1.6.1";
+    const APP_VERSION = "v1.7.0";
 
     // 1. Update Version Display IMMEDIATELY (Script is at bottom of body, so element should exist)
     try {
@@ -111,8 +111,33 @@
             recipeCache.set(path, recipe);
             return recipe;
         } catch (error) {
-            return null;
+            // Offline and this recipe was never opened: fall back to the full bundle
+            await loadAllRecipes();
+            return recipeCache.get(path) || null;
         }
+    }
+
+    // Load every recipe from asset/recipes.json so all recipes are available offline
+    let allRecipesPromise = null;
+    function loadAllRecipes() {
+        if (!allRecipesPromise) {
+            allRecipesPromise = (async () => {
+                try {
+                    const response = await fetch("asset/recipes.json");
+                    if (!response.ok) throw new Error(`Fetch failed: ${response.status}`);
+                    const all = await response.json();
+                    Object.entries(all).forEach(([path, recipe]) => {
+                        if (recipeCache.has(path)) return;
+                        recipe.path = path;
+                        recipeCache.set(path, recipe);
+                    });
+                } catch (error) {
+                    console.warn("Failed to load recipe bundle:", error);
+                    allRecipesPromise = null; // allow retry later
+                }
+            })();
+        }
+        return allRecipesPromise;
     }
 
     function renderTags() {
@@ -644,6 +669,7 @@
 
         await fetchRecipeSummaries();
         handleRouting();
+        loadAllRecipes();
     });
 
     window.addEventListener("hashchange", handleRouting);
