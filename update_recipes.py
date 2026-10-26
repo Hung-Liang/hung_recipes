@@ -233,7 +233,9 @@ def update_recipe_list():
                     "name": recipe_data["name"],
                     "description": recipe_data.get("description", ""),
                     "tags": recipe_data.get("tags", []),
-                    "servings": recipe_data["servings"]
+                    "servings": recipe_data["servings"],
+                    # Unique ingredient names, so the list can search by ingredient
+                    "ingredients": list(dict.fromkeys(ing["name"].strip() for ing in recipe_data["ingredients"]))
                 }
                 recipe_summaries.append(summary)
                 all_recipes_data[relative_path] = recipe_data

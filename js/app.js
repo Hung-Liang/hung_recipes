@@ -249,7 +249,8 @@
             filtered = filtered.filter(r =>
                 (r.name || "").toLowerCase().includes(low) ||
                 (r.description || "").toLowerCase().includes(low) ||
-                (r.tags || []).some(t => t.toLowerCase().includes(low))
+                (r.tags || []).some(t => t.toLowerCase().includes(low)) ||
+                (r.ingredients || []).some(name => name.toLowerCase().includes(low))
             );
         }
         return filtered;
