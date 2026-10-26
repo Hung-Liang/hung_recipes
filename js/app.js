@@ -303,8 +303,34 @@
         </tr>`;
     }
 
+    // --- Filters in the URL: #/c/<category>?q=<search>&t=<tag>&t=<tag> ---
+    function listHash() {
+        const params = new URLSearchParams();
+        if (searchTerm) params.set("q", searchTerm);
+        selectedTags.forEach(t => params.append("t", t));
+        const query = params.toString();
+        return (currentCategory ? `#/c/${encodeURIComponent(currentCategory)}` : "#/") + (query ? `?${query}` : "");
+    }
+
+    // Replace rather than push, so typing a search does not flood the back stack
+    function syncListUrl() {
+        if (!listView || listView.hidden) return;
+        const hash = listHash();
+        if (window.location.hash !== hash) history.replaceState(null, "", hash);
+    }
+
+    // A list link without a query keeps the current filters, as before filters lived in the URL
+    function applyFilterQuery(query) {
+        if (query === null) return;
+        const params = new URLSearchParams(query);
+        searchTerm = (params.get("q") || "").trim();
+        selectedTags = new Set(params.getAll("t"));
+        if (searchInput) searchInput.value = searchTerm;
+    }
+
     function renderRecipeList() {
         if (!recipeList) return;
+        syncListUrl();
 
         const title = currentCategory ? categoryLabel(currentCategory) : "全部食譜";
         if (listTitle) listTitle.textContent = title;
@@ -409,7 +435,7 @@
         // Tags link back to the list filtered by that tag
         if (recipeDetailTags) {
             recipeDetailTags.innerHTML = (recipe.tags || []).map(tag =>
-                `<a href="#/" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</a>`
+                `<a href="#/?${escapeHtml(new URLSearchParams({ t: tag }).toString())}">${escapeHtml(tag)}</a>`
             ).join("");
         }
 
@@ -639,8 +665,11 @@
     function handleRouting() {
         const hash = window.location.hash;
         setMenuOpen(false);
-        if (hash.startsWith("#recipe/")) showRecipeDetail(decodeURIComponent(hash.substring(8)));
-        else if (hash.startsWith("#/c/")) showList(decodeURIComponent(hash.substring(4)));
+        if (hash.startsWith("#recipe/")) { showRecipeDetail(decodeURIComponent(hash.substring(8))); return; }
+        const q = hash.indexOf("?");
+        const route = q === -1 ? hash : hash.substring(0, q);
+        applyFilterQuery(q === -1 ? null : hash.substring(q + 1));
+        if (route.startsWith("#/c/")) showList(decodeURIComponent(route.substring(4)));
         else showList("");
     }
 
@@ -683,14 +712,6 @@
     if (sortKcalButton) sortKcalButton.addEventListener("click", () => {
         kcalSort = kcalSort === "none" ? "ascending" : kcalSort === "ascending" ? "descending" : "none";
         renderRecipeList();
-    });
-
-    if (recipeDetailTags) recipeDetailTags.addEventListener("click", (e) => {
-        const a = e.target.closest("a[data-tag]");
-        if (!a) return;
-        selectedTags = new Set([a.dataset.tag]);
-        searchTerm = "";
-        if (searchInput) searchInput.value = "";
     });
 
     if (recipeDetailIngredients) {
