@@ -89,7 +89,6 @@
     let currentCategory = "";      // "" = all recipes
     let kcalSort = "none";         // none | ascending | descending
     let summariesState = "loading"; // loading | ready | error
-    const kcalByPath = new Map();
     const doneSteps = new Map();   // path -> Set of step indexes marked done
 
     // Escape text before interpolating it into innerHTML templates
@@ -209,23 +208,13 @@
         return { total, perServing: Math.round(total / safeServings), known, count: rows.length };
     }
 
-    function recipeKcal(path) {
-        if (kcalByPath.has(path)) return kcalByPath.get(path);
-        const recipe = recipeCache.get(path);
-        if (!recipe || !window.NutritionCalculator) return null;
-        const servings = recipe.servings ? parseFloat(recipe.servings.quantity) || 1 : 1;
-        const info = summarize(kcalRows(recipe.ingredients || []), servings);
-        kcalByPath.set(path, info);
-        return info;
-    }
+    // Per-serving kcal is precomputed by update_recipes.py; null when no ingredient has data
+    const summaryKcal = (r) => typeof r.kcal === "number" ? r.kcal : null;
 
-    function kcalCell(path) {
-        if (!recipeCache.has(path)) {
-            return `<span class="skeleton" style="width: 4em"></span>`;
-        }
-        const info = recipeKcal(path);
-        if (!info || info.known === 0) return `<span class="dash">–</span>`;
-        return `${fmt(info.perServing)}<small>kcal</small>`;
+    function kcalCell(r) {
+        const kcal = summaryKcal(r);
+        if (kcal === null) return `<span class="dash">–</span>`;
+        return `${fmt(kcal)}<small>kcal</small>`;
     }
 
     // --- Navigation ---
@@ -309,10 +298,10 @@
     function recipeRow(r) {
         // Each tag keeps its words together; the separator travels with the tag after it
         const tagsHtml = (r.tags || []).map((t, i) => `<span class="tag-word">${i ? "· " : ""}${escapeHtml(t)}</span>`).join(" ");
-        const servings = r.servings || (recipeCache.get(r.path) || {}).servings;
+        const servings = r.servings;
         const servingsText = servings
             ? `${fmt(servings.quantity)}<small>${escapeHtml(servings.unit)}</small>`
-            : recipeCache.has(r.path) ? `<span class="dash">–</span>` : `<span class="skeleton" style="width: 3em"></span>`;
+            : `<span class="dash">–</span>`;
         return `<tr class="recipe-row" data-path="${escapeHtml(r.path)}">
             <td>
                 <a class="recipe-name" href="#recipe/${escapeHtml(r.path)}">${escapeHtml(r.name)}</a>
@@ -321,7 +310,7 @@
             </td>
             <td class="col-tags recipe-tags">${tagsHtml}</td>
             <td class="n col-servings recipe-num">${servingsText}</td>
-            <td class="n col-kcal recipe-num">${kcalCell(r.path)}</td>
+            <td class="n col-kcal recipe-num">${kcalCell(r)}</td>
         </tr>`;
     }
 
@@ -360,12 +349,8 @@
 
         if (kcalSort !== "none") {
             const dir = kcalSort === "ascending" ? 1 : -1;
-            const value = (r) => {
-                const info = recipeCache.has(r.path) ? recipeKcal(r.path) : null;
-                return info && info.known > 0 ? info.perServing : null;
-            };
             const sorted = [...filtered].sort((a, b) => {
-                const va = value(a), vb = value(b);
+                const va = summaryKcal(a), vb = summaryKcal(b);
                 if (va === null && vb === null) return 0;
                 if (va === null) return 1; // unknown values last either way
                 if (vb === null) return -1;
@@ -774,9 +759,9 @@
             window.NutritionCalculator ? window.NutritionCalculator.load() : null
         ]);
         handleRouting();
-        // The bundle fills the kcal column and makes every recipe available offline
-        await loadAllRecipes();
-        if (listView && !listView.hidden) renderRecipeList();
+        // The bundle is only needed offline, so fetch it once the page is idle
+        const whenIdle = window.requestIdleCallback ? (cb) => window.requestIdleCallback(cb) : ((cb) => setTimeout(cb, 2000));
+        whenIdle(() => loadAllRecipes());
     });
 
     window.addEventListener("hashchange", handleRouting);

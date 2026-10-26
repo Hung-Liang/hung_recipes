@@ -3,6 +3,7 @@ import json
 import re
 import sys
 import hashlib
+import math
 
 ALLOWED_UNITS = {"g", "ml"}
 
@@ -72,6 +73,27 @@ def validate_recipe(recipe, relative_path):
             err(f"{field} 必須是字串陣列")
 
     return errors
+
+
+def js_round(x):
+    # Match JavaScript Math.round (half up), not Python's banker's rounding
+    return math.floor(x + 0.5)
+
+
+def kcal_per_serving(recipe, nutrition_db):
+    """Same math as kcalRows/summarize in js/app.js; None when no ingredient has data."""
+    total = 0
+    known = 0
+    for ing in recipe["ingredients"]:
+        kcal_per_100 = nutrition_db.get(ing["name"].strip())
+        if not is_number(kcal_per_100):
+            continue
+        ratio = ing.get("calorieRatio", 1)
+        total += js_round(ing["quantity"] * kcal_per_100 * ratio / 100)
+        known += 1
+    if known == 0:
+        return None
+    return js_round(total / recipe["servings"]["quantity"])
 
 
 def compute_build_id(script_dir, sw_content):
@@ -219,7 +241,8 @@ def update_recipe_list():
                     "filename": os.path.splitext(file)[0],
                     "name": recipe_data["name"],
                     "description": recipe_data.get("description", ""),
-                    "tags": recipe_data.get("tags", [])
+                    "tags": recipe_data.get("tags", []),
+                    "servings": recipe_data["servings"]
                 }
                 recipe_summaries.append(summary)
                 all_recipes_data[relative_path] = recipe_data
@@ -274,6 +297,10 @@ def update_recipe_list():
     unused = sorted(set(nutrition_db) - used_names)
     if unused:
         print(f"[WARN] {len(unused)} 項 asset/nutrition.json 食材未被任何食譜使用：{', '.join(unused[:10])}{' ...' if len(unused) > 10 else ''}")
+
+    # Precompute kcal per serving so the list does not need the full recipe bundle
+    for summary in recipe_summaries:
+        summary["kcal"] = kcal_per_serving(all_recipes_data[summary["path"]], nutrition_db)
 
     # Sort recipes by category (directory name)
     recipe_summaries.sort(key=lambda x: x['path'])
