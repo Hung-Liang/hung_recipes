@@ -36,6 +36,11 @@ def validate_recipe(recipe, relative_path):
         if not isinstance(servings.get("unit"), str) or not servings["unit"].strip():
             err("缺少 servings.unit")
 
+    # Minutes from the first step until the dish is ready, including marinating, simmering and chilling
+    total_time = recipe.get("totalTime")
+    if not (isinstance(total_time, int) and not isinstance(total_time, bool) and total_time > 0):
+        err(f"totalTime 必須是大於 0 的整數（分鐘），目前為 {total_time!r}")
+
     tags = recipe.get("tags", [])
     if not isinstance(tags, list) or not all(isinstance(t, str) for t in tags):
         err("tags 必須是字串陣列")
@@ -234,6 +239,7 @@ def update_recipe_list():
                     "description": recipe_data.get("description", ""),
                     "tags": recipe_data.get("tags", []),
                     "servings": recipe_data["servings"],
+                    "totalTime": recipe_data["totalTime"],
                     # Unique ingredient names, so the list can search by ingredient
                     "ingredients": list(dict.fromkeys(ing["name"].strip() for ing in recipe_data["ingredients"]))
                 }

@@ -1,6 +1,7 @@
 {
     "name": "Recipe Name",
     "description": "Recipe description.",
+    "totalTime": 30,
     "ingredients": [
         {
             "name": "Ingredient 1",
