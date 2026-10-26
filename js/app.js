@@ -1,16 +1,5 @@
 // Use a self-contained closure to avoid polluting the global namespace.
 (function () {
-    // Current application version (Sync with sw.js CACHE_NAME)
-    const APP_VERSION = "v1.10.0";
-
-    // 1. Update Version Display IMMEDIATELY (Script is at bottom of body, so element should exist)
-    try {
-        const versionEl = document.getElementById("app-version");
-        if (versionEl) versionEl.textContent = `Version: ${APP_VERSION}`;
-    } catch (e) {
-        console.error("Failed to set version:", e);
-    }
-
     const $ = (id) => document.getElementById(id);
 
     // --- DOM References ---
@@ -750,10 +739,6 @@
 
     // --- Initialization ---
     document.addEventListener("DOMContentLoaded", async () => {
-        // Redundant version update check for safety
-        const versionEl = document.getElementById("app-version");
-        if (versionEl) versionEl.textContent = `Version: ${APP_VERSION}`;
-
         await Promise.all([
             fetchRecipeSummaries(),
             window.NutritionCalculator ? window.NutritionCalculator.load() : null

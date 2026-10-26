@@ -136,7 +136,6 @@ def update_recipe_list():
     # --- 1. Version Synchronization ---
     sw_path = os.path.join(script_dir, 'sw.js')
     index_path = os.path.join(script_dir, 'index.html')
-    app_js_path = os.path.join(script_dir, 'js', 'app.js')
 
     version = "v0.0.0"
     if os.path.exists(sw_path):
@@ -156,15 +155,7 @@ def update_recipe_list():
             with open(index_path, 'w', encoding='utf-8') as f:
                 f.write(new_content)
 
-        # Update app.js
-        if os.path.exists(app_js_path):
-            with open(app_js_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-            new_content = re.sub(r'const APP_VERSION\s*=\s*["\']v[\d\.]+["\']', f'const APP_VERSION = "{version}"', content)
-            with open(app_js_path, 'w', encoding='utf-8') as f:
-                f.write(new_content)
-
-        print(f"Successfully synchronized version {version} to index.html and app.js")
+        print(f"Successfully synchronized version {version} to index.html")
 
         # Stamp the cache name with a hash of the app shell so any change to
         # HTML/CSS/JS invalidates installed PWAs without a manual version bump
