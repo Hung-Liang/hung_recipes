@@ -33,7 +33,7 @@
 2. 檔案命名不拘，只需確保 JSON 結構符合規範。
 3. 執行整理指令（或由 AI 代理人執行），系統將自動：
    - 識別食譜名稱並重新命名為 `snake_case.json`。
-   - 根據食材與類型自動分類至 `meat/`, `poultry/`, `staples/` 等目錄。
+   - 根據食材與類型自動分類至 `meat/`, `poultry/`, `rice/`, `noodles/`, `wraps/` 等目錄。
    - 標準化標籤（Normalization），確保分類一致性。
    - 執行 `update_recipes.py` 更新全站索引。
 

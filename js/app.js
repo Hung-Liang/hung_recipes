@@ -54,7 +54,9 @@
         'poultry': '家禽/雞肉',
         'meat': '肉類料理',
         'seafood': '海鮮料理',
-        'staples': '主食/麵飯',
+        'rice': '飯類',
+        'noodles': '麵類',
+        'wraps': '餅皮/捲餅',
         'vegetables': '蔬食/蛋品',
         'snacks_desserts': '點心/早餐',
         'sauces_basics': '醬料/基礎',
@@ -155,7 +157,30 @@
         allTags.clear();
         if (data.allTags) data.allTags.forEach(tag => allTags.add(tag));
         summariesState = "ready";
+        migrateSavedPaths();
         renderNav();
+    }
+
+    // File names are unique across categories, so a path saved before a recipe moved
+    // folders (bookmarks, favorites, recently viewed) can be found again by its file name
+    function resolvePath(path) {
+        if (!recipes.length || recipes.some(r => r.path === path)) return path;
+        const file = path.split("/").pop();
+        const moved = recipes.find(r => r.path.split("/").pop() === file);
+        return moved ? moved.path : path;
+    }
+
+    function migrateSavedPaths() {
+        const favs = [...new Set([...favorites].map(resolvePath))];
+        if (favs.some(p => !favorites.has(p))) {
+            favorites = new Set(favs);
+            savePathList(FAVORITES_KEY, favs);
+        }
+        const recent = [...new Set(recentPaths.map(resolvePath))];
+        if (recent.join("\n") !== recentPaths.join("\n")) {
+            recentPaths = recent;
+            savePathList(RECENT_KEY, recent);
+        }
     }
 
     async function loadRecipeDetails(path) {
@@ -819,7 +844,13 @@
     function handleRouting() {
         const hash = window.location.hash;
         setMenuOpen(false);
-        if (hash.startsWith("#recipe/")) { showRecipeDetail(decodeURIComponent(hash.substring(8))); return; }
+        if (hash.startsWith("#recipe/")) {
+            const asked = decodeURIComponent(hash.substring(8));
+            const path = resolvePath(asked);
+            if (path !== asked) history.replaceState(null, "", `#recipe/${path}`);
+            showRecipeDetail(path);
+            return;
+        }
         const q = hash.indexOf("?");
         const route = q === -1 ? hash : hash.substring(0, q);
         applyFilterQuery(q === -1 ? null : hash.substring(q + 1));
