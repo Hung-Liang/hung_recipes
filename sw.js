@@ -1,9 +1,8 @@
-const CACHE_NAME = 'my-recipes-v1.10.0-80f29e68'; // vX.Y.Z is the display version (edit manually); the hash suffix is stamped by update_recipes.py
+const CACHE_NAME = 'my-recipes-v1.10.0-a0fa7b02'; // vX.Y.Z is the display version (edit manually); the hash suffix is stamped by update_recipes.py
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './css/style.css',
-  './css/tailwind.css',
   './js/nutrition.js',
   './js/app.js',
   './manifest.json',

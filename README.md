@@ -5,7 +5,7 @@
 ## ✨ 功能特色
 
 ### 🏠 瀏覽與搜尋
-- **美觀介面**：基於 Tailwind CSS 的響應式設計，完美適配手機與桌面端。
+- **美觀介面**：純 CSS 響應式設計，完美適配手機與桌面端。
 - **Hung 的特色標題**：專屬個人風格的食譜空間。
 - **智慧搜尋**：支援名稱、描述及標籤的全文檢索。
 
@@ -44,12 +44,11 @@
 - `note`（選填）：用途、切法或替代品等備註，顯示在食材名稱旁，不影響熱量計算。
 - `calorieRatio`（選填，0–1）：實際攝取比例，例如炸油只計入吸收的部分。
 - 舊名稱或變體寫法請參考 `asset/ingredient_aliases.json`；`update_recipes.py` 遇到時會提示對應的標準名稱。
-- 修改 HTML/JS 中的 Tailwind class 後，執行 `npm run build:css` 重新產生 `css/tailwind.css`（CI 也會自動建置）。
 - `update_recipes.py` 會檢查食譜格式（必填欄位、單位僅限 `g` / `ml`、重複檔名與名稱），並依網站檔案內容自動為 `sw.js` 的快取名稱加上雜湊值；修改程式後不必手動升版號，PWA 也會更新。顯示用的版本號（`-vX.Y.Z`）仍在 `sw.js` 手動調整。
 - Pull Request 也會執行這些檢查（只驗證，不會自動 commit）。
 
 ## 🛠️ 技術架構
-- **Frontend**: Vanilla JS + Tailwind CSS (CDN)
+- **Frontend**: Vanilla JS + CSS（`css/style.css`，無建置步驟）
 - **Data**: JSON 檔案儲存，純靜態實現
 - **Automation**: Python 腳本更新索引 (`update_recipes.py`)
 - **PWA**: Service Worker (`sw.js`) + Manifest (`manifest.json`)

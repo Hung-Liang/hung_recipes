@@ -13,9 +13,6 @@ on:
       - 'sw.js'
       - 'js/**'
       - 'css/style.css'
-      - 'css/tailwind.input.css'
-      - 'tailwind.config.js'
-      - 'package.json'
   pull_request:
     paths:
       - 'recipes/**'
@@ -33,18 +30,6 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      # Build CSS first so the service worker build id hashes the final stylesheet
-      - name: Build Tailwind CSS
-        run: |
-          npm ci
-          npm run build:css
-
       - name: Validate recipes and update index
         run: python3 update_recipes.py
 
@@ -53,7 +38,7 @@ jobs:
         run: |
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git add asset/recipes.json asset/info.json index.html js/app.js sw.js css/tailwind.css
+          git add asset/recipes.json asset/info.json index.html js/app.js sw.js
           git commit -m "🔄 Automated update of recipes and version sync" || echo "No changes to commit"
           git pull --rebase origin master || echo "No remote changes to rebase"
           git push

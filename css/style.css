@@ -36,6 +36,20 @@
   --t-press: 120ms; --t-hover: 150ms; --t-ui: 200ms;
 }
 
+/* ---------- reset (the subset of Tailwind preflight this page relies on) ---------- */
+*, ::before, ::after { box-sizing: border-box; border: 0 solid #e5e7eb; }
+html { line-height: 1.5; -webkit-tap-highlight-color: transparent; }
+h1, h2, h3 { font-size: inherit; font-weight: inherit; }
+table { text-indent: 0; border-color: inherit; border-collapse: collapse; }
+button, input { font: inherit; letter-spacing: inherit; color: inherit; margin: 0; padding: 0; }
+button { text-transform: none; -webkit-appearance: button; background-color: transparent; background-image: none; }
+:disabled { cursor: default; }
+input::placeholder { opacity: 1; color: #9ca3af; }
+::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+[type="search"] { -webkit-appearance: textfield; outline-offset: -2px; }
+::-webkit-search-decoration { -webkit-appearance: none; }
+svg { display: block; vertical-align: middle; }
+
 /* ---------- base ---------- */
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body { margin: 0; background: var(--ground); color: var(--text); font: var(--fs-body)/20px var(--font); -webkit-font-smoothing: antialiased; }
