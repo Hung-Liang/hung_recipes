@@ -60,84 +60,12 @@
         return (ratio >= 0 && ratio <= 1) ? ratio : 1;
     }
 
-    /**
-     * 計算食譜熱量與各項明細
-     * @param {Array<{ name: string, quantity: number, unit?: string, calorieRatio?: number }>} ingredients
-     *        calorieRatio：實際攝取比例（0–1），例如炸油只計入吸收的部分，預設 1
-     * @param {number} servings
-     * @returns {Object}
-     */
-    function calculate(ingredients, servings) {
-        const safeServings = (typeof servings === 'number' && servings > 0) ? servings : 1;
-        let totalCalories = 0;
-        let totalWeight = 0;
-        let matchedWeight = 0;
-        const items = [];
-
-        (ingredients || []).forEach(ing => {
-            const qty = parseFloat(ing.quantity) || 0;
-            const unit = ing.unit || 'g';
-            const rawName = ing.name ? ing.name.trim() : '未知食材';
-            const matchInfo = findCaloriePer100(rawName);
-            const ratio = getCalorieRatio(ing);
-
-            totalWeight += qty;
-
-            if (matchInfo) {
-                const kcal = (qty * matchInfo.kcalPer100 * ratio) / 100;
-                totalCalories += kcal;
-                matchedWeight += qty;
-                items.push({
-                    name: rawName,
-                    note: ing.note,
-                    quantity: qty,
-                    unit: unit,
-                    matchedKey: matchInfo.matchedKey,
-                    kcalPer100: matchInfo.kcalPer100,
-                    calorieRatio: ratio,
-                    kcal: kcal,
-                    isKnown: true
-                });
-            } else {
-                items.push({
-                    name: rawName,
-                    note: ing.note,
-                    quantity: qty,
-                    unit: unit,
-                    matchedKey: null,
-                    kcalPer100: null,
-                    calorieRatio: ratio,
-                    kcal: 0,
-                    isKnown: false
-                });
-            }
-        });
-
-        items.forEach(item => {
-            item.percentage = totalCalories > 0 ? Math.round((item.kcal / totalCalories) * 100) : 0;
-            item.roundedKcal = Math.round(item.kcal);
-        });
-
-        const sortedItems = [...items].sort((a, b) => b.kcal - a.kcal);
-        const coveragePercent = totalWeight > 0 ? Math.round((matchedWeight / totalWeight) * 100) : 100;
-
-        return {
-            totalCalories: Math.round(totalCalories),
-            perServingCalories: Math.round(totalCalories / safeServings),
-            servings: safeServings,
-            coveragePercent: coveragePercent,
-            items: sortedItems,
-            hasUnmatched: items.some(it => !it.isKnown)
-        };
-    }
-
     const api = {
         get FOOD_CALORIE_DB() { return FOOD_CALORIE_DB; },
         load: load,
         setDatabase: setDatabase,
         findCaloriePer100: findCaloriePer100,
-        getCalorieRatio: getCalorieRatio,
-        calculate: calculate
+        getCalorieRatio: getCalorieRatio
     };
 
     if (typeof module !== 'undefined' && module.exports) {
