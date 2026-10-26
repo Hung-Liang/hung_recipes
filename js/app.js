@@ -74,11 +74,12 @@
 
     // Tag groups for the filter panel; tags not listed here fall into 其他
     const TAG_GROUPS = [
-        ["菜系", ["中式", "日式", "西式", "韓式", "港式"]],
+        ["菜系", ["中式", "日式", "西式", "韓式", "港式", "南洋"]],
         ["食材", ["豬肉", "雞肉", "牛肉", "海鮮", "豆腐", "蔬食"]],
-        ["類型", ["主食", "澱粉", "點心", "甜點", "醬汁", "飲品", "紅燒", "煙燻"]],
+        ["類型", ["主食", "點心", "甜點", "醬汁", "飲品"]],
+        ["做法", ["一鍋到底", "免開火", "紅燒", "煙燻"]],
         ["工具", ["氣炸鍋", "電鍋", "烤箱"]],
-        ["飲食", ["高蛋白", "低碳", "懶人料理"]]
+        ["飲食", ["高蛋白", "低碳"]]
     ];
 
     // State
@@ -416,7 +417,8 @@
         if (query === null) return;
         const params = new URLSearchParams(query);
         searchTerm = (params.get("q") || "").trim();
-        selectedTags = new Set(params.getAll("t"));
+        // Drop tags that no longer exist, e.g. from links saved before a tag was retired
+        selectedTags = new Set(params.getAll("t").filter(t => allTags.size === 0 || allTags.has(t)));
         const limit = Number(params.get("time"));
         timeLimit = TIME_LIMITS.some(([l]) => l === limit) ? limit : 0;
         if (searchInput) searchInput.value = searchTerm;
