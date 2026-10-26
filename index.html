@@ -37,6 +37,9 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
         </a>
         <span id="topbar-title" class="topbar-title">Hung的食譜</span>
+        <button id="topbar-fav" class="icon-btn fav-toggle" type="button" aria-label="收藏食譜" aria-pressed="false" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8-5.3-2.8-5.3 2.8 1-5.8-4.2-4.1 5.9-.9z" /></svg>
+        </button>
         <button id="topbar-share" class="icon-btn" type="button" aria-label="分享食譜" hidden>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M8 8l4-4 4 4M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7" /></svg>
         </button>
@@ -55,6 +58,12 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
           </button>
         </div>
+
+        <p class="group-label">我的</p>
+        <nav id="collection-nav" class="nav">
+          <a class="nav-item" href="#/c/favorites" data-cat="favorites">我的收藏</a>
+          <a class="nav-item" href="#/c/recent" data-cat="recent">最近看過</a>
+        </nav>
 
         <p class="group-label">分類</p>
         <nav id="category-nav" class="nav">
@@ -139,10 +148,16 @@
               <p id="recipe-detail-description" class="sub"></p>
               <div id="recipe-detail-tags" class="tag-links"></div>
             </div>
-            <button id="share-button" class="btn" type="button">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M8 8l4-4 4 4M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7" /></svg>
-              <span>分享食譜</span>
-            </button>
+            <div class="title-actions">
+              <button id="fav-button" class="btn fav-toggle" type="button" aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.2 4.1 1 5.8-5.3-2.8-5.3 2.8 1-5.8-4.2-4.1 5.9-.9z" /></svg>
+                <span>收藏</span>
+              </button>
+              <button id="share-button" class="btn" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M8 8l4-4 4 4M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7" /></svg>
+                <span>分享食譜</span>
+              </button>
+            </div>
           </div>
 
           <div class="kpis">

@@ -17,12 +17,14 @@
     const tagCountBadge = $("tag-count-badge");
     const clearTagsButton = $("clear-tags");
     const categoryNav = $("category-nav");
+    const collectionNav = $("collection-nav");
     const sidebar = $("sidebar");
     const menuButton = $("menu-button");
     const menuClose = $("menu-close");
     const topbarTitle = $("topbar-title");
     const topbarBack = $("topbar-back");
     const topbarShare = $("topbar-share");
+    const topbarFav = $("topbar-fav");
 
     const recipeDetailName = $("recipe-detail-name");
     const recipeDetailDescription = $("recipe-detail-description");
@@ -44,6 +46,7 @@
     const ingredientsTotalEl = $("ingredients-total");
     const unlockAllButton = $("release-locks");
     const shareButton = $("share-button");
+    const favButton = $("fav-button");
     const toast = $("toast");
 
     // Category mapping (folder name -> label), in nav order
@@ -58,6 +61,13 @@
         'others': '其他料理',
         'unsort': '待分類'
     };
+
+    // Personal lists kept in this browser; routed like categories (#/c/<key>)
+    const COLLECTIONS = {
+        'favorites': '我的收藏',
+        'recent': '最近看過'
+    };
+    const RECENT_LIMIT = 30;
 
     // Tag groups for the filter panel; tags not listed here fall into 其他
     const TAG_GROUPS = [
@@ -80,6 +90,8 @@
     let summariesState = "loading"; // loading | ready | error
     const doneSteps = new Map();   // path -> Set of step indexes marked done
     const doneStepsAt = new Map(); // path -> last time its steps were toggled (ms)
+    let favorites = new Set();     // paths
+    let recentPaths = [];          // paths, most recent first
     let wakeLock = null;
 
     // Escape text before interpolating it into innerHTML templates
@@ -94,7 +106,7 @@
 
     const fmt = (n) => Number(n).toLocaleString("zh-TW");
     const categoryOf = (path) => path.split('/')[0];
-    const categoryLabel = (cat) => CATEGORY_MAP[cat] || cat;
+    const categoryLabel = (cat) => CATEGORY_MAP[cat] || COLLECTIONS[cat] || cat;
 
     function showToast(message) {
         if (!toast) return;
@@ -222,9 +234,8 @@
     }
 
     function updateNavCurrent() {
-        if (!categoryNav) return;
         const active = detailView && !detailView.hidden && currentRecipe ? categoryOf(currentRecipe.path) : currentCategory;
-        categoryNav.querySelectorAll(".nav-item").forEach(a => {
+        [collectionNav, categoryNav].filter(Boolean).flatMap(nav => [...nav.querySelectorAll(".nav-item")]).forEach(a => {
             if (a.dataset.cat === active) a.setAttribute("aria-current", "page");
             else a.removeAttribute("aria-current");
         });
@@ -237,10 +248,53 @@
         if (open && menuClose) menuClose.focus();
     }
 
+    // --- Favorites and recently viewed ---
+    const FAVORITES_KEY = "favorites";
+    const RECENT_KEY = "recent_recipes";
+
+    function loadPathList(key) {
+        let saved = null;
+        try { saved = JSON.parse(localStorage.getItem(key) || "null"); } catch (e) { /* storage blocked or corrupt */ }
+        return Array.isArray(saved) ? saved.filter(p => typeof p === "string") : [];
+    }
+
+    function savePathList(key, paths) {
+        try { localStorage.setItem(key, JSON.stringify(paths)); } catch (e) { /* storage blocked */ }
+    }
+
+    function recordRecent(path) {
+        recentPaths = [path, ...recentPaths.filter(p => p !== path)].slice(0, RECENT_LIMIT);
+        savePathList(RECENT_KEY, recentPaths);
+    }
+
+    function toggleFavorite() {
+        if (!currentRecipe) return;
+        const path = currentRecipe.path;
+        if (favorites.has(path)) favorites.delete(path); else favorites.add(path);
+        savePathList(FAVORITES_KEY, [...favorites]);
+        updateFavButtons();
+        showToast(favorites.has(path) ? "已加入收藏" : "已取消收藏");
+    }
+
+    function updateFavButtons() {
+        const on = !!currentRecipe && favorites.has(currentRecipe.path);
+        [favButton, topbarFav].forEach(btn => { if (btn) btn.setAttribute("aria-pressed", String(on)); });
+        if (favButton) favButton.querySelector("span").textContent = on ? "已收藏" : "收藏";
+    }
+
     // --- List screen ---
+    // Recipes in the current category or collection, before search and tags
+    function scopeRecipes() {
+        if (currentCategory === "favorites") return recipes.filter(r => favorites.has(r.path));
+        if (currentCategory === "recent") {
+            const byPath = new Map(recipes.map(r => [r.path, r]));
+            return recentPaths.map(p => byPath.get(p)).filter(Boolean);
+        }
+        return currentCategory ? recipes.filter(r => categoryOf(r.path) === currentCategory) : recipes;
+    }
+
     function filterRecipes({ ignoreTags = false } = {}) {
-        let filtered = recipes;
-        if (currentCategory) filtered = filtered.filter(r => categoryOf(r.path) === currentCategory);
+        let filtered = scopeRecipes();
         if (!ignoreTags && selectedTags.size > 0) {
             filtered = filtered.filter(r => Array.from(selectedTags).every(t => r.tags && r.tags.includes(t)));
         }
@@ -350,7 +404,7 @@
         renderTags(filtered);
 
         const inScope = filterRecipes({ ignoreTags: true }).length;
-        const scopeTotal = currentCategory ? recipes.filter(r => categoryOf(r.path) === currentCategory).length : recipes.length;
+        const scopeTotal = scopeRecipes().length;
         const narrowed = selectedTags.size > 0 || searchTerm;
         if (listSub) {
             listSub.textContent = narrowed
@@ -359,6 +413,12 @@
         }
 
         if (kcalHeader) kcalHeader.setAttribute("aria-sort", kcalSort);
+
+        if (scopeTotal === 0 && COLLECTIONS[currentCategory]) {
+            const hint = currentCategory === "favorites" ? "還沒有收藏的食譜，在食譜頁按「收藏」加入。" : "還沒有看過的食譜。";
+            recipeList.innerHTML = `<tr class="empty-row"><td colspan="4" class="empty-cell"><div class="empty"><span>${hint}</span></div></td></tr>`;
+            return;
+        }
 
         if (filtered.length === 0) {
             recipeList.innerHTML = `<tr class="empty-row"><td colspan="4" class="empty-cell"><div class="empty"><span>沒有符合條件的食譜。</span><button type="button" class="card-link" data-action="clear-filters">清除搜尋與標籤</button></div></td></tr>`;
@@ -399,13 +459,14 @@
     }
 
     function showList(category) {
-        currentCategory = category && (CATEGORY_MAP[category] || recipes.some(r => categoryOf(r.path) === category)) ? category : "";
+        currentCategory = category && (CATEGORY_MAP[category] || COLLECTIONS[category] || recipes.some(r => categoryOf(r.path) === category)) ? category : "";
         currentRecipe = null;
         releaseWakeLock();
         if (detailView) detailView.hidden = true;
         if (listView) listView.hidden = false;
         if (topbarBack) topbarBack.hidden = true;
         if (topbarShare) topbarShare.hidden = true;
+        if (topbarFav) topbarFav.hidden = true;
         if (menuButton) menuButton.hidden = false;
         document.title = currentCategory ? `${categoryLabel(currentCategory)} · Hung的食譜` : "Hung的食譜";
         renderRecipeList();
@@ -422,12 +483,15 @@
         detailView.hidden = false;
         if (topbarBack) topbarBack.hidden = false;
         if (topbarShare) topbarShare.hidden = false;
+        if (topbarFav) topbarFav.hidden = false;
         if (menuButton) menuButton.hidden = true;
         if (topbarTitle) topbarTitle.textContent = categoryLabel(categoryOf(path));
         document.title = `${recipe.name} · Hung的食譜`;
         window.scrollTo(0, 0);
         updateNavCurrent();
         requestWakeLock();
+        recordRecent(path);
+        updateFavButtons();
 
         const cat = categoryOf(path);
         if (detailCategory) {
@@ -799,6 +863,8 @@
     if (servingsPlus) servingsPlus.addEventListener("click", () => stepServings(1));
     if (shareButton) shareButton.addEventListener("click", () => shareCurrentRecipe(shareButton));
     if (topbarShare) topbarShare.addEventListener("click", () => shareCurrentRecipe(topbarShare));
+    if (favButton) favButton.addEventListener("click", toggleFavorite);
+    if (topbarFav) topbarFav.addEventListener("click", toggleFavorite);
     if (menuButton) menuButton.addEventListener("click", () => setMenuOpen(true));
     if (menuClose) menuClose.addEventListener("click", () => { setMenuOpen(false); if (menuButton) menuButton.focus(); });
     document.addEventListener("keydown", (e) => {
@@ -814,6 +880,8 @@
 
     // --- Initialization ---
     loadStepProgress();
+    favorites = new Set(loadPathList(FAVORITES_KEY));
+    recentPaths = loadPathList(RECENT_KEY);
     document.addEventListener("DOMContentLoaded", async () => {
         await Promise.all([
             fetchRecipeSummaries(),
