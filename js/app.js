@@ -244,14 +244,14 @@
         if (!ignoreTags && selectedTags.size > 0) {
             filtered = filtered.filter(r => Array.from(selectedTags).every(t => r.tags && r.tags.includes(t)));
         }
-        if (searchTerm) {
-            const low = searchTerm.toLowerCase();
-            filtered = filtered.filter(r =>
-                (r.name || "").toLowerCase().includes(low) ||
-                (r.description || "").toLowerCase().includes(low) ||
-                (r.tags || []).some(t => t.toLowerCase().includes(low)) ||
-                (r.ingredients || []).some(name => name.toLowerCase().includes(low))
-            );
+        // Whitespace-separated keywords must all match, each in any field
+        const keywords = searchTerm.toLowerCase().split(/\s+/).filter(Boolean);
+        if (keywords.length) {
+            filtered = filtered.filter(r => {
+                const fields = [r.name || "", r.description || "", ...(r.tags || []), ...(r.ingredients || [])]
+                    .map(s => s.toLowerCase());
+                return keywords.every(k => fields.some(f => f.includes(k)));
+            });
         }
         return filtered;
     }
