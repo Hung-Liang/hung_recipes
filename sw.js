@@ -19,7 +19,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME).then((cache) => {
       console.log('Opened cache:', CACHE_NAME);
       // Bypass the HTTP cache so a new shell never precaches a stale copy of a file.
-      // The version query also misses the CDN edge cache (GitHub Pages keeps files ~10 min),
+      // The version query also misses the CDN edge cache (scripts are kept for up to 4 hours),
       // which 'reload' alone cannot; entries are stored under the plain URL the page requests.
       return Promise.all(ASSETS_TO_CACHE.map((url) =>
         fetch(new Request(`${url}?v=${encodeURIComponent(CACHE_NAME)}`, { cache: 'reload' })).then((response) => {
