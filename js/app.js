@@ -9,7 +9,7 @@
     const listSub = $("list-sub");
     const recipeList = $("recipe-list");
     const kcalHeader = $("kcal-header");
-    const sortKcalButton = $("sort-kcal");
+    const timeHeader = $("time-header");
     const searchInput = $("search-input");
     const tagsContainer = $("tags-container");
     const tagsPanel = $("tags-panel");
@@ -69,6 +69,9 @@
     };
     const RECENT_LIMIT = 30;
 
+    // Total-time filter choices (minutes), shown above the tag groups
+    const TIME_LIMITS = [[15, "15 分鐘內"], [30, "30 分鐘內"], [60, "1 小時內"]];
+
     // Tag groups for the filter panel; tags not listed here fall into 其他
     const TAG_GROUPS = [
         ["菜系", ["中式", "日式", "西式", "韓式", "港式"]],
@@ -86,7 +89,9 @@
     let selectedTags = new Set();
     let searchTerm = "";
     let currentCategory = "";      // "" = all recipes
-    let kcalSort = "none";         // none | ascending | descending
+    let sortKey = "";              // "" | kcal | time
+    let sortDir = "none";          // none | ascending | descending
+    let timeLimit = 0;             // max totalTime in minutes; 0 = any
     let summariesState = "loading"; // loading | ready | error
     const doneSteps = new Map();   // path -> Set of step indexes marked done
     const doneStepsAt = new Map(); // path -> last time its steps were toggled (ms)
@@ -214,6 +219,22 @@
     // Per-serving kcal is precomputed by update_recipes.py; null when no ingredient has data
     const summaryKcal = (r) => typeof r.kcal === "number" ? r.kcal : null;
 
+    const summaryTime = (r) => typeof r.totalTime === "number" ? r.totalTime : null;
+
+    // Compact form for the list: minutes under an hour, otherwise hours to one decimal
+    function timeCell(r) {
+        const t = summaryTime(r);
+        if (t === null) return `<span class="dash">–</span>`;
+        if (t < 60) return `${fmt(t)}<small>分</small>`;
+        return `${fmt(Math.round(t / 6) / 10)}<small>小時</small>`;
+    }
+
+    function formatDuration(minutes) {
+        const h = Math.floor(minutes / 60), m = minutes % 60;
+        if (!h) return `${m} 分鐘`;
+        return m ? `${h} 小時 ${m} 分鐘` : `${h} 小時`;
+    }
+
     function kcalCell(r) {
         const kcal = summaryKcal(r);
         if (kcal === null) return `<span class="dash">–</span>`;
@@ -293,8 +314,9 @@
         return currentCategory ? recipes.filter(r => categoryOf(r.path) === currentCategory) : recipes;
     }
 
-    function filterRecipes({ ignoreTags = false } = {}) {
+    function filterRecipes({ ignoreTags = false, ignoreTime = false } = {}) {
         let filtered = scopeRecipes();
+        if (!ignoreTime && timeLimit) filtered = filtered.filter(r => summaryTime(r) !== null && summaryTime(r) <= timeLimit);
         if (!ignoreTags && selectedTags.size > 0) {
             filtered = filtered.filter(r => Array.from(selectedTags).every(t => r.tags && r.tags.includes(t)));
         }
@@ -316,11 +338,22 @@
         const counts = new Map();
         filtered.forEach(r => (r.tags || []).forEach(t => counts.set(t, (counts.get(t) || 0) + 1)));
 
+        // Time limits are exclusive choices, so each count ignores the current limit
+        const timeScope = filterRecipes({ ignoreTime: true });
+        const timeGroup = `<div class="tag-group" role="group" aria-label="時間">
+                <span class="tag-group-label" aria-hidden="true">時間</span>
+                <div class="tag-list">${TIME_LIMITS.map(([limit, label]) => {
+                    const pressed = timeLimit === limit;
+                    const n = timeScope.filter(r => summaryTime(r) !== null && summaryTime(r) <= limit).length;
+                    return `<button type="button" class="tag" data-time="${limit}" aria-pressed="${pressed}" ${!pressed && n === 0 ? "disabled" : ""}>${label}<span class="n">${n}</span></button>`;
+                }).join("")}</div>
+            </div>`;
+
         const grouped = new Set(TAG_GROUPS.flatMap(([, tags]) => tags));
         const others = Array.from(allTags).filter(t => !grouped.has(t)).sort();
         const groups = [...TAG_GROUPS, ...(others.length ? [["其他", others]] : [])];
 
-        tagsContainer.innerHTML = groups.map(([label, tags]) => {
+        tagsContainer.innerHTML = timeGroup + groups.map(([label, tags]) => {
             const present = tags.filter(t => allTags.has(t));
             if (!present.length) return "";
             return `<div class="tag-group" role="group" aria-label="${escapeHtml(label)}">
@@ -333,7 +366,7 @@
             </div>`;
         }).join("");
 
-        const size = selectedTags.size;
+        const size = selectedTags.size + (timeLimit ? 1 : 0);
         if (clearTagsButton) clearTagsButton.hidden = size === 0;
         if (tagCountBadge) {
             tagCountBadge.hidden = size === 0;
@@ -352,18 +385,20 @@
             <td>
                 <a class="recipe-name" href="#recipe/${escapeHtml(r.path)}">${escapeHtml(r.name)}</a>
                 <span class="recipe-desc">${escapeHtml(r.description)}</span>
-                <span class="phone-meta">${tagsHtml}</span>
+                <span class="phone-meta">${summaryTime(r) !== null ? `<span class="tag-word">${timeCell(r)}${tagsHtml ? " ·" : ""}</span> ` : ""}${tagsHtml}</span>
             </td>
             <td class="col-tags recipe-tags">${tagsHtml}</td>
             <td class="n col-servings recipe-num">${servingsText}</td>
+            <td class="n col-time recipe-num">${timeCell(r)}</td>
             <td class="n col-kcal recipe-num">${kcalCell(r)}</td>
         </tr>`;
     }
 
-    // --- Filters in the URL: #/c/<category>?q=<search>&t=<tag>&t=<tag> ---
+    // --- Filters in the URL: #/c/<category>?q=<search>&time=<minutes>&t=<tag>&t=<tag> ---
     function listHash() {
         const params = new URLSearchParams();
         if (searchTerm) params.set("q", searchTerm);
+        if (timeLimit) params.set("time", timeLimit);
         selectedTags.forEach(t => params.append("t", t));
         const query = params.toString();
         return (currentCategory ? `#/c/${encodeURIComponent(currentCategory)}` : "#/") + (query ? `?${query}` : "");
@@ -382,6 +417,8 @@
         const params = new URLSearchParams(query);
         searchTerm = (params.get("q") || "").trim();
         selectedTags = new Set(params.getAll("t"));
+        const limit = Number(params.get("time"));
+        timeLimit = TIME_LIMITS.some(([l]) => l === limit) ? limit : 0;
         if (searchInput) searchInput.value = searchTerm;
     }
 
@@ -396,7 +433,7 @@
         if (summariesState === "loading") return; // keep the loading rows
         if (summariesState === "error" && recipes.length === 0) {
             if (listSub) listSub.textContent = "目前無法取得食譜清單";
-            recipeList.innerHTML = `<tr class="empty-row"><td colspan="4" class="empty-cell"><div class="empty"><span>無法載入食譜清單，請確認網路連線。</span><button type="button" class="card-link" data-action="retry">重試</button></div></td></tr>`;
+            recipeList.innerHTML = `<tr class="empty-row"><td colspan="5" class="empty-cell"><div class="empty"><span>無法載入食譜清單，請確認網路連線。</span><button type="button" class="card-link" data-action="retry">重試</button></div></td></tr>`;
             return;
         }
 
@@ -405,30 +442,32 @@
 
         const inScope = filterRecipes({ ignoreTags: true }).length;
         const scopeTotal = scopeRecipes().length;
-        const narrowed = selectedTags.size > 0 || searchTerm;
+        const narrowed = selectedTags.size > 0 || searchTerm || timeLimit;
         if (listSub) {
             listSub.textContent = narrowed
                 ? `符合條件 ${fmt(filtered.length)} 道，共 ${fmt(scopeTotal)} 道`
                 : `${fmt(inScope)} 道食譜`;
         }
 
-        if (kcalHeader) kcalHeader.setAttribute("aria-sort", kcalSort);
+        if (kcalHeader) kcalHeader.setAttribute("aria-sort", sortKey === "kcal" ? sortDir : "none");
+        if (timeHeader) timeHeader.setAttribute("aria-sort", sortKey === "time" ? sortDir : "none");
 
         if (scopeTotal === 0 && COLLECTIONS[currentCategory]) {
             const hint = currentCategory === "favorites" ? "還沒有收藏的食譜，在食譜頁按「收藏」加入。" : "還沒有看過的食譜。";
-            recipeList.innerHTML = `<tr class="empty-row"><td colspan="4" class="empty-cell"><div class="empty"><span>${hint}</span></div></td></tr>`;
+            recipeList.innerHTML = `<tr class="empty-row"><td colspan="5" class="empty-cell"><div class="empty"><span>${hint}</span></div></td></tr>`;
             return;
         }
 
         if (filtered.length === 0) {
-            recipeList.innerHTML = `<tr class="empty-row"><td colspan="4" class="empty-cell"><div class="empty"><span>沒有符合條件的食譜。</span><button type="button" class="card-link" data-action="clear-filters">清除搜尋與標籤</button></div></td></tr>`;
+            recipeList.innerHTML = `<tr class="empty-row"><td colspan="5" class="empty-cell"><div class="empty"><span>沒有符合條件的食譜。</span><button type="button" class="card-link" data-action="clear-filters">清除搜尋與標籤</button></div></td></tr>`;
             return;
         }
 
-        if (kcalSort !== "none") {
-            const dir = kcalSort === "ascending" ? 1 : -1;
+        if (sortDir !== "none") {
+            const dir = sortDir === "ascending" ? 1 : -1;
+            const value = sortKey === "time" ? summaryTime : summaryKcal;
             const sorted = [...filtered].sort((a, b) => {
-                const va = summaryKcal(a), vb = summaryKcal(b);
+                const va = value(a), vb = value(b);
                 if (va === null && vb === null) return 0;
                 if (va === null) return 1; // unknown values last either way
                 if (vb === null) return -1;
@@ -453,7 +492,7 @@
             ...Object.keys(groups).filter(cat => !CATEGORY_MAP[cat])
         ];
         recipeList.innerHTML = orderedCats.map(cat =>
-            `<tr class="group-row"><th colspan="4" scope="colgroup"><h2>${escapeHtml(categoryLabel(cat))}</h2><span class="meta">${groups[cat].length} 道</span></th></tr>` +
+            `<tr class="group-row"><th colspan="5" scope="colgroup"><h2>${escapeHtml(categoryLabel(cat))}</h2><span class="meta">${groups[cat].length} 道</span></th></tr>` +
             groups[cat].map(recipeRow).join("")
         ).join("");
     }
@@ -545,7 +584,8 @@
         if (!stepsMeta || !currentRecipe) return;
         const total = currentRecipe.steps.length;
         const done = (doneSteps.get(currentRecipe.path) || new Set()).size;
-        stepsMeta.textContent = done > 0 ? `完成 ${done} / ${total} 步` : `${total} 步`;
+        const time = typeof currentRecipe.totalTime === "number" ? ` · 約 ${formatDuration(currentRecipe.totalTime)}` : "";
+        stepsMeta.textContent = (done > 0 ? `完成 ${done} / ${total} 步` : `${total} 步`) + time;
     }
 
     // Step progress survives reloads for a day; without storage it stays in memory only
@@ -791,6 +831,14 @@
     if (tagsContainer) tagsContainer.addEventListener("click", (e) => {
         const btn = e.target.closest(".tag");
         if (!btn || btn.disabled) return;
+        if (btn.dataset.time) {
+            const limit = Number(btn.dataset.time);
+            timeLimit = timeLimit === limit ? 0 : limit;
+            renderRecipeList();
+            const again = tagsContainer.querySelector(`.tag[data-time="${limit}"]`);
+            if (again) again.focus();
+            return;
+        }
         const tag = btn.dataset.tag;
         if (selectedTags.has(tag)) selectedTags.delete(tag);
         else selectedTags.add(tag);
@@ -799,7 +847,7 @@
         if (again) again.focus();
     });
 
-    if (clearTagsButton) clearTagsButton.addEventListener("click", () => { selectedTags.clear(); renderRecipeList(); });
+    if (clearTagsButton) clearTagsButton.addEventListener("click", () => { selectedTags.clear(); timeLimit = 0; renderRecipeList(); });
 
     if (toggleTagsButton && tagsPanel) toggleTagsButton.addEventListener("click", () => {
         const open = tagsPanel.classList.toggle("open");
@@ -810,6 +858,7 @@
         const action = e.target.closest("[data-action]");
         if (action && action.dataset.action === "clear-filters") {
             selectedTags.clear();
+            timeLimit = 0;
             searchTerm = "";
             if (searchInput) searchInput.value = "";
             renderRecipeList();
@@ -821,10 +870,13 @@
         }
     });
 
-    if (sortKcalButton) sortKcalButton.addEventListener("click", () => {
-        kcalSort = kcalSort === "none" ? "ascending" : kcalSort === "ascending" ? "descending" : "none";
+    // A new column starts ascending; the same column cycles ascending -> descending -> off
+    document.querySelectorAll(".sort-btn[data-sort]").forEach(btn => btn.addEventListener("click", () => {
+        const key = btn.dataset.sort;
+        if (sortKey !== key) { sortKey = key; sortDir = "ascending"; }
+        else sortDir = sortDir === "ascending" ? "descending" : sortDir === "descending" ? "none" : "ascending";
         renderRecipeList();
-    });
+    }));
 
     if (recipeDetailIngredients) {
         recipeDetailIngredients.addEventListener("input", (e) => {

@@ -96,16 +96,19 @@
                     <th scope="col">食譜</th>
                     <th scope="col" class="col-tags">標籤</th>
                     <th scope="col" class="n col-servings">份量</th>
+                    <th scope="col" class="n col-time" id="time-header" aria-sort="none">
+                      <button type="button" class="sort-btn" data-sort="time">時間<span class="sort-glyph" aria-hidden="true"></span></button>
+                    </th>
                     <th scope="col" class="n col-kcal" id="kcal-header" aria-sort="none">
-                      <button id="sort-kcal" type="button" class="sort-btn">每份熱量<span class="sort-glyph" aria-hidden="true"></span></button>
+                      <button type="button" class="sort-btn" data-sort="kcal">每份熱量<span class="sort-glyph" aria-hidden="true"></span></button>
                     </th>
                   </tr>
                 </thead>
                 <tbody id="recipe-list">
                   <!-- Loading rows keep the final layout; replaced by js/app.js -->
-                  <tr class="loading-row"><td><span class="skeleton" style="width: 9em"></span><span class="skeleton sub-bar" style="width: 18em"></span></td><td class="col-tags"><span class="skeleton" style="width: 6em"></span></td><td class="n col-servings"><span class="skeleton" style="width: 3em"></span></td><td class="n col-kcal"><span class="skeleton" style="width: 4em"></span></td></tr>
-                  <tr class="loading-row"><td><span class="skeleton" style="width: 7em"></span><span class="skeleton sub-bar" style="width: 15em"></span></td><td class="col-tags"><span class="skeleton" style="width: 5em"></span></td><td class="n col-servings"><span class="skeleton" style="width: 3em"></span></td><td class="n col-kcal"><span class="skeleton" style="width: 4em"></span></td></tr>
-                  <tr class="loading-row"><td><span class="skeleton" style="width: 8em"></span><span class="skeleton sub-bar" style="width: 17em"></span></td><td class="col-tags"><span class="skeleton" style="width: 7em"></span></td><td class="n col-servings"><span class="skeleton" style="width: 3em"></span></td><td class="n col-kcal"><span class="skeleton" style="width: 4em"></span></td></tr>
+                  <tr class="loading-row"><td><span class="skeleton" style="width: 9em"></span><span class="skeleton sub-bar" style="width: 18em"></span></td><td class="col-tags"><span class="skeleton" style="width: 6em"></span></td><td class="n col-servings"><span class="skeleton" style="width: 3em"></span></td><td class="n col-time"><span class="skeleton" style="width: 3em"></span></td><td class="n col-kcal"><span class="skeleton" style="width: 4em"></span></td></tr>
+                  <tr class="loading-row"><td><span class="skeleton" style="width: 7em"></span><span class="skeleton sub-bar" style="width: 15em"></span></td><td class="col-tags"><span class="skeleton" style="width: 5em"></span></td><td class="n col-servings"><span class="skeleton" style="width: 3em"></span></td><td class="n col-time"><span class="skeleton" style="width: 3em"></span></td><td class="n col-kcal"><span class="skeleton" style="width: 4em"></span></td></tr>
+                  <tr class="loading-row"><td><span class="skeleton" style="width: 8em"></span><span class="skeleton sub-bar" style="width: 17em"></span></td><td class="col-tags"><span class="skeleton" style="width: 7em"></span></td><td class="n col-servings"><span class="skeleton" style="width: 3em"></span></td><td class="n col-time"><span class="skeleton" style="width: 3em"></span></td><td class="n col-kcal"><span class="skeleton" style="width: 4em"></span></td></tr>
                 </tbody>
               </table>
             </div>
