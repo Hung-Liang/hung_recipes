@@ -18,7 +18,8 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log('Opened cache:', CACHE_NAME);
-      return cache.addAll(ASSETS_TO_CACHE);
+      // Bypass the HTTP cache so a new shell never precaches a stale copy of a file
+      return cache.addAll(ASSETS_TO_CACHE.map((url) => new Request(url, { cache: 'reload' })));
     })
   );
 });
