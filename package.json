@@ -1,4 +1,7 @@
 {
   "name": "my-recipes",
-  "private": true
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  }
 }
