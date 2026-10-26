@@ -284,7 +284,7 @@ def update_recipe_list():
     # Save asset/recipes.json
     os.makedirs(os.path.dirname(recipes_output_path), exist_ok=True)
     with open(recipes_output_path, 'w', encoding='utf-8') as f:
-        json.dump(sorted_recipes_data, f, indent=4, ensure_ascii=False)
+        json.dump(sorted_recipes_data, f, separators=(",", ":"), ensure_ascii=False)
 
     # Save asset/info.json
     info_data = {
@@ -294,7 +294,7 @@ def update_recipe_list():
         "lastUpdated": None
     }
     with open(info_path, 'w', encoding='utf-8') as f:
-        json.dump(info_data, f, indent=4, ensure_ascii=False)
+        json.dump(info_data, f, separators=(",", ":"), ensure_ascii=False)
 
     print(f"Successfully updated {info_path} with {len(recipe_summaries)} recipes.")
 
