@@ -18,8 +18,15 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log('Opened cache:', CACHE_NAME);
-      // Bypass the HTTP cache so a new shell never precaches a stale copy of a file
-      return cache.addAll(ASSETS_TO_CACHE.map((url) => new Request(url, { cache: 'reload' })));
+      // Bypass the HTTP cache so a new shell never precaches a stale copy of a file.
+      // The version query also misses the CDN edge cache (GitHub Pages keeps files ~10 min),
+      // which 'reload' alone cannot; entries are stored under the plain URL the page requests.
+      return Promise.all(ASSETS_TO_CACHE.map((url) =>
+        fetch(new Request(`${url}?v=${encodeURIComponent(CACHE_NAME)}`, { cache: 'reload' })).then((response) => {
+          if (!response.ok) throw new Error(`Precache failed: ${url} (${response.status})`);
+          return cache.put(url, response);
+        })
+      ));
     })
   );
 });
