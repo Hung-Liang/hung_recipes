@@ -79,6 +79,8 @@
     let kcalSort = "none";         // none | ascending | descending
     let summariesState = "loading"; // loading | ready | error
     const doneSteps = new Map();   // path -> Set of step indexes marked done
+    const doneStepsAt = new Map(); // path -> last time its steps were toggled (ms)
+    let wakeLock = null;
 
     // Escape text before interpolating it into innerHTML templates
     function escapeHtml(value) {
@@ -398,6 +400,7 @@
     function showList(category) {
         currentCategory = category && (CATEGORY_MAP[category] || recipes.some(r => categoryOf(r.path) === category)) ? category : "";
         currentRecipe = null;
+        releaseWakeLock();
         if (detailView) detailView.hidden = true;
         if (listView) listView.hidden = false;
         if (topbarBack) topbarBack.hidden = true;
@@ -423,6 +426,7 @@
         document.title = `${recipe.name} · Hung的食譜`;
         window.scrollTo(0, 0);
         updateNavCurrent();
+        requestWakeLock();
 
         const cat = categoryOf(path);
         if (detailCategory) {
@@ -477,6 +481,49 @@
         const total = currentRecipe.steps.length;
         const done = (doneSteps.get(currentRecipe.path) || new Set()).size;
         stepsMeta.textContent = done > 0 ? `完成 ${done} / ${total} 步` : `${total} 步`;
+    }
+
+    // Step progress survives reloads for a day; without storage it stays in memory only
+    const STEPS_KEY = "step_progress";
+    const STEPS_TTL = 24 * 60 * 60 * 1000;
+
+    function loadStepProgress() {
+        let saved = null;
+        try { saved = JSON.parse(localStorage.getItem(STEPS_KEY) || "null"); } catch (e) { /* storage blocked or corrupt */ }
+        if (!saved || typeof saved !== "object") return;
+        const now = Date.now();
+        Object.entries(saved).forEach(([path, entry]) => {
+            if (!entry || !Array.isArray(entry.steps) || !(now - entry.at < STEPS_TTL)) return;
+            doneSteps.set(path, new Set(entry.steps));
+            doneStepsAt.set(path, entry.at);
+        });
+    }
+
+    function saveStepProgress() {
+        const saved = {};
+        doneSteps.forEach((steps, path) => {
+            if (steps.size > 0) saved[path] = { steps: [...steps], at: doneStepsAt.get(path) || Date.now() };
+        });
+        try { localStorage.setItem(STEPS_KEY, JSON.stringify(saved)); } catch (e) { /* storage blocked */ }
+    }
+
+    // Keep the screen on while a recipe is open; the browser drops the lock when the page is hidden
+    async function requestWakeLock() {
+        if (!("wakeLock" in navigator) || wakeLock || document.visibilityState !== "visible") return;
+        try {
+            const lock = await navigator.wakeLock.request("screen");
+            if (!currentRecipe) { lock.release(); return; } // left the recipe while waiting
+            wakeLock = lock;
+            lock.addEventListener("release", () => { if (wakeLock === lock) wakeLock = null; });
+        } catch (e) {
+            console.warn("Screen wake lock unavailable:", e);
+        }
+    }
+
+    function releaseWakeLock() {
+        if (!wakeLock) return;
+        wakeLock.release();
+        wakeLock = null;
     }
 
     function formatQuantity(num) {
@@ -740,6 +787,8 @@
         const done = doneSteps.get(currentRecipe.path);
         const i = Number(btn.dataset.step);
         if (done.has(i)) done.delete(i); else done.add(i);
+        doneStepsAt.set(currentRecipe.path, Date.now());
+        saveStepProgress();
         btn.setAttribute("aria-pressed", String(done.has(i)));
         updateStepsMeta();
     });
@@ -758,7 +807,12 @@
         }
     });
 
+    document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible" && currentRecipe) requestWakeLock();
+    });
+
     // --- Initialization ---
+    loadStepProgress();
     document.addEventListener("DOMContentLoaded", async () => {
         await Promise.all([
             fetchRecipeSummaries(),
