@@ -721,8 +721,8 @@
 
         const origVal = parseFloat(targetInput.dataset.orig);
         const currentVal = parseFloat(targetInput.value);
-        updateCaloriesDisplay();
         if (isNaN(currentVal) || currentVal <= 0 || isNaN(origVal) || origVal <= 0) {
+            updateCaloriesDisplay();
             return;
         }
 
@@ -740,6 +740,8 @@
             const orig = parseFloat(input.dataset.orig);
             if (!isNaN(orig)) input.value = formatQuantity(orig * factor);
         });
+
+        updateCaloriesDisplay();
     }
 
     function setLocked(row, locked) {
