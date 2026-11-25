@@ -4,3 +4,4 @@ gemini.md
 node_modules/
 .taste-skill/
 .ticket/
+__pycache__/

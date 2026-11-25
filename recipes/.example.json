@@ -1,17 +1,25 @@
 {
     "name": "Recipe Name",
     "description": "Recipe description.",
+    "servings": {
+        "quantity": 2,
+        "unit": "份"
+    },
     "totalTime": 30,
+    "tags": [
+        "中式",
+        "雞肉"
+    ],
     "ingredients": [
         {
             "name": "Ingredient 1",
-            "quantity": 0,
-            "unit": "unit"
+            "quantity": 100,
+            "unit": "g"
         },
         {
             "name": "Ingredient 2",
-            "quantity": 0,
-            "unit": "unit"
+            "quantity": 15,
+            "unit": "ml"
         }
     ],
     "steps": [
