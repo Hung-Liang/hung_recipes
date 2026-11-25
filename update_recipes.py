@@ -315,9 +315,7 @@ def update_recipe_list():
     # Save asset/info.json
     info_data = {
         "recipes": recipe_summaries,
-        "allTags": sorted(list(all_tags)),
-        "totalRecipes": len(recipe_summaries),
-        "lastUpdated": None
+        "allTags": sorted(list(all_tags))
     }
     with open(info_path, 'w', encoding='utf-8') as f:
         json.dump(info_data, f, separators=(",", ":"), ensure_ascii=False)

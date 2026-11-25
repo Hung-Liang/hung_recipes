@@ -7,12 +7,12 @@ test.beforeEach(() => {
 });
 
 test("findCaloriePer100 matches exact names after trimming", () => {
-    assert.deepEqual(calc.findCaloriePer100("雞胸肉"), { matchedKey: "雞胸肉", kcalPer100: 117 });
-    assert.deepEqual(calc.findCaloriePer100("  雞胸肉 "), { matchedKey: "雞胸肉", kcalPer100: 117 });
+    assert.deepEqual(calc.findCaloriePer100("雞胸肉"), { kcalPer100: 117 });
+    assert.deepEqual(calc.findCaloriePer100("  雞胸肉 "), { kcalPer100: 117 });
 });
 
 test("findCaloriePer100 keeps zero-kcal ingredients as known", () => {
-    assert.deepEqual(calc.findCaloriePer100("鹽"), { matchedKey: "鹽", kcalPer100: 0 });
+    assert.deepEqual(calc.findCaloriePer100("鹽"), { kcalPer100: 0 });
 });
 
 test("findCaloriePer100 returns null for missing, null-valued or empty names", () => {

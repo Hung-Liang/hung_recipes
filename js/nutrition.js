@@ -39,7 +39,7 @@
     /**
      * 查詢食材每 100g/ml 卡路里（精確對齊）
      * @param {string} name
-     * @returns {{ matchedKey: string, kcalPer100: number }} | null  無資料或數值為 null 時回傳 null
+     * @returns {{ kcalPer100: number }} | null  無資料或數值為 null 時回傳 null
      */
     function findCaloriePer100(name) {
         if (!name) return null;
@@ -47,7 +47,7 @@
         if (!Object.prototype.hasOwnProperty.call(FOOD_CALORIE_DB, trimmed)) return null;
         const kcalPer100 = FOOD_CALORIE_DB[trimmed];
         if (typeof kcalPer100 !== 'number') return null;
-        return { matchedKey: trimmed, kcalPer100: kcalPer100 };
+        return { kcalPer100: kcalPer100 };
     }
 
     /**
@@ -61,7 +61,6 @@
     }
 
     const api = {
-        get FOOD_CALORIE_DB() { return FOOD_CALORIE_DB; },
         load: load,
         setDatabase: setDatabase,
         findCaloriePer100: findCaloriePer100,
@@ -74,8 +73,4 @@
     if (typeof window !== 'undefined') {
         window.NutritionCalculator = api;
     }
-    if (typeof global !== 'undefined') {
-        global.NutritionCalculator = api;
-    }
-
 })(typeof window !== 'undefined' ? window : (typeof global !== 'undefined' ? global : this));
