@@ -543,6 +543,10 @@
     async function showRecipeDetail(path) {
         if (!detailView) return;
         const recipe = await loadRecipeDetails(path);
+        // The user may have navigated elsewhere while this recipe was loading
+        const hash = window.location.hash;
+        const asked = hash.startsWith("#recipe/") ? decodeHash(hash.substring(8)) : null;
+        if (asked === null || resolvePath(asked) !== path) return;
         if (!recipe) { window.location.hash = "#/"; return; }
         currentRecipe = recipe;
         if (listView) listView.hidden = true;
@@ -717,6 +721,7 @@
 
         const origVal = parseFloat(targetInput.dataset.orig);
         const currentVal = parseFloat(targetInput.value);
+        updateCaloriesDisplay();
         if (isNaN(currentVal) || currentVal <= 0 || isNaN(origVal) || origVal <= 0) {
             return;
         }
@@ -735,8 +740,6 @@
             const orig = parseFloat(input.dataset.orig);
             if (!isNaN(orig)) input.value = formatQuantity(orig * factor);
         });
-
-        updateCaloriesDisplay();
     }
 
     function setLocked(row, locked) {
@@ -841,11 +844,22 @@
         }
     }
 
+    // Malformed escapes such as "%" make decodeURIComponent throw URIError
+    function decodeHash(s) {
+        try {
+            return decodeURIComponent(s);
+        } catch (e) {
+            if (e instanceof URIError) return null;
+            throw e;
+        }
+    }
+
     function handleRouting() {
         const hash = window.location.hash;
         setMenuOpen(false);
         if (hash.startsWith("#recipe/")) {
-            const asked = decodeURIComponent(hash.substring(8));
+            const asked = decodeHash(hash.substring(8));
+            if (asked === null) { location.replace("#/"); return; }
             const path = resolvePath(asked);
             if (path !== asked) history.replaceState(null, "", `#recipe/${path}`);
             showRecipeDetail(path);
@@ -854,7 +868,11 @@
         const q = hash.indexOf("?");
         const route = q === -1 ? hash : hash.substring(0, q);
         applyFilterQuery(q === -1 ? null : hash.substring(q + 1));
-        if (route.startsWith("#/c/")) showList(decodeURIComponent(route.substring(4)));
+        if (route.startsWith("#/c/")) {
+            const cat = decodeHash(route.substring(4));
+            if (cat === null) { location.replace("#/"); return; }
+            showList(cat);
+        }
         else showList("");
     }
 
